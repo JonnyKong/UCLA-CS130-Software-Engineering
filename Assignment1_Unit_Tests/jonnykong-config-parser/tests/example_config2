@@ -1,0 +1,21 @@
+#Comments should success
+# Comments should success
+#  Comments should success
+foo "bar";
+
+server {
+  listen   80 ;# Comments in block should success
+  server_name foo.com;  # Comments in block should success
+  root /home/ubuntu/sites/foo/;
+}
+
+#Comments should success
+# Comments should success
+#  Comments should success
+##Comments should success
+## Comments should success
+##  Comments should success
+# # Comments should success
+# Comments #Should Success
+# Comments # Should Success
+# There are 15 comments in this file

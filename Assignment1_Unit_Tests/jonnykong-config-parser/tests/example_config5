@@ -1,0 +1,10 @@
+# {} should success
+foo "bar";
+
+server {
+    port 8080;
+    path /echo EchoHandler {}
+    path /static StaticFileHandler {
+        root "example_static_files";
+    }
+}

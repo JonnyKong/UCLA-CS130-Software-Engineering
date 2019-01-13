@@ -1,0 +1,8 @@
+# Nested blocks should success
+foo "bar";
+
+server {
+    location / {
+        root /data/www;
+    }
+}

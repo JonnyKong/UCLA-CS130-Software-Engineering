@@ -1,0 +1,7 @@
+# Should success config without statements
+foo "bar";
+
+server {
+    server {
+    }
+}

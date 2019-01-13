@@ -1,0 +1,24 @@
+# Should success config multiple statements
+foo "bar";
+
+server {
+    server {
+        server {
+
+        }
+        server {
+
+        }
+    }
+}
+
+server {
+    server {
+        server {
+
+        }
+        server {
+            
+        }
+    }
+}

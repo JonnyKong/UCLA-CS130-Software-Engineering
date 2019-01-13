@@ -1,0 +1,15 @@
+# Escape within quoted strings should success
+foo "bar";
+
+server {
+    listen {
+        "test\"escape";
+        'test\'escape';
+        "test\"escape";
+        'test\'escape';
+        "test\"escape";
+        'test\'escape';
+        "test\"escape";
+        'test\'escape';
+    }
+}

@@ -1,0 +1,10 @@
+# The end of a quoted token should be followed by whitespace
+# (i.e. Should not be followed immediately by another token)
+# This test should fail
+foo "bar";
+
+server {
+    "no"whitespace {
+        
+    }
+}

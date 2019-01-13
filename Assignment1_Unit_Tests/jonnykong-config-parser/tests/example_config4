@@ -1,0 +1,9 @@
+# Invalid curly brace should fail
+foo "bar";
+
+server {
+    location / {
+        root /data/www;
+    }
+}
+}

@@ -1,0 +1,8 @@
+# Should fail statement without token
+foo "bar";
+
+server {
+    {
+        root /data/www;
+    }
+}

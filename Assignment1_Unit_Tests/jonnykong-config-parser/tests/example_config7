@@ -1,0 +1,8 @@
+# Should success statement with multiple tokens
+foo "bar";
+
+server {
+    server server {
+        root /data/www;
+    }
+}
