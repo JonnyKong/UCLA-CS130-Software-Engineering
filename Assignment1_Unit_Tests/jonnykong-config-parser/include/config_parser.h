@@ -30,10 +30,8 @@ class NginxConfigParser {
   // Take a opened config file or file name (respectively) and store the
   // parsed config in the provided NginxConfig out-param.  Returns true
   // iff the input config file is valid.
-  // bool Parse(std::istream* config_file, NginxConfig* config);
-  // bool Parse(const char* file_name, NginxConfig* config);
-  virtual bool Parse(std::istream* config_file, NginxConfig* config);
-  virtual bool Parse(const char* file_name, NginxConfig* config);
+  bool Parse(std::istream* config_file, NginxConfig* config);
+  bool Parse(const char* file_name, NginxConfig* config);
 
 //  private:
 //  protected:

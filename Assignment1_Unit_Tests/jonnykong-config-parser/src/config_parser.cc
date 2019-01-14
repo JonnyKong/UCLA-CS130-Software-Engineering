@@ -242,8 +242,11 @@ bool NginxConfigParser::Parse(std::istream* config_file, NginxConfig* config) {
         break;
     } else if (token_type == TOKEN_TYPE_EOF) {
       if (last_token_type != TOKEN_TYPE_STATEMENT_END &&
-          last_token_type != TOKEN_TYPE_END_BLOCK) {
+          last_token_type != TOKEN_TYPE_END_BLOCK &&
+          last_token_type != TOKEN_TYPE_START) {  // Empty config is valid
         // Error.
+        break;
+      } else if (config_stack.size() > 1) {
         break;
       }
       return true;

@@ -104,7 +104,20 @@ TEST_F(NginxConfigParserTestFixture, EscapeWithinQuotedStrings) {
   EXPECT_TRUE(success);
 }
 
+// Should fail quoted strings followed not by whitespace
 TEST_F(NginxConfigParserTestFixture, QuotedStringsFollowedByWhitespace) {
   bool success = parser.Parse("example_config11", &out_config);
+  EXPECT_FALSE(success);
+}
+
+// Should success with empty config
+TEST_F(NginxConfigParserTestFixture, EmptyConfig) {
+  bool success = parser.Parse("example_config12", &out_config);
+  EXPECT_TRUE(success);
+}
+
+// Should success with invalid left parenthesis
+TEST_F(NginxConfigParserTestFixture, InvalidLeftParenthesis) {
+  bool success = parser.Parse("example_config13", &out_config);
   EXPECT_FALSE(success);
 }

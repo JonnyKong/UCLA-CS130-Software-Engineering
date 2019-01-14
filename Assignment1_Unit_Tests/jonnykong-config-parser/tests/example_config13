@@ -1,0 +1,7 @@
+# Invalid number of left parenthesis should fail
+
+test {
+    test{
+        test{
+        }
+}
