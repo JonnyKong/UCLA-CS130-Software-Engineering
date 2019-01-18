@@ -1,0 +1,26 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    docker pull gcr.io/$PROJECT_ID/yijunwu-config-parser:base || exit 0
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+    'build',
+    '-f', 'docker/base.Dockerfile',
+    '-t', 'yijunwu-config-parser:base',
+    '-t', 'gcr.io/$PROJECT_ID/yijunwu-config-parser:base',
+    '--cache-from', 'gcr.io/$PROJECT_ID/yijunwu-config-parser:base',
+    '.'
+  ]
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/yijunwu-config-parser:base']
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+    'build',
+    '-f', 'docker/Dockerfile',
+    '-t', 'gcr.io/$PROJECT_ID/yijunwu-config-parser:latest',
+    '.'
+  ]
+images: ['gcr.io/$PROJECT_ID/yijunwu-config-parser:base', 'gcr.io/$PROJECT_ID/yijunwu-config-parser:latest']
