@@ -4,23 +4,23 @@ steps:
   args:
   - '-c'
   - |
-    docker pull gcr.io/$PROJECT_ID/yijunwu-config-parser:base || exit 0
+    docker pull gcr.io/$PROJECT_ID/rubberduck_server:base || exit 0
 - name: 'gcr.io/cloud-builders/docker'
   args: [
     'build',
     '-f', 'docker/base.Dockerfile',
-    '-t', 'yijunwu-config-parser:base',
-    '-t', 'gcr.io/$PROJECT_ID/yijunwu-config-parser:base',
-    '--cache-from', 'gcr.io/$PROJECT_ID/yijunwu-config-parser:base',
+    '-t', 'rubberduck_server:base',
+    '-t', 'gcr.io/$PROJECT_ID/rubberduck_server:base',
+    '--cache-from', 'gcr.io/$PROJECT_ID/rubberduck_server:base',
     '.'
   ]
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/$PROJECT_ID/yijunwu-config-parser:base']
+  args: ['push', 'gcr.io/$PROJECT_ID/rubberduck_server:base']
 - name: 'gcr.io/cloud-builders/docker'
   args: [
     'build',
     '-f', 'docker/Dockerfile',
-    '-t', 'gcr.io/$PROJECT_ID/yijunwu-config-parser:latest',
+    '-t', 'gcr.io/$PROJECT_ID/rubberduck_server:latest',
     '.'
   ]
-images: ['gcr.io/$PROJECT_ID/yijunwu-config-parser:base', 'gcr.io/$PROJECT_ID/yijunwu-config-parser:latest']
+images: ['gcr.io/$PROJECT_ID/rubberduck_server:base', 'gcr.io/$PROJECT_ID/rubberduck_server:latest']
