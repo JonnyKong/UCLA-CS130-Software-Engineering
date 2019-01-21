@@ -25,6 +25,33 @@ std::string NginxConfig::ToString(int depth) {
   return serialized_config;
 }
 
+// Get port number from parsed config.
+// Return the first outer-most valid one if there are many, and -1 on error.
+int NginxConfig::get_port_from_config(const NginxConfig* config) {
+  // Sanity check
+  if (config == nullptr)
+    return -1;
+
+  // First traverse statements without child blocks
+  for (auto pStatement : config -> statements_) {
+    if (pStatement->child_block_.get() == nullptr) {
+      if (pStatement->tokens_.size() == 2 && pStatement->tokens_[0] == "port") {
+        int ret = atoi(pStatement->tokens_[1].c_str());
+        return (ret >= 0 && ret <= 0xffff) ? ret : -1;  // Valid port range
+      }
+    }
+  }
+  // Then traverse statements with child blocks
+  for (auto pStatement : config -> statements_) {
+    if (pStatement->child_block_.get() != nullptr) {
+      int ret;
+      if ((ret = get_port_from_config(pStatement->child_block_.get())) != -1)
+        return ret;
+    }
+  }
+  return -1;  // Ret type should be int to cover -1
+}
+
 std::string NginxConfigStatement::ToString(int depth) {
   std::string serialized_statement;
   for (int i = 0; i < depth; ++i) {
@@ -115,7 +142,7 @@ NginxConfigParser::TokenType NginxConfigParser::ParseToken(std::istream* input,
           // The end of a quoted token should be followed by whitespace
           // (i.e. Should not be followed immediately by another token)
           const char c_next = input->get();
-          if (c_next == ' ' || c_next == '\t' || c_next == '\n' || 
+          if (c_next == ' ' || c_next == '\t' || c_next == '\n' ||
               c_next == ';' || c_next == '{' || c_next == '}') {
             input->unget();
           } else {
@@ -133,7 +160,7 @@ NginxConfigParser::TokenType NginxConfigParser::ParseToken(std::istream* input,
           // The end of a quoted token should be followed by whitespace
           // (i.e. Should not be followed immediately by another token)
           const char c_next = input->get();
-          if (c_next == ' ' || c_next == '\t' || c_next == '\n' || 
+          if (c_next == ' ' || c_next == '\t' || c_next == '\n' ||
               c_next == ';' || c_next == '{' || c_next == '}') {
             input->unget();
           } else {
@@ -231,8 +258,8 @@ bool NginxConfigParser::Parse(std::istream* config_file, NginxConfig* config) {
           new_config);
       config_stack.push(new_config);
     } else if (token_type == TOKEN_TYPE_END_BLOCK) {
-      if (last_token_type != TOKEN_TYPE_STATEMENT_END && 
-          last_token_type != TOKEN_TYPE_START_BLOCK &&  // {} is valid 
+      if (last_token_type != TOKEN_TYPE_STATEMENT_END &&
+          last_token_type != TOKEN_TYPE_START_BLOCK &&  // {} is valid
           last_token_type != TOKEN_TYPE_END_BLOCK) {    // }} can be valid
         // Error.
         break;
