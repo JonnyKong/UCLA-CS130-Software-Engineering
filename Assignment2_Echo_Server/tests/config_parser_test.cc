@@ -46,7 +46,7 @@ TEST_F(NginxConfigParserTest, EmptyBlock) {
 TEST_F(NginxConfigParserTest, NginxConfigToString) {
   bool success = parser.Parse("example_config", &out_config);
 
-  std::string res =  "foo \"bar\";\nserver {\n  port 8080;\n  server_name foo.com;\n  root /home/ubuntu/sites/foo/;\n}\n";
+  std::string res =  "foo \"bar\";\nserver {\n  port 80;\n  server_name foo.com;\n  root /home/ubuntu/sites/foo/;\n}\n";
   std::string config_string = out_config.ToString();
   bool same = config_string.compare(res)==0;
 
@@ -57,7 +57,7 @@ TEST_F(NginxConfigParserTest, GetPortNumber) {
   bool success = parser.Parse("test_port_number", &out_config);
 
   int port = out_config.get_port_from_config(&out_config);
-  bool same = port==8080;
+  bool same = port==80;
 
   EXPECT_TRUE(same);
 }
@@ -66,7 +66,7 @@ TEST_F(NginxConfigParserTest, GetPortNumberChildBlock) {
   bool success = parser.Parse("example_config", &out_config);
 
   int port = out_config.get_port_from_config(&out_config);
-  bool same = port==8080;
+  bool same = port==80;
 
   EXPECT_TRUE(same);
 }
