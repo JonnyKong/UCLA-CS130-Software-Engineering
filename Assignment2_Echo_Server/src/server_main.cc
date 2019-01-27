@@ -37,10 +37,11 @@ int main(int argc, char* argv[])
       std::cerr << "Invalid port number in config file" << std::endl;
       return -1;
     }
-    boost::asio::io_service io_service;
-    server s(io_service, static_cast<short>(port));
+    boost::asio::io_service m_io_service;
+    session m_session(m_io_service);
+    server s(m_io_service, static_cast<short>(port), m_session);
     std::cout << "Starting server on port " << port << std::endl; // Debug output
-    io_service.run();
+    m_io_service.run();
   }
   catch (std::exception& e) {
     std::cerr << "Exception: " << e.what() << "\n";

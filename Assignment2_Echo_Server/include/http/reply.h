@@ -20,6 +20,7 @@
 namespace http {
 namespace server {
 
+
 /// A reply to be sent to a client.
 struct reply
 {

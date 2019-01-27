@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
     curl \
+    gcovr\
     libboost-log-dev \
     libboost-signals-dev \
     libboost-system-dev \

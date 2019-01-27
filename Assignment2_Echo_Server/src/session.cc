@@ -32,34 +32,47 @@ void session::start() {
 
 void session::handle_read() {
     auto self(shared_from_this());
-    socket_.async_read_some(boost::asio::buffer(data_),
-      [this, self](boost::system::error_code error, std::size_t bytes_transferred) {
-        if (!error) {
-            request_parser::result_type result;
-            std::tie(result, std::ignore) = request_parser_.parse(
-                request_, data_, data_ + bytes_transferred);
-            if (result == request_parser::good) {
-                reply_ = echo_reply(data_, bytes_transferred);  // Echo reply
-                handle_write();
-            } else if (result == request_parser::bad) {
-                reply_ = reply::stock_reply(reply::bad_request);// Bad request
-                handle_write();            
-            } else {
-                handle_read();
-            }
-        }
-      });
+    socket_.async_read_some(boost::asio::buffer(data_), 
+        boost::bind(&session::handle_read_callback, this, self, _1, _2)); 
 }
 
 void session::handle_write() {
     auto self(shared_from_this());
     boost::asio::async_write(socket_, reply_.to_buffers(),
-      [this, self](boost::system::error_code error, std::size_t) {
-        if (!error) {
-            // Initiate graceful connection closure.
-            boost::system::error_code ignored_ec;
-            socket_.shutdown(boost::asio::ip::tcp::socket::shutdown_both,
-                             ignored_ec);
+        boost::bind(&session::handle_write_callback, this, self, _1, _2));
+}
+
+int session::handle_read_callback(std::shared_ptr<session> self,
+                                   boost::system::error_code error, 
+                                   std::size_t bytes_transferred) {
+    if (!error) {
+        request_parser::result_type result;
+        std::tie(result, std::ignore) = request_parser_.parse(
+            request_, data_, data_ + bytes_transferred);
+        if (result == request_parser::good) {
+            reply_ = echo_reply(data_, bytes_transferred);  // Echo reply
+            handle_write();
+            return 0;
+        } else if (result == request_parser::bad) {
+            reply_ = reply::stock_reply(reply::bad_request);// Bad request
+            handle_write();
+            return 1;
+        } else {
+            handle_read();
+            return 2;
         }
-      });
+    }
+}
+
+int session::handle_write_callback(std::shared_ptr<session> self,
+                                    boost::system::error_code error, 
+                                    std::size_t) {
+    if (!error) {
+        // Initiate graceful connection closure.
+        boost::system::error_code ignored_ec;
+        socket_.shutdown(boost::asio::ip::tcp::socket::shutdown_both,
+                            ignored_ec);
+        return 1;
+    }
+    return 0;
 }

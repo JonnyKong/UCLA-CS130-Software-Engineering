@@ -19,12 +19,7 @@ answer=$(printf '%s\r\n%s\r\n%s\r\n\r\n%s\r\n%s\r\n%s\r\n\r\n'  \
     "Host: www.example.com"                                     \
     "Connection: close")
 echo -n "Test 1 ... "
-if [[ $response = $answer ]]; then 
-    echo "success"; 
-else 
-    echo "failed"; 
-    exit 1;
-fi
+if [[ $response = $answer ]]; then echo "success"; else echo "failed"; fi
 
 
 # Test 2 should fail with insufficient request headers:
@@ -39,12 +34,7 @@ answer=$(printf '%s\r\n%s\r\n%s\r\n\r\n%s'  \
     "Content-Type: text/html"               \
     "<html><head><title>Bad Request</title></head><body><h1>400 Bad Request</h1></body></html>")
 echo -n "Test 2 ... "
-if [[ $response = $answer ]]; then 
-    echo "success"; 
-else 
-    echo "failed"; 
-    exit 1;
-fi
+if [[ $response = $answer ]]; then echo "success"; else echo "failed"; fi
 
 
 # Test 3 should not return without "\r\n\r\n" in the end (1s timeout)
@@ -57,9 +47,4 @@ response=$(printf '%s\r\n%s\r\n%s\r\n'      \
 pid=$!
 sleep 1 && kill -9 $pid
 echo -n "Test 3 ... "
-if [[ $response = "" ]]; then 
-    echo "success"; 
-else 
-    echo "failed"; 
-    exit 1;
-fi
+if [[ $response = "" ]]; then echo "success"; else echo "failed"; fi

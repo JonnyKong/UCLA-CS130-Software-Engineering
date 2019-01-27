@@ -28,12 +28,147 @@ TEST_F(RequestParserTest, BadRequest) {
   EXPECT_TRUE(success);
 }
 
+TEST_F(RequestParserTest, WrongProtocolFirstChar) {
+
+  //a request with protocol other than HTTP
+  char input[1024] = "GET / MMTP/1.1\r\nHost: www.example.com\r\nConnection: close\r\n\r\n";
+  std::tie(result, std::ignore)  = parser.parse(req, input, input + strlen(input));
+  bool success = result == http::server::request_parser::bad;
+
+  EXPECT_TRUE(success);
+}
+
+TEST_F(RequestParserTest, WrongProtocolSecondChar) {
+
+  //a request with protocol other than HTTP
+  char input[1024] = "GET / HMTP/1.1\r\nHost: www.example.com\r\nConnection: close\r\n\r\n";
+  std::tie(result, std::ignore)  = parser.parse(req, input, input + strlen(input));
+  bool success = result == http::server::request_parser::bad;
+
+  EXPECT_TRUE(success);  
+}
+
+TEST_F(RequestParserTest, WrongProtocolThirdChar) {
+
+  //a request with protocol other than HTTP
+  char input[1024] = "GET / HTMP/1.1\r\nHost: www.example.com\r\nConnection: close\r\n\r\n";
+  std::tie(result, std::ignore)  = parser.parse(req, input, input + strlen(input));
+  bool success = result == http::server::request_parser::bad;
+
+  EXPECT_TRUE(success);  
+}
+
+TEST_F(RequestParserTest, WrongProtocolFourthChar) {
+
+  //a request with protocol other than HTTP
+  char input[1024] = "GET / HTTM/1.1\r\nHost: www.example.com\r\nConnection: close\r\n\r\n";
+  std::tie(result, std::ignore)  = parser.parse(req, input, input + strlen(input));
+  bool success = result == http::server::request_parser::bad;
+
+  EXPECT_TRUE(success);  
+}
+
+TEST_F(RequestParserTest, InvalidEndingBeforeBody) {
+
+  //the second \r is not followed by \n
+  char input[1024] = "GET / HTTP/1.1\r\nHost: www.example.com\r\nConnection: close\r\n\rh";
+  std::tie(result, std::ignore)  = parser.parse(req, input, input + strlen(input));
+  bool success = result == http::server::request_parser::bad;
+  EXPECT_TRUE(success);
+}
+
+TEST_F(RequestParserTest, InvalidEndingAfterVersion) {
+
+  //Incomplete HTTP request, missing \n after the first \r
+  char input[1024] = "GET / HTTP/1.1\r Host: www.example.com\r\nConnection: close\r\n\r\n";
+  std::tie(result, std::ignore)  = parser.parse(req, input, input + strlen(input));
+  bool success = result == http::server::request_parser::bad;
+  EXPECT_TRUE(success);
+}
+
+TEST_F(RequestParserTest, BadVersionMinorStart) {
+
+  //the HTTP version is not a valid number
+  char input[1024] = "GET / HTTP/1.a\r\nHost: www.example.com\r\nConnection: close\r\n\r\n";
+  std::tie(result, std::ignore)  = parser.parse(req, input, input + strlen(input));
+  bool success = result == http::server::request_parser::bad;
+  EXPECT_TRUE(success);
+}
+
+TEST_F(RequestParserTest, BadVersionMinor) {
+
+  //the HTTP version is not a valid number
+  char input[1024] = "GET / HTTP/1.1a\r\nHost: www.example.com\r\nConnection: close\r\n\r\n";
+  std::tie(result, std::ignore)  = parser.parse(req, input, input + strlen(input));
+  bool success = result == http::server::request_parser::bad;
+  EXPECT_TRUE(success);
+}
+
+TEST_F(RequestParserTest, BadVersionMajorStart) {
+
+  //the HTTP version is not a valid number
+  char input[1024] = "GET / HTTP/a.1\r\nHost: www.example.com\r\nConnection: close\r\n\r\n";
+  std::tie(result, std::ignore)  = parser.parse(req, input, input + strlen(input));
+  bool success = result == http::server::request_parser::bad;
+  EXPECT_TRUE(success);
+}
+
+TEST_F(RequestParserTest, BadVersionMajor) {
+
+  //the HTTP version is not a valid number
+  char input[1024] = "GET / HTTP/1a.1\r\nHost: www.example.com\r\nConnection: close\r\n\r\n";
+  std::tie(result, std::ignore)  = parser.parse(req, input, input + strlen(input));
+  bool success = result == http::server::request_parser::bad;
+  EXPECT_TRUE(success);
+}
+
+
+
+// TEST_F(RequestParserTest, InvalidCharRequest) {
+
+//   //missing a slash in HTTP request, the parser should return bad
+//   char input[1024] = "GET HTTP/1.1\r\n€Host: www.€xample.com\r\nConnection: close\r\n\r\n";
+//   std::tie(result, std::ignore)  = parser.parse(req, input, input + strlen(input));
+//   bool success = result == http::server::request_parser::bad;
+//   EXPECT_TRUE(success);
+// }
+
 TEST_F(RequestParserTest, IndeterminateRequest) {
 
   //Incomplete HTTP request, the parser should return indeterminate
   char input[1024] = "GET / HTTP/1.1\r\nHost: www.example.com\r\nConnection: close";
   std::tie(result, std::ignore)  = parser.parse(req, input, input + strlen(input));
   bool success = result == http::server::request_parser::indeterminate;
+  EXPECT_TRUE(success);
+}
+
+TEST_F(RequestParserTest, SpacedRequest) {
+
+  //HTTP request with a lot of valid spaces
+  char input[1024] = "GET / HTTP /1 . 1\r\n  Host: www.example.com \r\n\t  Type: test\r\n Connection: close\r\n\r\n";
+  parser.reset();
+  std::tie(result, std::ignore)  = parser.parse(req, input, input + strlen(input));
+  bool success = result == http::server::request_parser::bad;
+  EXPECT_TRUE(success);
+}
+
+TEST_F(RequestParserTest, SpacedOneRequest) {
+
+  //HTTP request with a lot of valid spaces
+  char input[1024] = "GET / HTTP /1 . 1\r\n  Host: www.example.com \r\n\t\r\n  Type: test\r\n Connection: close\r\n\r\n";
+  parser.reset();
+  std::tie(result, std::ignore)  = parser.parse(req, input, input + strlen(input));
+  bool success = result == http::server::request_parser::bad;
+  EXPECT_TRUE(success);
+}
+
+TEST_F(RequestParserTest, SpecialCharRequest) {
+
+  //Incomplete HTTP request, the parser should return indeterminate
+  char input[1024] = "GET / HTTP/1.1\r\nHost: www.example.com \r\nType: test(for test)\r\n Connection: close\r\n\r\n";
+  parser.reset();
+  std::tie(result, std::ignore)  = parser.parse(req, input, input + strlen(input));
+  bool success = result == http::server::request_parser::good;
   EXPECT_TRUE(success);
 }
 

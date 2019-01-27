@@ -23,9 +23,18 @@ public:
     tcp::socket& socket();
     void start();
 
-private:
+// protected:
+    /// Async request handler
     void handle_read();
     void handle_write();
+
+    /// Callbacks that actually handles the requests
+    int handle_read_callback(std::shared_ptr<session> self,
+                              boost::system::error_code error, 
+                              std::size_t bytes_transferred);
+    int handle_write_callback(std::shared_ptr<session> self,
+                               boost::system::error_code error, 
+                               std::size_t);
 
     tcp::socket socket_;
     enum { max_length = 1024 };
@@ -40,6 +49,9 @@ private:
     request_parser request_parser_;
     /// The reply to be sent back to the client.
     reply reply_;
+
+    /// For unit testing
+    friend class SessionTest;
 };
 
 #endif

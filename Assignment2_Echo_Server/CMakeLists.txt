@@ -39,23 +39,36 @@ add_library(session src/session.cc)
 add_library(server_c src/server.cc)
 add_library(config_parser src/config_parser.cc)
 add_library(request_parser src/http/request_parser.cc src/http/reply.cc)
+add_library(reply src/http/reply.cc)
+
 
 # TODO(!): Update executable name, srcs, and deps
 add_executable(server src/server_main.cc)
-target_link_libraries(server server_c session request_parser config_parser Boost::system)
+target_link_libraries(server server_c session request_parser config_parser reply Boost::system)
 # target_link_libraries(server session server_c Boost::system)
 
 # TODO(!): Update test executable name, srcs, and deps
 add_executable(config_parser_test tests/config_parser_test.cc)
 add_executable(request_parser_test tests/request_parser_test.cc)
+add_executable(reply_test tests/reply_test.cc)
+add_executable(session_test tests/session_test.cc)
+add_executable(integrated_test tests/integrated_test.cc)
 target_link_libraries(config_parser_test config_parser gtest_main)
 target_link_libraries(request_parser_test request_parser gtest_main)
+target_link_libraries(reply_test reply gtest_main Boost::system)
+target_link_libraries(session_test session request_parser gtest_main Boost::system)
+target_link_libraries(integrated_test gtest_main)
+
+
 
 
 # TODO(!): Update with test binary
 gtest_discover_tests(config_parser_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 gtest_discover_tests(request_parser_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
+gtest_discover_tests(reply_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
+gtest_discover_tests(session_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
+gtest_discover_tests(integrated_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 
 # TODO(!): Update with target/test targets
-# include(cmake/CodeCoverageReportConfig.cmake)
-# generate_coverage_report(TARGETS server config_parser TESTS config_parser_test)
+include(cmake/CodeCoverageReportConfig.cmake)
+generate_coverage_report(TARGETS session server config_parser request_parser reply TESTS config_parser_test request_parser_test reply_test session_test)
