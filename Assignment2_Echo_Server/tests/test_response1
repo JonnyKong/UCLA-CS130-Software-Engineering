@@ -1,0 +1,1 @@
+HTTP/1.0 200 OK Content-Length: 60 Content-Type: text/plain  GET / HTTP/1.1 Host: www.example.com Connection: close 

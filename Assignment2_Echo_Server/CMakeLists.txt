@@ -34,6 +34,9 @@ message(STATUS "Boost version: ${Boost_VERSION}")
 
 include_directories(include)
 
+# Locate bash program
+find_program (BASH_PROGRAM bash)
+
 # TODO(!): Update name and srcs
 add_library(session src/session.cc)
 add_library(server_c src/server.cc)
@@ -52,12 +55,10 @@ add_executable(config_parser_test tests/config_parser_test.cc)
 add_executable(request_parser_test tests/request_parser_test.cc)
 add_executable(reply_test tests/reply_test.cc)
 add_executable(session_test tests/session_test.cc)
-add_executable(integrated_test tests/integrated_test.cc)
 target_link_libraries(config_parser_test config_parser gtest_main)
 target_link_libraries(request_parser_test request_parser gtest_main)
 target_link_libraries(reply_test reply gtest_main Boost::system)
 target_link_libraries(session_test session request_parser gtest_main Boost::system)
-target_link_libraries(integrated_test gtest_main)
 
 
 
@@ -67,7 +68,8 @@ gtest_discover_tests(config_parser_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE
 gtest_discover_tests(request_parser_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 gtest_discover_tests(reply_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 gtest_discover_tests(session_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
-gtest_discover_tests(integrated_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
+add_test(NAME integration_test COMMAND ${BASH_PROGRAM} ${CMAKE_CURRENT_SOURCE_DIR}/tests/test.sh)
+
 
 # TODO(!): Update with target/test targets
 include(cmake/CodeCoverageReportConfig.cmake)

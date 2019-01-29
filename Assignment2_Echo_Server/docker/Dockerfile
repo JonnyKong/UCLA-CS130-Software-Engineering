@@ -6,6 +6,8 @@ WORKDIR /usr/src/project/build
 
 RUN cmake ..
 RUN make
+RUN pwd
+RUN find . -name "server"
 RUN ctest --output-on_failure
 
 
