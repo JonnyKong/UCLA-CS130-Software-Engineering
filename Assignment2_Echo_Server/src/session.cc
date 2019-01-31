@@ -14,17 +14,17 @@ tcp::socket& session::socket() {
     return socket_;
 }
 
-reply session::echo_reply(const char *data_, int bytes_transferred) {
-    reply reply_;
-    reply_.status = reply::ok;     // 200
-    reply_.content = std::string(data_, bytes_transferred);
-    reply_.headers.resize(2);
-    reply_.headers[0].name = "Content-Length";
-    reply_.headers[0].value = std::to_string(bytes_transferred);
-    reply_.headers[1].name = "Content-Type";
-    reply_.headers[1].value = "text/plain";
-    return reply_;
-}
+// reply session::echo_reply(const char *data_, int bytes_transferred) {
+//     reply reply_;
+//     reply_.status = reply::ok;     // 200
+//     reply_.content = std::string(data_, bytes_transferred);
+//     reply_.headers.resize(2);
+//     reply_.headers[0].name = "Content-Length";
+//     reply_.headers[0].value = std::to_string(bytes_transferred);
+//     reply_.headers[1].name = "Content-Type";
+//     reply_.headers[1].value = "text/plain";
+//     return reply_;
+// }
 
 void session::start() {
     handle_read();
@@ -50,11 +50,21 @@ int session::handle_read_callback(std::shared_ptr<session> self,
         std::tie(result, std::ignore) = request_parser_.parse(
             request_, data_, data_ + bytes_transferred);
         if (result == request_parser::good) {
-            reply_ = echo_reply(data_, bytes_transferred);  // Echo reply
+            // reply_ = echo_reply(data_, bytes_transferred);   // Echo reply
+            std::cout << "Good request" << std::endl;
+            auto handler = server_->dispatcher_.getRequestHandler(request_);
+            if (handler == nullptr) {
+                std::cout << "Not registered" << std::endl;
+                reply_ = reply::stock_reply(reply::no_content); // No content  // TODO? Or bad request?
+            } else {
+                handler -> handleRequest(request_, &reply_);
+            }
+            std::cout << "Reply reply with status: " << reply_.status << std::endl;
             handle_write();
             return 0;
         } else if (result == request_parser::bad) {
-            reply_ = reply::stock_reply(reply::bad_request);// Bad request
+            std::cout << "Bad request" << std::endl;
+            reply_ = reply::stock_reply(reply::bad_request);    // Bad request
             handle_write();
             return 1;
         } else {

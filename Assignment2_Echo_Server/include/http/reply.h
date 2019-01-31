@@ -8,8 +8,8 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
 
-#ifndef HTTP_REPLY_H
-#define HTTP_REPLY_H
+#ifndef REPLY_H
+#define REPLY_H
 
 #include <string>
 #include <vector>
@@ -63,4 +63,4 @@ struct reply
 } // namespace server
 } // namespace http
 
-#endif // HTTP_REPLY_H
+#endif // REPLY_H

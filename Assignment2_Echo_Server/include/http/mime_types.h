@@ -1,6 +1,6 @@
 //
-// header.hpp
-// ~~~~~~~~~~
+// mime_types.h
+// ~~~~~~~~~~~~
 //
 // Copyright (c) 2003-2017 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
@@ -8,21 +8,20 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
 
-#ifndef HEADER_H
-#define HEADER_H
+#ifndef HTTP_MIME_TYPES_H
+#define HTTP_MIME_TYPES_H
 
 #include <string>
 
 namespace http {
 namespace server {
+namespace mime_types {
 
-struct header
-{
-  std::string name;
-  std::string value;
-};
+/// Convert a file extension into a MIME type.
+std::string extension_to_type(const std::string& extension);
 
+} // namespace mime_types
 } // namespace server
 } // namespace http
 
-#endif // HEADER_H
+#endif // HTTP_MIME_TYPES_H

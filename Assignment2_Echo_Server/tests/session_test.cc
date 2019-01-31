@@ -46,10 +46,10 @@ TEST_F(SessionTest, WriteCallback) {
   EXPECT_EQ(ret, 2);
 }
 
-// Echo reply should have 200 status
-TEST_F(SessionTest, EchoReply) {
-  sprintf(new_session -> data_, "GET / HTTP/1.1\r\nHost: www.example.com\r\nConnection: close\r\n\r\n");
-  reply reply_ = new_session -> echo_reply(new_session -> data_, 
-                                           strlen(new_session -> data_));
-  EXPECT_EQ(reply_.status, 200);
-}
+// // Echo reply should have 200 status
+// TEST_F(SessionTest, EchoReply) {
+//   sprintf(new_session -> data_, "GET / HTTP/1.1\r\nHost: www.example.com\r\nConnection: close\r\n\r\n");
+//   reply reply_ = new_session -> echo_reply(new_session -> data_, 
+//                                            strlen(new_session -> data_));
+//   EXPECT_EQ(reply_.status, 200);
+// }

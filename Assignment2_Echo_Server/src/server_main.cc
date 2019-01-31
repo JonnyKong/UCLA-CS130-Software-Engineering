@@ -31,15 +31,19 @@ int main(int argc, char* argv[])
     // Parse config from input file
     NginxConfigParser parser;
     NginxConfig config;
-    parser.Parse(argv[1], &config);
+
+    if (!parser.Parse(argv[1], &config))
+      return -1;
+    
     int port;
     if ((port = config.get_port_from_config(&config)) == -1) {
       std::cerr << "Invalid port number in config file" << std::endl;
       return -1;
     }
+
     boost::asio::io_service m_io_service;
     session m_session(m_io_service);
-    server s(m_io_service, static_cast<short>(port), m_session);
+    server s(m_io_service, static_cast<short>(port), config, m_session);
     std::cout << "Starting server on port " << port << std::endl; // Debug output
     m_io_service.run();
   }

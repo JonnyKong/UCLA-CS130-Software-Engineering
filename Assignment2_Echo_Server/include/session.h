@@ -6,6 +6,7 @@
 #include <boost/bind.hpp>
 #include <boost/asio.hpp>
 
+#include "server.h"
 #include "http/request.h"
 #include "http/request_parser.h"
 #include "http/reply.h"
@@ -15,6 +16,8 @@ using boost::asio::ip::tcp;
 using http::server::request;
 using http::server::request_parser;
 using http::server::reply;
+
+class server;   // Forward decl to break circular dep 
 
 class session : public std::enable_shared_from_this<session>
 {
@@ -37,11 +40,11 @@ public:
                                std::size_t);
 
     tcp::socket socket_;
-    enum { max_length = 1024 };
+    enum { max_length = 10240 };
     char data_[max_length];
 
     /// Send echo reply by reading from request buffer
-    reply echo_reply(const char *data_, int bytes_transferred);
+    // reply echo_reply(const char *data_, int bytes_transferred);
 
     /// The incoming request.
     request request_;
@@ -50,8 +53,11 @@ public:
     /// The reply to be sent back to the client.
     reply reply_;
 
+    /// Pointer back to server containing this session
+    server *server_;
+
     /// For unit testing
     friend class SessionTest;
 };
 
-#endif
+#endif  // SESSION_H

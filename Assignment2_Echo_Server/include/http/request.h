@@ -8,8 +8,8 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
 
-#ifndef HTTP_REQUEST_H
-#define HTTP_REQUEST_H
+#ifndef REQUEST_H
+#define REQUEST_H
 
 #include <string>
 #include <vector>
@@ -31,4 +31,4 @@ struct request
 } // namespace server
 } // namespace http
 
-#endif // HTTP_REQUEST_H
+#endif // REQUEST_H

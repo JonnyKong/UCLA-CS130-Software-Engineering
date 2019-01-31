@@ -1,7 +1,12 @@
-foo "bar";
-
 server {
-  port   8080;
-  server_name foo.com;
-  root /home/ubuntu/sites/foo/;
+
+    port 8080;
+    
+    location /static/ StaticHandler {
+        root /data/www;
+    }
+
+    location /echo/ EchoHandler {
+        
+    }
 }
