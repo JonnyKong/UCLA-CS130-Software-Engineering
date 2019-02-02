@@ -7,8 +7,6 @@
 RESPONSE_PATH=../tests
 PATH_TO_BIN="./bin/server"
 
-&>2 echo $(pwd)
-
 echo "
 foo "bar";
 server {
@@ -31,7 +29,6 @@ response=$(printf '%s\r\n%s\r\n%s\r\n\r\n'  \
     | nc 127.0.0.1 8080)                    
 echo $response > test_response1
 echo -n "Test 1 ... "
-# diff ${RESPONSE_PATH}/NoContentResponse test_response1
 diff ${RESPONSE_PATH}/expected_response1 test_response1
 
 if [[ $? -eq 0 ]]; then
