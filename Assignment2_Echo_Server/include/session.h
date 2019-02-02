@@ -6,23 +6,23 @@
 #include <boost/bind.hpp>
 #include <boost/asio.hpp>
 
-#include "server.h"
 #include "http/request.h"
 #include "http/request_parser.h"
 #include "http/reply.h"
 #include "http/header.h"
+#include "request_handler_dispatcher.h"
 
 using boost::asio::ip::tcp;
 using http::server::request;
 using http::server::request_parser;
-using http::server::reply;
-
-class server;   // Forward decl to break circular dep 
+using http::server::reply; 
 
 class session : public std::enable_shared_from_this<session>
 {
 public:
-    session(boost::asio::io_service& io_service);
+    session(boost::asio::io_service& io_service, 
+            std::shared_ptr<const RequestHandlerDispatcher> dispatcher);
+    session(std::shared_ptr<const RequestHandlerDispatcher> dispatcher);    // For testing
     tcp::socket& socket();
     void start();
 
@@ -53,8 +53,8 @@ public:
     /// The reply to be sent back to the client.
     reply reply_;
 
-    /// Pointer back to server containing this session
-    server *server_;
+    /// Dispatcher shouldn't change during a session
+    const std::shared_ptr<const RequestHandlerDispatcher> dispatcher_;
 
     /// For unit testing
     friend class SessionTest;

@@ -31,13 +31,13 @@ void RequestHandlerStatic::handleRequest(const request &request_, reply *reply_)
     // Serve file
     boost::filesystem::path boost_path(uri);
     if (!boost::filesystem::exists(uri) || !boost::filesystem::is_regular_file(uri)) {
-        *reply_ = http::server::reply::stock_reply(reply::no_content);
+        *reply_ = http::server::reply::stock_reply(reply::not_found);
         return;
     }
 
     std::ifstream f(uri.c_str(), std::ios::in | std::ios::binary);
     if (!f) {
-        *reply_ = http::server::reply::stock_reply(reply::no_content);
+        *reply_ = http::server::reply::stock_reply(reply::not_found);
         return;
     }
 

@@ -53,8 +53,8 @@ TEST_F(NginxConfigParserTest, EmptyBlock) {
 
 
 TEST_F(NginxConfigParserTest, NginxConfigToString) {
-  bool success = parser.Parse("example_config", &out_config);
-  std::string res =  "foo \"bar\";\nserver {\n  port 8080;\n  server_name foo.com;\n  root /home/ubuntu/sites/foo/;\n}\n";
+  bool success = parser.Parse("example_config_test", &out_config);
+  std::string res =  "foo bar;\nserver {\n  port 8080;\n  server_name foo.com;\n  root /home/ubuntu/sites/foo/;\n}\n";
   std::string config_string = out_config.ToString();
 
 
@@ -77,7 +77,7 @@ TEST_F(NginxConfigParserTest, NginxConfigToStringNested) {
 TEST_F(NginxConfigParserTest, GetPortNumber) {
   bool success = parser.Parse("test_port_number", &out_config);
 
-  int port = out_config.get_port_from_config(&out_config);
+  int port = out_config.get_port_from_config();
   bool same = port==80;
 
   EXPECT_TRUE(same);
@@ -86,7 +86,7 @@ TEST_F(NginxConfigParserTest, GetPortNumber) {
 TEST_F(NginxConfigParserTest, GetPortNumberChildBlock) {
   bool success = parser.Parse("example_config", &out_config);
 
-  int port = out_config.get_port_from_config(&out_config);
+  int port = out_config.get_port_from_config();
   bool same = port==8080;
 
   EXPECT_TRUE(same);
@@ -95,7 +95,7 @@ TEST_F(NginxConfigParserTest, GetPortNumberChildBlock) {
 TEST_F(NginxConfigParserTest, NestedPort) {
   bool success = parser.Parse("nested_port", &out_config);
 
-  int port = out_config.get_port_from_config(&out_config);
+  int port = out_config.get_port_from_config();
   bool same = port==8080;
 
   EXPECT_TRUE(same);
@@ -104,7 +104,7 @@ TEST_F(NginxConfigParserTest, NestedPort) {
 TEST_F(NginxConfigParserTest, GetPortNumberNull) {
   bool success = parser.Parse("empty_config", &out_config);
 
-  int port = out_config.get_port_from_config(&out_config);
+  int port = out_config.get_port_from_config();
   bool same = port==-1;
 
   EXPECT_TRUE(same);
@@ -113,7 +113,7 @@ TEST_F(NginxConfigParserTest, GetPortNumberNull) {
 TEST_F(NginxConfigParserTest, NegativePortNumber) {
   bool success = parser.Parse("negative_port_config", &out_config);
 
-  int port = out_config.get_port_from_config(&out_config);
+  int port = out_config.get_port_from_config();
   bool same = port==-1;
 
   EXPECT_TRUE(same);
@@ -122,7 +122,7 @@ TEST_F(NginxConfigParserTest, NegativePortNumber) {
 TEST_F(NginxConfigParserTest, LargePortNumber) {
   bool success = parser.Parse("large_port_config", &out_config);
 
-  int port = out_config.get_port_from_config(&out_config);
+  int port = out_config.get_port_from_config();
   bool same = port==-1;
 
   EXPECT_TRUE(same);
@@ -131,7 +131,7 @@ TEST_F(NginxConfigParserTest, LargePortNumber) {
 TEST_F(NginxConfigParserTest, GetPortNumberNoPort) {
   bool success = parser.Parse("no_port_config", &out_config);
 
-  int port = out_config.get_port_from_config(&out_config);
+  int port = out_config.get_port_from_config();
   bool same = port==-1;
 
   EXPECT_TRUE(same);
@@ -140,28 +140,16 @@ TEST_F(NginxConfigParserTest, GetPortNumberNoPort) {
 TEST_F(NginxConfigParserTest, GetPortNumberNoFile) {
   bool success = parser.Parse("unexist_config", &out_config);
 
-  int port = out_config.get_port_from_config(&out_config);
+  int port = out_config.get_port_from_config();
   bool same = port==-1;
 
   EXPECT_TRUE(same);
 }
-
-
-
-TEST_F(NginxConfigParserTest, GetPortNumberNullptr) {
-  bool success = parser.Parse("example_config", &out_config);
-
-  int port = out_config.get_port_from_config(NULL);
-  bool same = port==-1;
-
-  EXPECT_TRUE(same);
-}
-
 
 TEST_F(NginxConfigParserTest, InvalidPort) {
   bool success = parser.Parse("invalid_port", &out_config);
 
-  int port = out_config.get_port_from_config(&out_config);
+  int port = out_config.get_port_from_config();
   bool same = port==-1;
 
   EXPECT_TRUE(same);

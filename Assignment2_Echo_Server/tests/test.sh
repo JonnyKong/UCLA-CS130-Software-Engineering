@@ -25,21 +25,15 @@ sleep 1
 
 # Test 1 should success:
 response=$(printf '%s\r\n%s\r\n%s\r\n\r\n'  \
-    "GET / HTTP/1.1"                        \
+    "GET /echo HTTP/1.1"                        \
     "Host: www.example.com"                 \
     "Connection: close"                     \
     | nc 127.0.0.1 8080)                    
 echo $response > test_response1
-# answer=$(printf '%s\r\n%s\r\n%s\r\n\r\n%s\r\n%s\r\n%s\r\n\r\n'  \
-#     "HTTP/1.0 200 OK"                                           \
-#     "Content-Length: 60"                                        \
-#     "Content-Type: text/plain"                                  \
-#     "GET / HTTP/1.1"                                            \
-#     "Host: www.example.com"                                     \
-#     "Connection: close")
 echo -n "Test 1 ... "
-# if [[ $response = $answer ]]; then 
+# diff ${RESPONSE_PATH}/NoContentResponse test_response1
 diff ${RESPONSE_PATH}/expected_response1 test_response1
+
 if [[ $? -eq 0 ]]; then
     echo "success"; 
 else 
@@ -56,11 +50,6 @@ response=$(printf '%s\r\n%s\r\n%s\r\n\r\n'  \
     "Connection: close"                     \
     | nc 127.0.0.1 8080)                    
 echo $response > test_response2
-# answer=$(printf '%s\r\n%s\r\n%s\r\n\r\n%s'  \
-#     "HTTP/1.0 400 Bad Request"              \
-#     "Content-Length: 89"                    \
-#     "Content-Type: text/html"               \
-#     "<html><head><title>Bad Request</title></head><body><h1>400 Bad Request</h1></body></html>")
 echo -n "Test 2 ... "
 # if [[ $response = $answer ]]; then 
 diff ${RESPONSE_PATH}/expected_response2 test_response2

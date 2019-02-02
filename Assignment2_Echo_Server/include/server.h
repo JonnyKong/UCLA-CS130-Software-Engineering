@@ -16,7 +16,7 @@ class session;  // Forward decl to break circular dep
 class server {
 public:
     server(boost::asio::io_service& io_service, short port, 
-           const NginxConfig &config, session &m_session);
+           const NginxConfig &config);
 
     virtual void start_accept(session& m_session);
     virtual void handle_accept(std::shared_ptr<session> new_session, 
@@ -26,7 +26,6 @@ public:
     tcp::acceptor acceptor_;
 
 private:
-    RequestHandlerDispatcher dispatcher_;
-    friend class session;   // class session needs to access dispatcher_
+    std::shared_ptr<RequestHandlerDispatcher> dispatcher_;
 };
 #endif  // SERVER_H

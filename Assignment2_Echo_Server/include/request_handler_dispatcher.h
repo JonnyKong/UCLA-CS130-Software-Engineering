@@ -25,7 +25,7 @@ class RequestHandlerDispatcher {
 public:
     RequestHandlerDispatcher(const NginxConfig &config);
 
-    std::shared_ptr<RequestHandler> getRequestHandler(const request &request_) const;
+    virtual std::shared_ptr<RequestHandler> getRequestHandler(const request &request_) const;
 
 private:
     std::map<PathUri, std::shared_ptr<RequestHandler>> handlers_;

@@ -31,9 +31,6 @@ RequestHandlerDispatcher::getRequestHandler(const request &request_) const {
     PathUri uri = request_.uri;
     while (uri.length() > 1 && uri.back() == '/')
         uri.pop_back();
-    
-    std::cout << "Got request for: " << uri << std::endl;
-
     std::shared_ptr<RequestHandler> matched_handler = nullptr;
     std::string matched_prefix;
     for (auto it = handlers_.begin(); it != handlers_.end(); ++it) {

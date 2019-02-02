@@ -27,13 +27,10 @@ std::string NginxConfig::ToString(int depth) {
 
 // Get port number from parsed config.
 // Return the first outer-most valid one if there are many, and -1 on error.
-int NginxConfig::get_port_from_config(const NginxConfig* config) {
-  // Sanity check
-  if (config == nullptr)
-    return -1;
+int NginxConfig::get_port_from_config() {
 
   // First traverse statements without child blocks
-  for (auto pStatement : config -> statements_) {
+  for (auto pStatement : statements_) {
     if (pStatement->child_block_.get() == nullptr) {
       if (pStatement->tokens_.size() == 2 && pStatement->tokens_[0] == "port") {
         int ret = atoi(pStatement->tokens_[1].c_str());
@@ -42,10 +39,10 @@ int NginxConfig::get_port_from_config(const NginxConfig* config) {
     }
   }
   // Then traverse statements with child blocks
-  for (auto pStatement : config -> statements_) {
+  for (auto pStatement : statements_) {
     if (pStatement->child_block_.get() != nullptr) {
       int ret;
-      if ((ret = get_port_from_config(pStatement->child_block_.get())) != -1)
+      if ((ret = pStatement -> child_block_ -> get_port_from_config()) != -1)
         return ret;
     }
   }
