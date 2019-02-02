@@ -6,9 +6,12 @@
 #include <boost/log/utility/setup/common_attributes.hpp>
 #include <boost/log/sources/severity_logger.hpp>
 #include <boost/log/sources/record_ostream.hpp>
+#include <boost/log/sources/logger.hpp>
 #include <boost/log/utility/setup/console.hpp>
 #include <boost/asio.hpp>
+#include <boost/asio/signal_set.hpp>
 #include "http/request.h"
+#include <boost/signals2.hpp>
 #include "logger.h"
 namespace logging = boost::log;
 namespace src = boost::log::sources;
@@ -53,6 +56,16 @@ void Logger::logDebugFile(std::string debug_message){
 void Logger::logWarningFile(std::string warning_message){
     BOOST_LOG_SEV(lg, warning) << "Warning: " << warning_message;
 }
+void Logger::logSig() {
+    BOOST_LOG_SEV(Logger::lg, warning) << "Warning: "  << "Shutting down the server...";
+}
+// void Logger::ctrlCHandler() {
+//     boost::asio::io_service io_service;
+//     // Construct a signal set registered for process termination.
+//     boost::asio::signal_set signals(io_service, SIGINT);
+//     // Start an asynchronous wait for one of the signals to occur.
+//     signals.async_wait(logSig);
+// }
 
 void Logger::logTraceHTTPrequest(request http_request, tcp::socket& m_socket) {
     std::stringstream stream;

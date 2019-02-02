@@ -9,6 +9,7 @@
 #include <boost/log/utility/setup/common_attributes.hpp>
 #include <boost/log/sources/severity_logger.hpp>
 #include <boost/log/sources/record_ostream.hpp>
+#include <boost/signals2.hpp>
 #include "http/request.h"
 using boost::asio::ip::tcp;
 namespace logging = boost::log;
@@ -29,6 +30,8 @@ class Logger {
     void logDebugFile(std::string debug_message);
     void logWarningFile(std::string warning_message);
     void logTraceHTTPrequest(request http_request, tcp::socket& m_socket);
+    void logSig();
+    // static void ctrlCHandler();
     static Logger * logger;
     //static functions, might be deprecated
     static void logTrace();
