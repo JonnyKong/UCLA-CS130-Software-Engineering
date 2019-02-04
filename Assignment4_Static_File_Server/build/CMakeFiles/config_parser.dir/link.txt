@@ -1,0 +1,2 @@
+/usr/bin/ar qc libconfig_parser.a  CMakeFiles/config_parser.dir/src/config_parser.cc.o
+/usr/bin/ranlib libconfig_parser.a

@@ -1,0 +1,33 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    docker pull gcr.io/$PROJECT_ID/rubberduck_server:base || exit 0
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+    'build',
+    '-f', 'docker/base.Dockerfile',
+    '-t', 'rubberduck_server:base',
+    '-t', 'gcr.io/$PROJECT_ID/rubberduck_server:base',
+    '--cache-from', 'gcr.io/$PROJECT_ID/rubberduck_server:base',
+    '.'
+  ]
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/rubberduck_server:base']
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+    'build',
+    '-f', 'docker/Dockerfile',
+    '-t', 'gcr.io/$PROJECT_ID/rubberduck_server:latest',
+    '.'
+  ]
+# - name: 'gcr.io/cloud-builders/docker'
+#   args: [
+#     'build',
+#     '-f', 'docker/coverage.Dockerfile',
+#     '-t', 'gcr.io/$PROJECT_ID/rubberduck_server:latest',
+#     '.'
+#   ]
+images: ['gcr.io/$PROJECT_ID/rubberduck_server:base', 'gcr.io/$PROJECT_ID/rubberduck_server:latest']

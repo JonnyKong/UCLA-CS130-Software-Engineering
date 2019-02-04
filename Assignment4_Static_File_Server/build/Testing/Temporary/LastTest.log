@@ -1,0 +1,2561 @@
+Start testing: Feb 04 18:29 UTC
+----------------------------------------------------------
+1/78 Testing: NginxConfigParserTest.SimpleConfig
+1/78 Test: NginxConfigParserTest.SimpleConfig
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.SimpleConfig" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.SimpleConfig" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.SimpleConfig
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.SimpleConfig
+TOKEN_TYPE_NORMAL: server
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: port
+TOKEN_TYPE_NORMAL: 8080
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: location
+TOKEN_TYPE_NORMAL: /static/
+TOKEN_TYPE_NORMAL: StaticHandler
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: root
+TOKEN_TYPE_NORMAL: /data/www
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_NORMAL: location
+TOKEN_TYPE_NORMAL: /static2/
+TOKEN_TYPE_NORMAL: StaticHandler
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: root
+TOKEN_TYPE_NORMAL: /data/www2
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_NORMAL: location
+TOKEN_TYPE_NORMAL: /echo/
+TOKEN_TYPE_NORMAL: EchoHandler
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_EOF: 
+[       OK ] NginxConfigParserTest.SimpleConfig (2 ms)
+[----------] 1 test from NginxConfigParserTest (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (2 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.SimpleConfig" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.SimpleConfig" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/78 Testing: NginxConfigParserTest.UnexistConfig
+2/78 Test: NginxConfigParserTest.UnexistConfig
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.UnexistConfig" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.UnexistConfig" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.UnexistConfig
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.UnexistConfig
+Failed to open config file: unexisit_config
+[       OK ] NginxConfigParserTest.UnexistConfig (0 ms)
+[----------] 1 test from NginxConfigParserTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.UnexistConfig" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.UnexistConfig" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/78 Testing: NginxConfigParserTest.NestLoopConfig
+3/78 Test: NginxConfigParserTest.NestLoopConfig
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.NestLoopConfig" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.NestLoopConfig" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.NestLoopConfig
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.NestLoopConfig
+TOKEN_TYPE_NORMAL: foo
+TOKEN_TYPE_NORMAL: "bar"
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: server
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: location
+TOKEN_TYPE_NORMAL: /
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: proxy_pass
+TOKEN_TYPE_NORMAL: http://localhost:8080
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_EOF: 
+[       OK ] NginxConfigParserTest.NestLoopConfig (1 ms)
+[----------] 1 test from NginxConfigParserTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.NestLoopConfig" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.NestLoopConfig" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/78 Testing: NginxConfigParserTest.InvalidRightParenthesisConfig
+4/78 Test: NginxConfigParserTest.InvalidRightParenthesisConfig
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.InvalidRightParenthesisConfig" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.InvalidRightParenthesisConfig" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.InvalidRightParenthesisConfig
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.InvalidRightParenthesisConfig
+TOKEN_TYPE_NORMAL: foo
+TOKEN_TYPE_NORMAL: "bar"
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: server
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: listen
+TOKEN_TYPE_NORMAL: 80
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: server_name
+TOKEN_TYPE_NORMAL: foo.com
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: root
+TOKEN_TYPE_NORMAL: /home/ubuntu/sites/foo/
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: line
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_NORMAL: line
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_END_BLOCK: }
+Bad transition from TOKEN_TYPE_STATEMENT_END to TOKEN_TYPE_END_BLOCK
+[       OK ] NginxConfigParserTest.InvalidRightParenthesisConfig (1 ms)
+[----------] 1 test from NginxConfigParserTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.InvalidRightParenthesisConfig" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.InvalidRightParenthesisConfig" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/78 Testing: NginxConfigParserTest.InvalidLeftParenthesisConfig
+5/78 Test: NginxConfigParserTest.InvalidLeftParenthesisConfig
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.InvalidLeftParenthesisConfig" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.InvalidLeftParenthesisConfig" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.InvalidLeftParenthesisConfig
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.InvalidLeftParenthesisConfig
+TOKEN_TYPE_NORMAL: foo
+TOKEN_TYPE_NORMAL: "bar"
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_COMMENT: #wjxnb
+TOKEN_TYPE_NORMAL: server
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: location/
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: listen
+TOKEN_TYPE_NORMAL: 80
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: server_name
+TOKEN_TYPE_NORMAL: foo.com
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: root
+TOKEN_TYPE_NORMAL: /home/ubuntu/sites/foo/
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_EOF: 
+Bad transition from TOKEN_TYPE_END_BLOCK to TOKEN_TYPE_EOF
+[       OK ] NginxConfigParserTest.InvalidLeftParenthesisConfig (2 ms)
+[----------] 1 test from NginxConfigParserTest (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (2 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.InvalidLeftParenthesisConfig" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.InvalidLeftParenthesisConfig" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/78 Testing: NginxConfigParserTest.EmptyConfig
+6/78 Test: NginxConfigParserTest.EmptyConfig
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.EmptyConfig" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.EmptyConfig" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.EmptyConfig
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.EmptyConfig
+TOKEN_TYPE_EOF: 
+[       OK ] NginxConfigParserTest.EmptyConfig (1 ms)
+[----------] 1 test from NginxConfigParserTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.EmptyConfig" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.EmptyConfig" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/78 Testing: NginxConfigParserTest.EmptyBlock
+7/78 Test: NginxConfigParserTest.EmptyBlock
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.EmptyBlock" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.EmptyBlock" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.EmptyBlock
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.EmptyBlock
+TOKEN_TYPE_NORMAL: foo
+TOKEN_TYPE_NORMAL: "bar"
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: server
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: location
+TOKEN_TYPE_NORMAL: /
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_EOF: 
+[       OK ] NginxConfigParserTest.EmptyBlock (2 ms)
+[----------] 1 test from NginxConfigParserTest (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (2 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.EmptyBlock" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.EmptyBlock" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/78 Testing: NginxConfigParserTest.NginxConfigToString
+8/78 Test: NginxConfigParserTest.NginxConfigToString
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.NginxConfigToString" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.NginxConfigToString" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.NginxConfigToString
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.NginxConfigToString
+TOKEN_TYPE_NORMAL: foo
+TOKEN_TYPE_NORMAL: bar
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: server
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: port
+TOKEN_TYPE_NORMAL: 8080
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: server_name
+TOKEN_TYPE_NORMAL: foo.com
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: root
+TOKEN_TYPE_NORMAL: /home/ubuntu/sites/foo/
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_EOF: 
+[       OK ] NginxConfigParserTest.NginxConfigToString (1 ms)
+[----------] 1 test from NginxConfigParserTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (2 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.NginxConfigToString" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.NginxConfigToString" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/78 Testing: NginxConfigParserTest.NginxConfigToStringNested
+9/78 Test: NginxConfigParserTest.NginxConfigToStringNested
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.NginxConfigToStringNested" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.NginxConfigToStringNested" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.NginxConfigToStringNested
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.NginxConfigToStringNested
+TOKEN_TYPE_NORMAL: foo
+TOKEN_TYPE_NORMAL: "bar"
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: server
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: location
+TOKEN_TYPE_NORMAL: /
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: proxy_pass
+TOKEN_TYPE_NORMAL: http://localhost:8080
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_EOF: 
+[       OK ] NginxConfigParserTest.NginxConfigToStringNested (1 ms)
+[----------] 1 test from NginxConfigParserTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.NginxConfigToStringNested" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.NginxConfigToStringNested" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/78 Testing: NginxConfigParserTest.GetPortNumber
+10/78 Test: NginxConfigParserTest.GetPortNumber
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.GetPortNumber" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.GetPortNumber" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.GetPortNumber
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.GetPortNumber
+TOKEN_TYPE_NORMAL: foo
+TOKEN_TYPE_NORMAL: "bar"
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: port
+TOKEN_TYPE_NORMAL: 80
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_EOF: 
+[       OK ] NginxConfigParserTest.GetPortNumber (2 ms)
+[----------] 1 test from NginxConfigParserTest (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (2 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.GetPortNumber" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.GetPortNumber" time elapsed: 00:00:00
+----------------------------------------------------------
+
+11/78 Testing: NginxConfigParserTest.GetPortNumberChildBlock
+11/78 Test: NginxConfigParserTest.GetPortNumberChildBlock
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.GetPortNumberChildBlock" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.GetPortNumberChildBlock" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.GetPortNumberChildBlock
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.GetPortNumberChildBlock
+TOKEN_TYPE_NORMAL: server
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: port
+TOKEN_TYPE_NORMAL: 8080
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: location
+TOKEN_TYPE_NORMAL: /static/
+TOKEN_TYPE_NORMAL: StaticHandler
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: root
+TOKEN_TYPE_NORMAL: /data/www
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_NORMAL: location
+TOKEN_TYPE_NORMAL: /static2/
+TOKEN_TYPE_NORMAL: StaticHandler
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: root
+TOKEN_TYPE_NORMAL: /data/www2
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_NORMAL: location
+TOKEN_TYPE_NORMAL: /echo/
+TOKEN_TYPE_NORMAL: EchoHandler
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_EOF: 
+[       OK ] NginxConfigParserTest.GetPortNumberChildBlock (1 ms)
+[----------] 1 test from NginxConfigParserTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.GetPortNumberChildBlock" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.GetPortNumberChildBlock" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/78 Testing: NginxConfigParserTest.NestedPort
+12/78 Test: NginxConfigParserTest.NestedPort
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.NestedPort" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.NestedPort" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.NestedPort
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.NestedPort
+TOKEN_TYPE_NORMAL: foo
+TOKEN_TYPE_NORMAL: "bar"
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: server
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: location
+TOKEN_TYPE_NORMAL: /
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: port
+TOKEN_TYPE_NORMAL: 8080
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: proxy_pass
+TOKEN_TYPE_NORMAL: http://localhost:8080
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_EOF: 
+[       OK ] NginxConfigParserTest.NestedPort (1 ms)
+[----------] 1 test from NginxConfigParserTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.NestedPort" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.NestedPort" time elapsed: 00:00:00
+----------------------------------------------------------
+
+13/78 Testing: NginxConfigParserTest.GetPortNumberNull
+13/78 Test: NginxConfigParserTest.GetPortNumberNull
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.GetPortNumberNull" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.GetPortNumberNull" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.GetPortNumberNull
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.GetPortNumberNull
+TOKEN_TYPE_EOF: 
+[       OK ] NginxConfigParserTest.GetPortNumberNull (0 ms)
+[----------] 1 test from NginxConfigParserTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.GetPortNumberNull" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.GetPortNumberNull" time elapsed: 00:00:00
+----------------------------------------------------------
+
+14/78 Testing: NginxConfigParserTest.NegativePortNumber
+14/78 Test: NginxConfigParserTest.NegativePortNumber
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.NegativePortNumber" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.NegativePortNumber" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.NegativePortNumber
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.NegativePortNumber
+TOKEN_TYPE_NORMAL: port
+TOKEN_TYPE_NORMAL: -1
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_EOF: 
+[       OK ] NginxConfigParserTest.NegativePortNumber (1 ms)
+[----------] 1 test from NginxConfigParserTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.NegativePortNumber" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.NegativePortNumber" time elapsed: 00:00:00
+----------------------------------------------------------
+
+15/78 Testing: NginxConfigParserTest.LargePortNumber
+15/78 Test: NginxConfigParserTest.LargePortNumber
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.LargePortNumber" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.LargePortNumber" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.LargePortNumber
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.LargePortNumber
+TOKEN_TYPE_NORMAL: port
+TOKEN_TYPE_NORMAL: 888888
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_EOF: 
+[       OK ] NginxConfigParserTest.LargePortNumber (1 ms)
+[----------] 1 test from NginxConfigParserTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.LargePortNumber" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.LargePortNumber" time elapsed: 00:00:00
+----------------------------------------------------------
+
+16/78 Testing: NginxConfigParserTest.GetPortNumberNoPort
+16/78 Test: NginxConfigParserTest.GetPortNumberNoPort
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.GetPortNumberNoPort" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.GetPortNumberNoPort" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.GetPortNumberNoPort
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.GetPortNumberNoPort
+TOKEN_TYPE_NORMAL: foo
+TOKEN_TYPE_NORMAL: "bar"
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: server
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: port
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: server_name
+TOKEN_TYPE_NORMAL: foo.com
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: root
+TOKEN_TYPE_NORMAL: /home/ubuntu/sites/foo/
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_EOF: 
+[       OK ] NginxConfigParserTest.GetPortNumberNoPort (2 ms)
+[----------] 1 test from NginxConfigParserTest (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (2 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.GetPortNumberNoPort" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.GetPortNumberNoPort" time elapsed: 00:00:00
+----------------------------------------------------------
+
+17/78 Testing: NginxConfigParserTest.GetPortNumberNoFile
+17/78 Test: NginxConfigParserTest.GetPortNumberNoFile
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.GetPortNumberNoFile" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.GetPortNumberNoFile" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.GetPortNumberNoFile
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.GetPortNumberNoFile
+Failed to open config file: unexist_config
+[       OK ] NginxConfigParserTest.GetPortNumberNoFile (0 ms)
+[----------] 1 test from NginxConfigParserTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.GetPortNumberNoFile" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.GetPortNumberNoFile" time elapsed: 00:00:00
+----------------------------------------------------------
+
+18/78 Testing: NginxConfigParserTest.InvalidPort
+18/78 Test: NginxConfigParserTest.InvalidPort
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.InvalidPort" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.InvalidPort" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.InvalidPort
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.InvalidPort
+TOKEN_TYPE_NORMAL: foo
+TOKEN_TYPE_NORMAL: "bar"
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_START_BLOCK: {
+Bad transition from TOKEN_TYPE_STATEMENT_END to TOKEN_TYPE_START_BLOCK
+[       OK ] NginxConfigParserTest.InvalidPort (1 ms)
+[----------] 1 test from NginxConfigParserTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.InvalidPort" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.InvalidPort" time elapsed: 00:00:00
+----------------------------------------------------------
+
+19/78 Testing: NginxConfigParserTest.SingleQuote
+19/78 Test: NginxConfigParserTest.SingleQuote
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.SingleQuote" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.SingleQuote" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.SingleQuote
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.SingleQuote
+TOKEN_TYPE_NORMAL: foo
+TOKEN_TYPE_NORMAL: "bar"
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: server
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: abc
+TOKEN_TYPE_NORMAL: 'abc'
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: abc
+TOKEN_TYPE_NORMAL: 'abc'
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: abc
+TOKEN_TYPE_NORMAL: 'abc'
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: abc
+TOKEN_TYPE_NORMAL: 'abc'
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: abc
+TOKEN_TYPE_NORMAL: 'abc'
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: abc
+TOKEN_TYPE_NORMAL: '{abc}'
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: abc
+TOKEN_TYPE_NORMAL: ''abc''
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: abc
+TOKEN_TYPE_NORMAL: 'abc'
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_EOF: 
+[       OK ] NginxConfigParserTest.SingleQuote (1 ms)
+[----------] 1 test from NginxConfigParserTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.SingleQuote" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.SingleQuote" time elapsed: 00:00:00
+----------------------------------------------------------
+
+20/78 Testing: NginxConfigParserTest.DoubleQuote
+20/78 Test: NginxConfigParserTest.DoubleQuote
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.DoubleQuote" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.DoubleQuote" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.DoubleQuote
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.DoubleQuote
+TOKEN_TYPE_NORMAL: foo
+TOKEN_TYPE_NORMAL: "bar"
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: server
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: abc
+TOKEN_TYPE_NORMAL: "abc"
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: abc
+TOKEN_TYPE_NORMAL: "abc"
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: abc
+TOKEN_TYPE_NORMAL: "abc"
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: abc
+TOKEN_TYPE_NORMAL: "abc"
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: abc
+TOKEN_TYPE_NORMAL: "abc"
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: abc
+TOKEN_TYPE_NORMAL: ""abc""
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: abc
+TOKEN_TYPE_NORMAL: "abc"
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_EOF: 
+[       OK ] NginxConfigParserTest.DoubleQuote (1 ms)
+[----------] 1 test from NginxConfigParserTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.DoubleQuote" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.DoubleQuote" time elapsed: 00:00:00
+----------------------------------------------------------
+
+21/78 Testing: NginxConfigParserTest.SingleQuoteError
+21/78 Test: NginxConfigParserTest.SingleQuoteError
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.SingleQuoteError" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.SingleQuoteError" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.SingleQuoteError
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.SingleQuoteError
+TOKEN_TYPE_NORMAL: foo
+TOKEN_TYPE_NORMAL: "bar"
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: server
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: abc
+TOKEN_TYPE_ERROR: 'abc'
+Bad transition from TOKEN_TYPE_NORMAL to TOKEN_TYPE_ERROR
+[       OK ] NginxConfigParserTest.SingleQuoteError (1 ms)
+[----------] 1 test from NginxConfigParserTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.SingleQuoteError" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.SingleQuoteError" time elapsed: 00:00:00
+----------------------------------------------------------
+
+22/78 Testing: NginxConfigParserTest.DoubleQuoteError
+22/78 Test: NginxConfigParserTest.DoubleQuoteError
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.DoubleQuoteError" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.DoubleQuoteError" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.DoubleQuoteError
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.DoubleQuoteError
+TOKEN_TYPE_NORMAL: foo
+TOKEN_TYPE_NORMAL: "bar"
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: server
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: abc
+TOKEN_TYPE_ERROR: "abc"
+Bad transition from TOKEN_TYPE_NORMAL to TOKEN_TYPE_ERROR
+[       OK ] NginxConfigParserTest.DoubleQuoteError (1 ms)
+[----------] 1 test from NginxConfigParserTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.DoubleQuoteError" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.DoubleQuoteError" time elapsed: 00:00:00
+----------------------------------------------------------
+
+23/78 Testing: NginxConfigParserTest.EofSingleQuote
+23/78 Test: NginxConfigParserTest.EofSingleQuote
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.EofSingleQuote" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.EofSingleQuote" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.EofSingleQuote
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.EofSingleQuote
+TOKEN_TYPE_NORMAL: foo
+TOKEN_TYPE_NORMAL: "bar"
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_ERROR: '
+
+Bad transition from TOKEN_TYPE_STATEMENT_END to TOKEN_TYPE_ERROR
+[       OK ] NginxConfigParserTest.EofSingleQuote (0 ms)
+[----------] 1 test from NginxConfigParserTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.EofSingleQuote" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.EofSingleQuote" time elapsed: 00:00:00
+----------------------------------------------------------
+
+24/78 Testing: NginxConfigParserTest.EofDoubleQuote
+24/78 Test: NginxConfigParserTest.EofDoubleQuote
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.EofDoubleQuote" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.EofDoubleQuote" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.EofDoubleQuote
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.EofDoubleQuote
+TOKEN_TYPE_NORMAL: foo
+TOKEN_TYPE_NORMAL: "bar"
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_ERROR: "
+
+Bad transition from TOKEN_TYPE_STATEMENT_END to TOKEN_TYPE_ERROR
+[       OK ] NginxConfigParserTest.EofDoubleQuote (1 ms)
+[----------] 1 test from NginxConfigParserTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.EofDoubleQuote" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.EofDoubleQuote" time elapsed: 00:00:00
+----------------------------------------------------------
+
+25/78 Testing: NginxConfigParserTest.StatementEndError
+25/78 Test: NginxConfigParserTest.StatementEndError
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.StatementEndError" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.StatementEndError" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.StatementEndError
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.StatementEndError
+TOKEN_TYPE_NORMAL: foo
+TOKEN_TYPE_NORMAL: "bar"
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: server
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: abc
+TOKEN_TYPE_NORMAL: abc
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_STATEMENT_END: ;
+Bad transition from TOKEN_TYPE_START_BLOCK to TOKEN_TYPE_STATEMENT_END
+[       OK ] NginxConfigParserTest.StatementEndError (1 ms)
+[----------] 1 test from NginxConfigParserTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.StatementEndError" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.StatementEndError" time elapsed: 00:00:00
+----------------------------------------------------------
+
+26/78 Testing: NginxConfigParserTest.StartBlockError
+26/78 Test: NginxConfigParserTest.StartBlockError
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.StartBlockError" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.StartBlockError" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.StartBlockError
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.StartBlockError
+TOKEN_TYPE_NORMAL: foo
+TOKEN_TYPE_NORMAL: "bar"
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: server
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: abc
+TOKEN_TYPE_NORMAL: abc
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_START_BLOCK: {
+Bad transition from TOKEN_TYPE_STATEMENT_END to TOKEN_TYPE_START_BLOCK
+[       OK ] NginxConfigParserTest.StartBlockError (1 ms)
+[----------] 1 test from NginxConfigParserTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.StartBlockError" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.StartBlockError" time elapsed: 00:00:00
+----------------------------------------------------------
+
+27/78 Testing: NginxConfigParserTest.EndBlockError
+27/78 Test: NginxConfigParserTest.EndBlockError
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.EndBlockError" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.EndBlockError" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.EndBlockError
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.EndBlockError
+TOKEN_TYPE_NORMAL: foo
+TOKEN_TYPE_NORMAL: "bar"
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: server
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: abc
+TOKEN_TYPE_NORMAL: abc
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: a
+TOKEN_TYPE_END_BLOCK: }
+Bad transition from TOKEN_TYPE_NORMAL to TOKEN_TYPE_END_BLOCK
+[       OK ] NginxConfigParserTest.EndBlockError (0 ms)
+[----------] 1 test from NginxConfigParserTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.EndBlockError" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.EndBlockError" time elapsed: 00:00:00
+----------------------------------------------------------
+
+28/78 Testing: NginxConfigParserTest.UnknownToken
+28/78 Test: NginxConfigParserTest.UnknownToken
+Command: "/usr/src/projects/rubberduck/build/bin/config_parser_test" "--gtest_filter=NginxConfigParserTest.UnknownToken" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"NginxConfigParserTest.UnknownToken" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = NginxConfigParserTest.UnknownToken
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from NginxConfigParserTest
+[ RUN      ] NginxConfigParserTest.UnknownToken
+TOKEN_TYPE_NORMAL: ***
+TOKEN_TYPE_EOF: 
+Bad transition from TOKEN_TYPE_NORMAL to TOKEN_TYPE_EOF
+[       OK ] NginxConfigParserTest.UnknownToken (1 ms)
+[----------] 1 test from NginxConfigParserTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"NginxConfigParserTest.UnknownToken" end time: Feb 04 18:29 UTC
+"NginxConfigParserTest.UnknownToken" time elapsed: 00:00:00
+----------------------------------------------------------
+
+29/78 Testing: RequestParserTest.GoodRequest
+29/78 Test: RequestParserTest.GoodRequest
+Command: "/usr/src/projects/rubberduck/build/bin/request_parser_test" "--gtest_filter=RequestParserTest.GoodRequest" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"RequestParserTest.GoodRequest" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = RequestParserTest.GoodRequest
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestParserTest
+[ RUN      ] RequestParserTest.GoodRequest
+[       OK ] RequestParserTest.GoodRequest (0 ms)
+[----------] 1 test from RequestParserTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestParserTest.GoodRequest" end time: Feb 04 18:29 UTC
+"RequestParserTest.GoodRequest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+30/78 Testing: RequestParserTest.BadRequest
+30/78 Test: RequestParserTest.BadRequest
+Command: "/usr/src/projects/rubberduck/build/bin/request_parser_test" "--gtest_filter=RequestParserTest.BadRequest" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"RequestParserTest.BadRequest" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = RequestParserTest.BadRequest
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestParserTest
+[ RUN      ] RequestParserTest.BadRequest
+[       OK ] RequestParserTest.BadRequest (0 ms)
+[----------] 1 test from RequestParserTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestParserTest.BadRequest" end time: Feb 04 18:29 UTC
+"RequestParserTest.BadRequest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+31/78 Testing: RequestParserTest.WrongProtocolFirstChar
+31/78 Test: RequestParserTest.WrongProtocolFirstChar
+Command: "/usr/src/projects/rubberduck/build/bin/request_parser_test" "--gtest_filter=RequestParserTest.WrongProtocolFirstChar" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"RequestParserTest.WrongProtocolFirstChar" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = RequestParserTest.WrongProtocolFirstChar
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestParserTest
+[ RUN      ] RequestParserTest.WrongProtocolFirstChar
+[       OK ] RequestParserTest.WrongProtocolFirstChar (0 ms)
+[----------] 1 test from RequestParserTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestParserTest.WrongProtocolFirstChar" end time: Feb 04 18:29 UTC
+"RequestParserTest.WrongProtocolFirstChar" time elapsed: 00:00:00
+----------------------------------------------------------
+
+32/78 Testing: RequestParserTest.WrongProtocolSecondChar
+32/78 Test: RequestParserTest.WrongProtocolSecondChar
+Command: "/usr/src/projects/rubberduck/build/bin/request_parser_test" "--gtest_filter=RequestParserTest.WrongProtocolSecondChar" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"RequestParserTest.WrongProtocolSecondChar" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = RequestParserTest.WrongProtocolSecondChar
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestParserTest
+[ RUN      ] RequestParserTest.WrongProtocolSecondChar
+[       OK ] RequestParserTest.WrongProtocolSecondChar (0 ms)
+[----------] 1 test from RequestParserTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestParserTest.WrongProtocolSecondChar" end time: Feb 04 18:29 UTC
+"RequestParserTest.WrongProtocolSecondChar" time elapsed: 00:00:00
+----------------------------------------------------------
+
+33/78 Testing: RequestParserTest.WrongProtocolThirdChar
+33/78 Test: RequestParserTest.WrongProtocolThirdChar
+Command: "/usr/src/projects/rubberduck/build/bin/request_parser_test" "--gtest_filter=RequestParserTest.WrongProtocolThirdChar" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"RequestParserTest.WrongProtocolThirdChar" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = RequestParserTest.WrongProtocolThirdChar
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestParserTest
+[ RUN      ] RequestParserTest.WrongProtocolThirdChar
+[       OK ] RequestParserTest.WrongProtocolThirdChar (0 ms)
+[----------] 1 test from RequestParserTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestParserTest.WrongProtocolThirdChar" end time: Feb 04 18:29 UTC
+"RequestParserTest.WrongProtocolThirdChar" time elapsed: 00:00:00
+----------------------------------------------------------
+
+34/78 Testing: RequestParserTest.WrongProtocolFourthChar
+34/78 Test: RequestParserTest.WrongProtocolFourthChar
+Command: "/usr/src/projects/rubberduck/build/bin/request_parser_test" "--gtest_filter=RequestParserTest.WrongProtocolFourthChar" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"RequestParserTest.WrongProtocolFourthChar" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = RequestParserTest.WrongProtocolFourthChar
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestParserTest
+[ RUN      ] RequestParserTest.WrongProtocolFourthChar
+[       OK ] RequestParserTest.WrongProtocolFourthChar (0 ms)
+[----------] 1 test from RequestParserTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestParserTest.WrongProtocolFourthChar" end time: Feb 04 18:29 UTC
+"RequestParserTest.WrongProtocolFourthChar" time elapsed: 00:00:00
+----------------------------------------------------------
+
+35/78 Testing: RequestParserTest.InvalidEndingBeforeBody
+35/78 Test: RequestParserTest.InvalidEndingBeforeBody
+Command: "/usr/src/projects/rubberduck/build/bin/request_parser_test" "--gtest_filter=RequestParserTest.InvalidEndingBeforeBody" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"RequestParserTest.InvalidEndingBeforeBody" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = RequestParserTest.InvalidEndingBeforeBody
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestParserTest
+[ RUN      ] RequestParserTest.InvalidEndingBeforeBody
+[       OK ] RequestParserTest.InvalidEndingBeforeBody (0 ms)
+[----------] 1 test from RequestParserTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestParserTest.InvalidEndingBeforeBody" end time: Feb 04 18:29 UTC
+"RequestParserTest.InvalidEndingBeforeBody" time elapsed: 00:00:00
+----------------------------------------------------------
+
+36/78 Testing: RequestParserTest.InvalidEndingAfterVersion
+36/78 Test: RequestParserTest.InvalidEndingAfterVersion
+Command: "/usr/src/projects/rubberduck/build/bin/request_parser_test" "--gtest_filter=RequestParserTest.InvalidEndingAfterVersion" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"RequestParserTest.InvalidEndingAfterVersion" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = RequestParserTest.InvalidEndingAfterVersion
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestParserTest
+[ RUN      ] RequestParserTest.InvalidEndingAfterVersion
+[       OK ] RequestParserTest.InvalidEndingAfterVersion (0 ms)
+[----------] 1 test from RequestParserTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestParserTest.InvalidEndingAfterVersion" end time: Feb 04 18:29 UTC
+"RequestParserTest.InvalidEndingAfterVersion" time elapsed: 00:00:00
+----------------------------------------------------------
+
+37/78 Testing: RequestParserTest.BadVersionMinorStart
+37/78 Test: RequestParserTest.BadVersionMinorStart
+Command: "/usr/src/projects/rubberduck/build/bin/request_parser_test" "--gtest_filter=RequestParserTest.BadVersionMinorStart" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"RequestParserTest.BadVersionMinorStart" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = RequestParserTest.BadVersionMinorStart
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestParserTest
+[ RUN      ] RequestParserTest.BadVersionMinorStart
+[       OK ] RequestParserTest.BadVersionMinorStart (0 ms)
+[----------] 1 test from RequestParserTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestParserTest.BadVersionMinorStart" end time: Feb 04 18:29 UTC
+"RequestParserTest.BadVersionMinorStart" time elapsed: 00:00:00
+----------------------------------------------------------
+
+38/78 Testing: RequestParserTest.BadVersionMinor
+38/78 Test: RequestParserTest.BadVersionMinor
+Command: "/usr/src/projects/rubberduck/build/bin/request_parser_test" "--gtest_filter=RequestParserTest.BadVersionMinor" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"RequestParserTest.BadVersionMinor" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = RequestParserTest.BadVersionMinor
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestParserTest
+[ RUN      ] RequestParserTest.BadVersionMinor
+[       OK ] RequestParserTest.BadVersionMinor (0 ms)
+[----------] 1 test from RequestParserTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestParserTest.BadVersionMinor" end time: Feb 04 18:29 UTC
+"RequestParserTest.BadVersionMinor" time elapsed: 00:00:00
+----------------------------------------------------------
+
+39/78 Testing: RequestParserTest.BadVersionMajorStart
+39/78 Test: RequestParserTest.BadVersionMajorStart
+Command: "/usr/src/projects/rubberduck/build/bin/request_parser_test" "--gtest_filter=RequestParserTest.BadVersionMajorStart" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"RequestParserTest.BadVersionMajorStart" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = RequestParserTest.BadVersionMajorStart
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestParserTest
+[ RUN      ] RequestParserTest.BadVersionMajorStart
+[       OK ] RequestParserTest.BadVersionMajorStart (0 ms)
+[----------] 1 test from RequestParserTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestParserTest.BadVersionMajorStart" end time: Feb 04 18:29 UTC
+"RequestParserTest.BadVersionMajorStart" time elapsed: 00:00:00
+----------------------------------------------------------
+
+40/78 Testing: RequestParserTest.BadVersionMajor
+40/78 Test: RequestParserTest.BadVersionMajor
+Command: "/usr/src/projects/rubberduck/build/bin/request_parser_test" "--gtest_filter=RequestParserTest.BadVersionMajor" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"RequestParserTest.BadVersionMajor" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = RequestParserTest.BadVersionMajor
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestParserTest
+[ RUN      ] RequestParserTest.BadVersionMajor
+[       OK ] RequestParserTest.BadVersionMajor (0 ms)
+[----------] 1 test from RequestParserTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestParserTest.BadVersionMajor" end time: Feb 04 18:29 UTC
+"RequestParserTest.BadVersionMajor" time elapsed: 00:00:00
+----------------------------------------------------------
+
+41/78 Testing: RequestParserTest.IndeterminateRequest
+41/78 Test: RequestParserTest.IndeterminateRequest
+Command: "/usr/src/projects/rubberduck/build/bin/request_parser_test" "--gtest_filter=RequestParserTest.IndeterminateRequest" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"RequestParserTest.IndeterminateRequest" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = RequestParserTest.IndeterminateRequest
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestParserTest
+[ RUN      ] RequestParserTest.IndeterminateRequest
+[       OK ] RequestParserTest.IndeterminateRequest (0 ms)
+[----------] 1 test from RequestParserTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestParserTest.IndeterminateRequest" end time: Feb 04 18:29 UTC
+"RequestParserTest.IndeterminateRequest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+42/78 Testing: RequestParserTest.SpacedRequest
+42/78 Test: RequestParserTest.SpacedRequest
+Command: "/usr/src/projects/rubberduck/build/bin/request_parser_test" "--gtest_filter=RequestParserTest.SpacedRequest" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"RequestParserTest.SpacedRequest" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = RequestParserTest.SpacedRequest
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestParserTest
+[ RUN      ] RequestParserTest.SpacedRequest
+[       OK ] RequestParserTest.SpacedRequest (0 ms)
+[----------] 1 test from RequestParserTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestParserTest.SpacedRequest" end time: Feb 04 18:29 UTC
+"RequestParserTest.SpacedRequest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+43/78 Testing: RequestParserTest.SpacedOneRequest
+43/78 Test: RequestParserTest.SpacedOneRequest
+Command: "/usr/src/projects/rubberduck/build/bin/request_parser_test" "--gtest_filter=RequestParserTest.SpacedOneRequest" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"RequestParserTest.SpacedOneRequest" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = RequestParserTest.SpacedOneRequest
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestParserTest
+[ RUN      ] RequestParserTest.SpacedOneRequest
+[       OK ] RequestParserTest.SpacedOneRequest (0 ms)
+[----------] 1 test from RequestParserTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestParserTest.SpacedOneRequest" end time: Feb 04 18:29 UTC
+"RequestParserTest.SpacedOneRequest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+44/78 Testing: RequestParserTest.SpecialCharRequest
+44/78 Test: RequestParserTest.SpecialCharRequest
+Command: "/usr/src/projects/rubberduck/build/bin/request_parser_test" "--gtest_filter=RequestParserTest.SpecialCharRequest" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"RequestParserTest.SpecialCharRequest" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = RequestParserTest.SpecialCharRequest
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestParserTest
+[ RUN      ] RequestParserTest.SpecialCharRequest
+[       OK ] RequestParserTest.SpecialCharRequest (0 ms)
+[----------] 1 test from RequestParserTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestParserTest.SpecialCharRequest" end time: Feb 04 18:29 UTC
+"RequestParserTest.SpecialCharRequest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+45/78 Testing: RequestParserTest.ParserTest1
+45/78 Test: RequestParserTest.ParserTest1
+Command: "/usr/src/projects/rubberduck/build/bin/request_parser_test" "--gtest_filter=RequestParserTest.ParserTest1" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"RequestParserTest.ParserTest1" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = RequestParserTest.ParserTest1
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestParserTest
+[ RUN      ] RequestParserTest.ParserTest1
+[       OK ] RequestParserTest.ParserTest1 (0 ms)
+[----------] 1 test from RequestParserTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestParserTest.ParserTest1" end time: Feb 04 18:29 UTC
+"RequestParserTest.ParserTest1" time elapsed: 00:00:00
+----------------------------------------------------------
+
+46/78 Testing: RequestParserTest.ParserTest2
+46/78 Test: RequestParserTest.ParserTest2
+Command: "/usr/src/projects/rubberduck/build/bin/request_parser_test" "--gtest_filter=RequestParserTest.ParserTest2" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"RequestParserTest.ParserTest2" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = RequestParserTest.ParserTest2
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestParserTest
+[ RUN      ] RequestParserTest.ParserTest2
+[       OK ] RequestParserTest.ParserTest2 (0 ms)
+[----------] 1 test from RequestParserTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestParserTest.ParserTest2" end time: Feb 04 18:29 UTC
+"RequestParserTest.ParserTest2" time elapsed: 00:00:00
+----------------------------------------------------------
+
+47/78 Testing: RequestParserTest.ParserTest3
+47/78 Test: RequestParserTest.ParserTest3
+Command: "/usr/src/projects/rubberduck/build/bin/request_parser_test" "--gtest_filter=RequestParserTest.ParserTest3" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"RequestParserTest.ParserTest3" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = RequestParserTest.ParserTest3
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestParserTest
+[ RUN      ] RequestParserTest.ParserTest3
+[       OK ] RequestParserTest.ParserTest3 (0 ms)
+[----------] 1 test from RequestParserTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestParserTest.ParserTest3" end time: Feb 04 18:29 UTC
+"RequestParserTest.ParserTest3" time elapsed: 00:00:00
+----------------------------------------------------------
+
+48/78 Testing: ReplyTest.Ok
+48/78 Test: ReplyTest.Ok
+Command: "/usr/src/projects/rubberduck/build/bin/reply_test" "--gtest_filter=ReplyTest.Ok" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"ReplyTest.Ok" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = ReplyTest.Ok
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from ReplyTest
+[ RUN      ] ReplyTest.Ok
+[       OK ] ReplyTest.Ok (0 ms)
+[----------] 1 test from ReplyTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ReplyTest.Ok" end time: Feb 04 18:29 UTC
+"ReplyTest.Ok" time elapsed: 00:00:00
+----------------------------------------------------------
+
+49/78 Testing: ReplyTest.Created
+49/78 Test: ReplyTest.Created
+Command: "/usr/src/projects/rubberduck/build/bin/reply_test" "--gtest_filter=ReplyTest.Created" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"ReplyTest.Created" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = ReplyTest.Created
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from ReplyTest
+[ RUN      ] ReplyTest.Created
+[       OK ] ReplyTest.Created (0 ms)
+[----------] 1 test from ReplyTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ReplyTest.Created" end time: Feb 04 18:29 UTC
+"ReplyTest.Created" time elapsed: 00:00:00
+----------------------------------------------------------
+
+50/78 Testing: ReplyTest.accepted
+50/78 Test: ReplyTest.accepted
+Command: "/usr/src/projects/rubberduck/build/bin/reply_test" "--gtest_filter=ReplyTest.accepted" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"ReplyTest.accepted" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = ReplyTest.accepted
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from ReplyTest
+[ RUN      ] ReplyTest.accepted
+[       OK ] ReplyTest.accepted (0 ms)
+[----------] 1 test from ReplyTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ReplyTest.accepted" end time: Feb 04 18:29 UTC
+"ReplyTest.accepted" time elapsed: 00:00:00
+----------------------------------------------------------
+
+51/78 Testing: ReplyTest.no_content
+51/78 Test: ReplyTest.no_content
+Command: "/usr/src/projects/rubberduck/build/bin/reply_test" "--gtest_filter=ReplyTest.no_content" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"ReplyTest.no_content" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = ReplyTest.no_content
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from ReplyTest
+[ RUN      ] ReplyTest.no_content
+[       OK ] ReplyTest.no_content (0 ms)
+[----------] 1 test from ReplyTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ReplyTest.no_content" end time: Feb 04 18:29 UTC
+"ReplyTest.no_content" time elapsed: 00:00:00
+----------------------------------------------------------
+
+52/78 Testing: ReplyTest.multiple_choices
+52/78 Test: ReplyTest.multiple_choices
+Command: "/usr/src/projects/rubberduck/build/bin/reply_test" "--gtest_filter=ReplyTest.multiple_choices" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"ReplyTest.multiple_choices" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = ReplyTest.multiple_choices
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from ReplyTest
+[ RUN      ] ReplyTest.multiple_choices
+[       OK ] ReplyTest.multiple_choices (0 ms)
+[----------] 1 test from ReplyTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ReplyTest.multiple_choices" end time: Feb 04 18:29 UTC
+"ReplyTest.multiple_choices" time elapsed: 00:00:00
+----------------------------------------------------------
+
+53/78 Testing: ReplyTest.moved_permanently
+53/78 Test: ReplyTest.moved_permanently
+Command: "/usr/src/projects/rubberduck/build/bin/reply_test" "--gtest_filter=ReplyTest.moved_permanently" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"ReplyTest.moved_permanently" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = ReplyTest.moved_permanently
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from ReplyTest
+[ RUN      ] ReplyTest.moved_permanently
+[       OK ] ReplyTest.moved_permanently (0 ms)
+[----------] 1 test from ReplyTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ReplyTest.moved_permanently" end time: Feb 04 18:29 UTC
+"ReplyTest.moved_permanently" time elapsed: 00:00:00
+----------------------------------------------------------
+
+54/78 Testing: ReplyTest.moved_temporarily
+54/78 Test: ReplyTest.moved_temporarily
+Command: "/usr/src/projects/rubberduck/build/bin/reply_test" "--gtest_filter=ReplyTest.moved_temporarily" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"ReplyTest.moved_temporarily" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = ReplyTest.moved_temporarily
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from ReplyTest
+[ RUN      ] ReplyTest.moved_temporarily
+[       OK ] ReplyTest.moved_temporarily (0 ms)
+[----------] 1 test from ReplyTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ReplyTest.moved_temporarily" end time: Feb 04 18:29 UTC
+"ReplyTest.moved_temporarily" time elapsed: 00:00:00
+----------------------------------------------------------
+
+55/78 Testing: ReplyTest.not_modified
+55/78 Test: ReplyTest.not_modified
+Command: "/usr/src/projects/rubberduck/build/bin/reply_test" "--gtest_filter=ReplyTest.not_modified" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"ReplyTest.not_modified" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = ReplyTest.not_modified
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from ReplyTest
+[ RUN      ] ReplyTest.not_modified
+[       OK ] ReplyTest.not_modified (0 ms)
+[----------] 1 test from ReplyTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ReplyTest.not_modified" end time: Feb 04 18:29 UTC
+"ReplyTest.not_modified" time elapsed: 00:00:00
+----------------------------------------------------------
+
+56/78 Testing: ReplyTest.bad_request
+56/78 Test: ReplyTest.bad_request
+Command: "/usr/src/projects/rubberduck/build/bin/reply_test" "--gtest_filter=ReplyTest.bad_request" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"ReplyTest.bad_request" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = ReplyTest.bad_request
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from ReplyTest
+[ RUN      ] ReplyTest.bad_request
+[       OK ] ReplyTest.bad_request (0 ms)
+[----------] 1 test from ReplyTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ReplyTest.bad_request" end time: Feb 04 18:29 UTC
+"ReplyTest.bad_request" time elapsed: 00:00:00
+----------------------------------------------------------
+
+57/78 Testing: ReplyTest.unauthorized
+57/78 Test: ReplyTest.unauthorized
+Command: "/usr/src/projects/rubberduck/build/bin/reply_test" "--gtest_filter=ReplyTest.unauthorized" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"ReplyTest.unauthorized" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = ReplyTest.unauthorized
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from ReplyTest
+[ RUN      ] ReplyTest.unauthorized
+[       OK ] ReplyTest.unauthorized (0 ms)
+[----------] 1 test from ReplyTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ReplyTest.unauthorized" end time: Feb 04 18:29 UTC
+"ReplyTest.unauthorized" time elapsed: 00:00:00
+----------------------------------------------------------
+
+58/78 Testing: ReplyTest.forbidden
+58/78 Test: ReplyTest.forbidden
+Command: "/usr/src/projects/rubberduck/build/bin/reply_test" "--gtest_filter=ReplyTest.forbidden" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"ReplyTest.forbidden" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = ReplyTest.forbidden
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from ReplyTest
+[ RUN      ] ReplyTest.forbidden
+[       OK ] ReplyTest.forbidden (0 ms)
+[----------] 1 test from ReplyTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ReplyTest.forbidden" end time: Feb 04 18:29 UTC
+"ReplyTest.forbidden" time elapsed: 00:00:00
+----------------------------------------------------------
+
+59/78 Testing: ReplyTest.not_found
+59/78 Test: ReplyTest.not_found
+Command: "/usr/src/projects/rubberduck/build/bin/reply_test" "--gtest_filter=ReplyTest.not_found" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"ReplyTest.not_found" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = ReplyTest.not_found
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from ReplyTest
+[ RUN      ] ReplyTest.not_found
+[       OK ] ReplyTest.not_found (0 ms)
+[----------] 1 test from ReplyTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ReplyTest.not_found" end time: Feb 04 18:29 UTC
+"ReplyTest.not_found" time elapsed: 00:00:00
+----------------------------------------------------------
+
+60/78 Testing: ReplyTest.internal_server_error
+60/78 Test: ReplyTest.internal_server_error
+Command: "/usr/src/projects/rubberduck/build/bin/reply_test" "--gtest_filter=ReplyTest.internal_server_error" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"ReplyTest.internal_server_error" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = ReplyTest.internal_server_error
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from ReplyTest
+[ RUN      ] ReplyTest.internal_server_error
+[       OK ] ReplyTest.internal_server_error (0 ms)
+[----------] 1 test from ReplyTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ReplyTest.internal_server_error" end time: Feb 04 18:29 UTC
+"ReplyTest.internal_server_error" time elapsed: 00:00:00
+----------------------------------------------------------
+
+61/78 Testing: ReplyTest.not_implemented
+61/78 Test: ReplyTest.not_implemented
+Command: "/usr/src/projects/rubberduck/build/bin/reply_test" "--gtest_filter=ReplyTest.not_implemented" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"ReplyTest.not_implemented" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = ReplyTest.not_implemented
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from ReplyTest
+[ RUN      ] ReplyTest.not_implemented
+[       OK ] ReplyTest.not_implemented (0 ms)
+[----------] 1 test from ReplyTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ReplyTest.not_implemented" end time: Feb 04 18:29 UTC
+"ReplyTest.not_implemented" time elapsed: 00:00:00
+----------------------------------------------------------
+
+62/78 Testing: ReplyTest.bad_gateway
+62/78 Test: ReplyTest.bad_gateway
+Command: "/usr/src/projects/rubberduck/build/bin/reply_test" "--gtest_filter=ReplyTest.bad_gateway" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"ReplyTest.bad_gateway" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = ReplyTest.bad_gateway
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from ReplyTest
+[ RUN      ] ReplyTest.bad_gateway
+[       OK ] ReplyTest.bad_gateway (0 ms)
+[----------] 1 test from ReplyTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ReplyTest.bad_gateway" end time: Feb 04 18:29 UTC
+"ReplyTest.bad_gateway" time elapsed: 00:00:00
+----------------------------------------------------------
+
+63/78 Testing: ReplyTest.service_unavailable
+63/78 Test: ReplyTest.service_unavailable
+Command: "/usr/src/projects/rubberduck/build/bin/reply_test" "--gtest_filter=ReplyTest.service_unavailable" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"ReplyTest.service_unavailable" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = ReplyTest.service_unavailable
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from ReplyTest
+[ RUN      ] ReplyTest.service_unavailable
+[       OK ] ReplyTest.service_unavailable (0 ms)
+[----------] 1 test from ReplyTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ReplyTest.service_unavailable" end time: Feb 04 18:29 UTC
+"ReplyTest.service_unavailable" time elapsed: 00:00:00
+----------------------------------------------------------
+
+64/78 Testing: SessionTest.GoodRequest
+64/78 Test: SessionTest.GoodRequest
+Command: "/usr/src/projects/rubberduck/build/bin/session_test" "--gtest_filter=SessionTest.GoodRequest" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"SessionTest.GoodRequest" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = SessionTest.GoodRequest
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from SessionTest
+[ RUN      ] SessionTest.GoodRequest
+>> Debug: Good Request
+>> Warning: Not registered
+>> Debug: Reply with status: 400
+>> Debug: write handler
+[       OK ] SessionTest.GoodRequest (9 ms)
+[----------] 1 test from SessionTest (9 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (9 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"SessionTest.GoodRequest" end time: Feb 04 18:29 UTC
+"SessionTest.GoodRequest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+65/78 Testing: SessionTest.BadRequest
+65/78 Test: SessionTest.BadRequest
+Command: "/usr/src/projects/rubberduck/build/bin/session_test" "--gtest_filter=SessionTest.BadRequest" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"SessionTest.BadRequest" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = SessionTest.BadRequest
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from SessionTest
+[ RUN      ] SessionTest.BadRequest
+>> Warning: Bad Request
+>> Debug: write handler
+[       OK ] SessionTest.BadRequest (1 ms)
+[----------] 1 test from SessionTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"SessionTest.BadRequest" end time: Feb 04 18:29 UTC
+"SessionTest.BadRequest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+66/78 Testing: SessionTest.IndeterminateRequest
+66/78 Test: SessionTest.IndeterminateRequest
+Command: "/usr/src/projects/rubberduck/build/bin/session_test" "--gtest_filter=SessionTest.IndeterminateRequest" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"SessionTest.IndeterminateRequest" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = SessionTest.IndeterminateRequest
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from SessionTest
+[ RUN      ] SessionTest.IndeterminateRequest
+>> Debug: Read handler 
+[       OK ] SessionTest.IndeterminateRequest (1 ms)
+[----------] 1 test from SessionTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"SessionTest.IndeterminateRequest" end time: Feb 04 18:29 UTC
+"SessionTest.IndeterminateRequest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+67/78 Testing: SessionTest.WriteCallback
+67/78 Test: SessionTest.WriteCallback
+Command: "/usr/src/projects/rubberduck/build/bin/session_test" "--gtest_filter=SessionTest.WriteCallback" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"SessionTest.WriteCallback" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = SessionTest.WriteCallback
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from SessionTest
+[ RUN      ] SessionTest.WriteCallback
+>> Debug: Read handler 
+[       OK ] SessionTest.WriteCallback (1 ms)
+[----------] 1 test from SessionTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"SessionTest.WriteCallback" end time: Feb 04 18:29 UTC
+"SessionTest.WriteCallback" time elapsed: 00:00:00
+----------------------------------------------------------
+
+68/78 Testing: LoggerTest.logServerInitialization
+68/78 Test: LoggerTest.logServerInitialization
+Command: "/usr/src/projects/rubberduck/build/bin/logger_test" "--gtest_filter=LoggerTest.logServerInitialization" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"LoggerTest.logServerInitialization" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = LoggerTest.logServerInitialization
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from LoggerTest
+[ RUN      ] LoggerTest.logServerInitialization
+>> Trace: Server has been initialized
+[       OK ] LoggerTest.logServerInitialization (4 ms)
+[----------] 1 test from LoggerTest (4 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (5 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"LoggerTest.logServerInitialization" end time: Feb 04 18:29 UTC
+"LoggerTest.logServerInitialization" time elapsed: 00:00:00
+----------------------------------------------------------
+
+69/78 Testing: LoggerTest.TraceFile
+69/78 Test: LoggerTest.TraceFile
+Command: "/usr/src/projects/rubberduck/build/bin/logger_test" "--gtest_filter=LoggerTest.TraceFile" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"LoggerTest.TraceFile" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = LoggerTest.TraceFile
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from LoggerTest
+[ RUN      ] LoggerTest.TraceFile
+>> Trace: message
+[       OK ] LoggerTest.TraceFile (2 ms)
+[----------] 1 test from LoggerTest (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (2 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"LoggerTest.TraceFile" end time: Feb 04 18:29 UTC
+"LoggerTest.TraceFile" time elapsed: 00:00:00
+----------------------------------------------------------
+
+70/78 Testing: LoggerTest.logErrorFile
+70/78 Test: LoggerTest.logErrorFile
+Command: "/usr/src/projects/rubberduck/build/bin/logger_test" "--gtest_filter=LoggerTest.logErrorFile" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"LoggerTest.logErrorFile" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = LoggerTest.logErrorFile
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from LoggerTest
+[ RUN      ] LoggerTest.logErrorFile
+>> Error: message
+[       OK ] LoggerTest.logErrorFile (2 ms)
+[----------] 1 test from LoggerTest (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (2 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"LoggerTest.logErrorFile" end time: Feb 04 18:29 UTC
+"LoggerTest.logErrorFile" time elapsed: 00:00:00
+----------------------------------------------------------
+
+71/78 Testing: LoggerTest.logDebugFile
+71/78 Test: LoggerTest.logDebugFile
+Command: "/usr/src/projects/rubberduck/build/bin/logger_test" "--gtest_filter=LoggerTest.logDebugFile" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"LoggerTest.logDebugFile" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = LoggerTest.logDebugFile
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from LoggerTest
+[ RUN      ] LoggerTest.logDebugFile
+>> Debug: message
+[       OK ] LoggerTest.logDebugFile (2 ms)
+[----------] 1 test from LoggerTest (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (2 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"LoggerTest.logDebugFile" end time: Feb 04 18:29 UTC
+"LoggerTest.logDebugFile" time elapsed: 00:00:00
+----------------------------------------------------------
+
+72/78 Testing: LoggerTest.logWarningFile
+72/78 Test: LoggerTest.logWarningFile
+Command: "/usr/src/projects/rubberduck/build/bin/logger_test" "--gtest_filter=LoggerTest.logWarningFile" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"LoggerTest.logWarningFile" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = LoggerTest.logWarningFile
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from LoggerTest
+[ RUN      ] LoggerTest.logWarningFile
+>> Warning: message
+[       OK ] LoggerTest.logWarningFile (2 ms)
+[----------] 1 test from LoggerTest (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (2 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"LoggerTest.logWarningFile" end time: Feb 04 18:29 UTC
+"LoggerTest.logWarningFile" time elapsed: 00:00:00
+----------------------------------------------------------
+
+73/78 Testing: LoggerTest.logSig
+73/78 Test: LoggerTest.logSig
+Command: "/usr/src/projects/rubberduck/build/bin/logger_test" "--gtest_filter=LoggerTest.logSig" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"LoggerTest.logSig" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = LoggerTest.logSig
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from LoggerTest
+[ RUN      ] LoggerTest.logSig
+>> Warning: Shutting down the server...
+[       OK ] LoggerTest.logSig (2 ms)
+[----------] 1 test from LoggerTest (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (2 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"LoggerTest.logSig" end time: Feb 04 18:29 UTC
+"LoggerTest.logSig" time elapsed: 00:00:00
+----------------------------------------------------------
+
+74/78 Testing: RequestHandlerTest.EchoHandlerToStringTest
+74/78 Test: RequestHandlerTest.EchoHandlerToStringTest
+Command: "/usr/src/projects/rubberduck/build/bin/request_handler_test" "--gtest_filter=RequestHandlerTest.EchoHandlerToStringTest" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"RequestHandlerTest.EchoHandlerToStringTest" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = RequestHandlerTest.EchoHandlerToStringTest
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestHandlerTest
+[ RUN      ] RequestHandlerTest.EchoHandlerToStringTest
+TOKEN_TYPE_NORMAL: server
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: port
+TOKEN_TYPE_NORMAL: 8080
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: location
+TOKEN_TYPE_NORMAL: /static/
+TOKEN_TYPE_NORMAL: StaticHandler
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: root
+TOKEN_TYPE_NORMAL: /data/www
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_NORMAL: location
+TOKEN_TYPE_NORMAL: /static2/
+TOKEN_TYPE_NORMAL: StaticHandler
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: root
+TOKEN_TYPE_NORMAL: /data/www2
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_NORMAL: location
+TOKEN_TYPE_NORMAL: /echo/
+TOKEN_TYPE_NORMAL: EchoHandler
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_EOF: 
+[       OK ] RequestHandlerTest.EchoHandlerToStringTest (0 ms)
+[----------] 1 test from RequestHandlerTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"RequestHandlerTest.EchoHandlerToStringTest" end time: Feb 04 18:29 UTC
+"RequestHandlerTest.EchoHandlerToStringTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+75/78 Testing: RequestHandlerTest.EchoHandlerRequestTest
+75/78 Test: RequestHandlerTest.EchoHandlerRequestTest
+Command: "/usr/src/projects/rubberduck/build/bin/request_handler_test" "--gtest_filter=RequestHandlerTest.EchoHandlerRequestTest" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"RequestHandlerTest.EchoHandlerRequestTest" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = RequestHandlerTest.EchoHandlerRequestTest
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestHandlerTest
+[ RUN      ] RequestHandlerTest.EchoHandlerRequestTest
+TOKEN_TYPE_NORMAL: server
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: port
+TOKEN_TYPE_NORMAL: 8080
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: location
+TOKEN_TYPE_NORMAL: /static/
+TOKEN_TYPE_NORMAL: StaticHandler
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: root
+TOKEN_TYPE_NORMAL: /data/www
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_NORMAL: location
+TOKEN_TYPE_NORMAL: /static2/
+TOKEN_TYPE_NORMAL: StaticHandler
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: root
+TOKEN_TYPE_NORMAL: /data/www2
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_NORMAL: location
+TOKEN_TYPE_NORMAL: /echo/
+TOKEN_TYPE_NORMAL: EchoHandler
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_EOF: 
+RequestHandlerEcho::handleRequest()
+[       OK ] RequestHandlerTest.EchoHandlerRequestTest (0 ms)
+[----------] 1 test from RequestHandlerTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestHandlerTest.EchoHandlerRequestTest" end time: Feb 04 18:29 UTC
+"RequestHandlerTest.EchoHandlerRequestTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+76/78 Testing: RequestHandlerTest.StaticHandlerRequestTest
+76/78 Test: RequestHandlerTest.StaticHandlerRequestTest
+Command: "/usr/src/projects/rubberduck/build/bin/request_handler_test" "--gtest_filter=RequestHandlerTest.StaticHandlerRequestTest" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"RequestHandlerTest.StaticHandlerRequestTest" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = RequestHandlerTest.StaticHandlerRequestTest
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestHandlerTest
+[ RUN      ] RequestHandlerTest.StaticHandlerRequestTest
+TOKEN_TYPE_NORMAL: server
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: port
+TOKEN_TYPE_NORMAL: 8080
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: location
+TOKEN_TYPE_NORMAL: /static/
+TOKEN_TYPE_NORMAL: StaticHandler
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: root
+TOKEN_TYPE_NORMAL: /data/www
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_NORMAL: location
+TOKEN_TYPE_NORMAL: /static2/
+TOKEN_TYPE_NORMAL: StaticHandler
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: root
+TOKEN_TYPE_NORMAL: /data/www2
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_NORMAL: location
+TOKEN_TYPE_NORMAL: /echo/
+TOKEN_TYPE_NORMAL: EchoHandler
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_EOF: 
+RequestHandlerStatic::handleRequest() Serving file: ..//data/www/data1.dat
+[       OK ] RequestHandlerTest.StaticHandlerRequestTest (2 ms)
+[----------] 1 test from RequestHandlerTest (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (2 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestHandlerTest.StaticHandlerRequestTest" end time: Feb 04 18:29 UTC
+"RequestHandlerTest.StaticHandlerRequestTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+77/78 Testing: RequestHandlerTest.StaticHandlerRequestNotFoundTest
+77/78 Test: RequestHandlerTest.StaticHandlerRequestNotFoundTest
+Command: "/usr/src/projects/rubberduck/build/bin/request_handler_test" "--gtest_filter=RequestHandlerTest.StaticHandlerRequestNotFoundTest" "--gtest_also_run_disabled_tests"
+Directory: /usr/src/projects/rubberduck/tests
+"RequestHandlerTest.StaticHandlerRequestNotFoundTest" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+Running main() from gtest_main.cc
+Note: Google Test filter = RequestHandlerTest.StaticHandlerRequestNotFoundTest
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestHandlerTest
+[ RUN      ] RequestHandlerTest.StaticHandlerRequestNotFoundTest
+TOKEN_TYPE_NORMAL: server
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: port
+TOKEN_TYPE_NORMAL: 8080
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_NORMAL: location
+TOKEN_TYPE_NORMAL: /static/
+TOKEN_TYPE_NORMAL: StaticHandler
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: root
+TOKEN_TYPE_NORMAL: /data/www
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_NORMAL: location
+TOKEN_TYPE_NORMAL: /static2/
+TOKEN_TYPE_NORMAL: StaticHandler
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_NORMAL: root
+TOKEN_TYPE_NORMAL: /data/www2
+TOKEN_TYPE_STATEMENT_END: ;
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_NORMAL: location
+TOKEN_TYPE_NORMAL: /echo/
+TOKEN_TYPE_NORMAL: EchoHandler
+TOKEN_TYPE_START_BLOCK: {
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_END_BLOCK: }
+TOKEN_TYPE_EOF: 
+RequestHandlerStatic::handleRequest() Serving file: ..//data/www/data1.data
+[       OK ] RequestHandlerTest.StaticHandlerRequestNotFoundTest (2 ms)
+[----------] 1 test from RequestHandlerTest (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (2 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.08 sec
+----------------------------------------------------------
+Test Passed.
+"RequestHandlerTest.StaticHandlerRequestNotFoundTest" end time: Feb 04 18:29 UTC
+"RequestHandlerTest.StaticHandlerRequestNotFoundTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+78/78 Testing: integration_test
+78/78 Test: integration_test
+Command: "/bin/bash" "/usr/src/projects/rubberduck/tests/test.sh"
+Directory: /usr/src/projects/rubberduck/build
+"integration_test" start time: Feb 04 18:29 UTC
+Output:
+----------------------------------------------------------
+247
+Test 1 ... success
+Test 2 ... success
+Test 3 ... success
+<end of output>
+Test time =   2.05 sec
+----------------------------------------------------------
+Test Passed.
+"integration_test" end time: Feb 04 18:29 UTC
+"integration_test" time elapsed: 00:00:02
+----------------------------------------------------------
+
+End testing: Feb 04 18:29 UTC

@@ -1,0 +1,9 @@
+foo "bar";
+#wjxnb
+server {
+  location/ {
+  listen   80;
+  server_name foo.com;
+  root /home/ubuntu/sites/foo/;
+
+}
