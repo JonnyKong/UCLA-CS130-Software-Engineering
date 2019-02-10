@@ -23,7 +23,7 @@ The static handler fetchs the file based on the uri, and it would write the file
 
 ### Request Handler Testing
 
-
+TODO: also talk about concurrency issue
 
 ## 2. Config File Format
 
