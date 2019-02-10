@@ -27,9 +27,9 @@ Each `server` object contains a `RequestHandlerDispatcher` object, and the dispa
 2. For each of these blocks. initialize a specified request handler, and store its pointer in the map indexed by the URI it provided. This step is also referred to as "URI registering"
 
 ### 3.3 Dispatching
-Dispatching is handled by the `getRequestHandler()` function, and it's called by. For each incoming request, the dispatcher does longest prefix matching for the request's URI within the registered prefixes:  
-* If there's match, the dispatcher returns the pointer to the request handler object. 
-* Otherwise, the dispatcher returns `nullptr`, and expects `session` to handle this invalid request 
+Dispatching is handled by the `getRequestHandler()` function, and it's called by a `session` object. For each incoming request, the dispatcher does longest prefix matching for the request's URI within the registered prefixes:  
+* **Match**: The dispatcher returns the pointer to the request handler object. 
+* **No Match**: The dispatcher returns `nullptr`, and expects `session` to handle this invalid request 
   * The intuition behind this design is that the dispatcher shouldn't assume how invalid requests should be handled.  
 
 Note that `getRequestHandler()` is declared to be a `const` function to enforce the design decision that request handlers are immutable.
