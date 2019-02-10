@@ -11,15 +11,15 @@ virtual std::shared_ptr<RequestHandler> getRequestHandler(const request &request
 ```
 
 ### 3.1 Implementation
-`RequestHandlerDispatcher` uses a `std::map<PathUri, std::shared_ptr<RequestHandler>>` structure to store request handlers.   
-Following design decisions are made:  
-* **Immutability**: Handlers become immutable after initialization
-  * Don't have to initialize new handlers, or restore handler states during dispatching
-  * States that are specific to a session (e.g. file buffers in static handlers) are instantiated on stack, but shared states (e.g. root directory of static file handlers) are immutable. No concurrency issues because there's no race condition
-* **Same lifetime as server**: Handlers won't be destructed until server halts
-  * The server doesn't have to initialize new handlers after initialization
-  * This is based on handlers being immutable
-  * Similar to singular pattern
+`RequestHandlerDispatcher` uses a `std::map<PathUri, std::shared_ptr<RequestHandler>>` structure to store request handlers. The following design decisions are made:  
+* **Singleton**: One dispatcher for each server
+  * Handlers won't be destructed until server gets destructed
+  * Each session accesses the same dispatcher object
+  * The server doesn't have to initialize new dispatchers after initialization
+* **Immutability**: Handler objects become immutable after initialization
+  * Don't have to worry about handler states
+  * Shared states (e.g. root directory of static file handlers) are immutable
+  * States that are specific to a session (e.g. file buffers in static handlers) are instantiated on stack. No concurrency issues because there's no race condition
 
 ### 3.2  Initialization
 Each `server` object contains a `RequestHandlerDispatcher` object, and the dispatcher is initialized during server initialization:  
@@ -27,7 +27,7 @@ Each `server` object contains a `RequestHandlerDispatcher` object, and the dispa
 2. For each of these blocks. initialize a specified request handler, and store its pointer in the map indexed by the URI it provided. This step is also referred to as "URI registering"
 
 ### 3.3 Dispatching
-Dispatching is handled by the `getRequestHandler()` function. For each incoming request, the dispatcher does longest prefix matching for the request's URI within the registered prefixes:  
+Dispatching is handled by the `getRequestHandler()` function, and it's called by. For each incoming request, the dispatcher does longest prefix matching for the request's URI within the registered prefixes:  
 * If there's match, the dispatcher returns the pointer to the request handler object. 
 * Otherwise, the dispatcher returns `nullptr`, and expects `session` to handle this invalid request 
   * The intuition behind this design is that the dispatcher shouldn't assume how invalid requests should be handled.  
