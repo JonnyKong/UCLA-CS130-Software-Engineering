@@ -7,7 +7,15 @@ There are two types of request handlers: static handler and echo handler. The st
 virtual void handleRequest(const request &request_, reply *reply_) noexcept = 0;
 ```
 
-The `noexcept` keyward is used to avoid crushing the server, when the request is in bad form. The handler would gracefully handle the bad request to include `404` as the response code.
+The `noexcept` keyward is used to avoid crushing the server, when the request is in bad form. The handler would gracefully handle the bad request to include `404` as the response code. The parsed request is passed to the handler, and the reply is returned through the `reply_` pointer. Since the handlers do not maintain any state, only one instance of each handler is needed.
+
+#### Echo handler
+
+The implementation of the echo handler is straightforward. It converts request to string, and added to the body of the http response. No io function is involved in this implementation. 
+
+#### Static handler
+
+The static handler fetchs the file based on the uri, and it would write the file to the body of the http response.
 
 ### How is Request Handler called?
 
@@ -21,7 +29,7 @@ The `noexcept` keyward is used to avoid crushing the server, when the request is
 
 ## 3. Dispatch Mechanism
 The `RequestHandlerDispatcher` class selects which handler to dispatch for a specific request URI. It has public interface of:
-```
+```c++
 RequestHandlerDispatcher(const NginxConfig &config);
 virtual std::shared_ptr<RequestHandler> getRequestHandler(const request &request_) const;
 ```
