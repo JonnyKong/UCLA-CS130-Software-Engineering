@@ -40,6 +40,51 @@ Just like the echo handler test, an input string is given (e.g. `char input[1024
 In this particular case, the body of the reply should be exactly the same as the content of the file. 
 
 ## 2. Config File Format
+When starting the server, we will use a config file as an argument for server configuration. Currently we are using Nginx Config File Format. Below is an example of our server config file. 
+
+```py
+#exmaple http.conf file
+server {
+
+    port 80; # bind server to port 80
+
+    # Configuration of StaticHandler
+    location /static/ StaticHandler {
+        root /www;
+    }
+
+    # Map another URL path to StaticHandler
+    location /static2/ StaticHandler {
+        root /www2;
+    }
+
+    # Configuration of EchoHandler
+    location /echo/ EchoHandler {
+    
+    }
+}
+```
+
+### 2.1 Server-Level Parameters
+The server-level parameters are specified inside the *server* domain. At this stage we are only using the keyword port to bind our server to a specified port number. We plan to add more server-level parameters in the future as descibed below:
+  * error_log : specify the path to the log file where errors in server starting are written to
+  * error_page : specifiy an html page that displays error information for each error code
+
+### 2.2 Request Handler Configuration
+Inside the server domain we configure the request handlers. The configuration of a request handler includes three parts:
+  * Keyword : we use the keyword *location* to start the configuration of a request handler
+  * URL Path : the url path in HTTP request
+  * Request Handler Name : the name of request handler class mapped to the URL path. Parameters of request handler can be set inside the braces after the hanlder name.
+
+For example, when we configure the static file handler, we will use the statement below. /static/ is the URL path included in HTTP request and `StaticHandler` is the request handler class we will use. The root parameter here is the prefix of the directory path that we will search for the file in static file serving.
+```py
+    # Configuration of StaticHandler
+    location /static/ StaticHandler {
+        root /www;
+    }
+```
+
+When our config parser reads the config file, it will parse the config file to a `NginxConfig` object, and the `RequestHandlerDispatcher` will read the `NginxConfig` object and record the mappings between URL path and request handlers. Details are described in Dispatch Mechanism section.
 
 
 
