@@ -41,6 +41,8 @@ In this particular case, the body of the reply should be exactly the same as the
 
 ## 2. Config File Format
 
+
+
 ## 3. Dispatch Mechanism
 The `RequestHandlerDispatcher` class selects which handler to dispatch for a specific request URI. It has public interface of:
 ```c++
