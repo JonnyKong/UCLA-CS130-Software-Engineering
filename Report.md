@@ -23,7 +23,21 @@ The static handler fetchs the file based on the uri, and it would write the file
 
 ### Request Handler Testing
 
+The basic idea behind testing request handler is initializing a request handler object and let it handle a request object. The reply returned by the handler should be the same as what is expected. Here are illustrations and examples for testin Echo Handler and Static Handler.
 
+#### Echo handler Test
+
+Given a string (e.g. `char input[1024] = "GET / HTTP/1.1\r\nHost: www.example.com\r\nConnection: close\r\n\r\n";`), an http request object is created by the request parser's `parse` method  by calling `request_parser.parse(req, input, input + strlen(input));`. 
+
+The request is then passed to an echo handler to generate a reply.
+
+The final step is to check whether the headers and body of the reply returned by the echo handler is what is expected. The body of the reply should be exactly the same as the input string.
+
+#### Static handler Test
+
+Just like the echo handler test, an input string is given (e.g. `char input[1024] = "GET /static/data/www/data1.dat HTTP/1.1\r\nHost: www.example.com\r\nConnection: close\r\n\r\n";`) to generate a request by request parser. The reply returned by the static handler needs to be checked.
+
+In this particular case, the body of the reply should be exactly the same as the content of the file. 
 
 ## 2. Config File Format
 
@@ -52,7 +66,7 @@ Each `server` object contains a `RequestHandlerDispatcher` object, and the dispa
 
 ### 3.3 Dispatching
 Dispatching is handled by the `getRequestHandler()` function, and it's called by a `session` object. For each incoming request, the dispatcher does longest prefix matching for the request's URI within the registered prefixes:  
-* **Match**: The dispatcher returns the pointer to the request handler object. 
+* **Match**: The dispatcher returns the pointer to the request handler object responsible for this request. 
 * **No Match**: The dispatcher returns `nullptr`, and expects `session` to handle this invalid request 
   * The intuition behind this design is that the dispatcher shouldn't assume how invalid requests should be handled.  
 
