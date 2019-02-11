@@ -19,7 +19,7 @@ The static handler fetchs the file based on the uri, and it would write the file
 
 ### How is Request Handler called?
 
-
+Session objects have an asynchronous method that handles incoming request. Upon receiving every incoming request, it calls `handle_read_callback` function. If the request is valid, the function would ask dispatcher for the corresponding request handler and call its `handleRequest` function. Note that this process does not create a new request handler, it simply obtains the shared pointer to the request handler.
 
 ### Request Handler Testing
 
