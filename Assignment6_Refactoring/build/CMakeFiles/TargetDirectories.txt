@@ -2,8 +2,10 @@
 /usr/src/projects/rubberduck/build/CMakeFiles/list_install_components.dir
 /usr/src/projects/rubberduck/build/CMakeFiles/edit_cache.dir
 /usr/src/projects/rubberduck/build/CMakeFiles/test.dir
+/usr/src/projects/rubberduck/build/CMakeFiles/request_handler_test.dir
 /usr/src/projects/rubberduck/build/CMakeFiles/logger_test.dir
 /usr/src/projects/rubberduck/build/CMakeFiles/session_test.dir
+/usr/src/projects/rubberduck/build/CMakeFiles/reply_test.dir
 /usr/src/projects/rubberduck/build/CMakeFiles/request_parser_test.dir
 /usr/src/projects/rubberduck/build/CMakeFiles/config_parser_test.dir
 /usr/src/projects/rubberduck/build/CMakeFiles/ExperimentalBuild.dir

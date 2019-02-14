@@ -49,12 +49,7 @@ int session::handle_read_callback(std::shared_ptr<session> self,
         if (result == request_parser::good) {
             logger->logDebugFile("Good Request");
             auto handler = dispatcher_ -> getRequestHandler(request_);
-            if (handler == nullptr) {
-                logger->logWarningFile("Not registered");
-                reply_ = reply::stock_reply(reply::bad_request); // No content  // TODO? Or bad request?
-            } else {
-                reply_ = handler -> handleRequest(request_);
-            }
+            reply_ = handler -> handleRequest(request_);
             logger->logDebugFile("Reply with status: " + std::to_string(reply_->status));
             handle_write();
             return 0;

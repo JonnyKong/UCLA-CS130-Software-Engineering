@@ -13,6 +13,15 @@ CMakeFiles/request_handler.dir/src/request_handler/request_handler_echo.cc.o
  ../include/request_handler/request_handler.h
  ../include/request_handler/request_handler_echo.h
  /usr/src/projects/rubberduck/src/request_handler/request_handler_echo.cc
+CMakeFiles/request_handler.dir/src/request_handler/request_handler_error.cc.o
+ ../include/config_parser.h
+ ../include/http/header.h
+ ../include/http/reply.h
+ ../include/http/request.h
+ ../include/http/request_parser.h
+ ../include/request_handler/request_handler.h
+ ../include/request_handler/request_handler_error.h
+ /usr/src/projects/rubberduck/src/request_handler/request_handler_error.cc
 CMakeFiles/request_handler.dir/src/request_handler/request_handler_static.cc.o
  ../include/config_parser.h
  ../include/http/header.h
@@ -33,6 +42,7 @@ CMakeFiles/request_handler.dir/src/request_handler_dispatcher.cc.o
  ../include/http/request_parser.h
  ../include/request_handler/request_handler.h
  ../include/request_handler/request_handler_echo.h
+ ../include/request_handler/request_handler_error.h
  ../include/request_handler/request_handler_static.h
  ../include/request_handler_dispatcher.h
  /usr/src/projects/rubberduck/src/request_handler_dispatcher.cc

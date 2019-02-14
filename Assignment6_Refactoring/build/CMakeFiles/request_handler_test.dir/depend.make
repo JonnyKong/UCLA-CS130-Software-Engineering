@@ -9,6 +9,7 @@ CMakeFiles/request_handler_test.dir/tests/request_handler_test.cc.o: ../include/
 CMakeFiles/request_handler_test.dir/tests/request_handler_test.cc.o: ../include/http/request_parser.h
 CMakeFiles/request_handler_test.dir/tests/request_handler_test.cc.o: ../include/request_handler/request_handler.h
 CMakeFiles/request_handler_test.dir/tests/request_handler_test.cc.o: ../include/request_handler/request_handler_echo.h
+CMakeFiles/request_handler_test.dir/tests/request_handler_test.cc.o: ../include/request_handler/request_handler_error.h
 CMakeFiles/request_handler_test.dir/tests/request_handler_test.cc.o: ../include/request_handler/request_handler_static.h
 CMakeFiles/request_handler_test.dir/tests/request_handler_test.cc.o: ../include/request_handler_dispatcher.h
 CMakeFiles/request_handler_test.dir/tests/request_handler_test.cc.o: /usr/src/googletest/googletest/include/gtest/gtest-death-test.h

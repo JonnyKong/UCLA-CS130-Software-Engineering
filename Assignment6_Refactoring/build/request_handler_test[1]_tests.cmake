@@ -1,3 +1,7 @@
+add_test( RequestHandlerTest.ErrorHandlerRequestTest /usr/src/projects/rubberduck/build/bin/request_handler_test [==[--gtest_filter=RequestHandlerTest.ErrorHandlerRequestTest]==] --gtest_also_run_disabled_tests)
+set_tests_properties( RequestHandlerTest.ErrorHandlerRequestTest PROPERTIES WORKING_DIRECTORY /usr/src/projects/rubberduck/tests)
+add_test( RequestHandlerTest.ErrorHandlerToStringTest /usr/src/projects/rubberduck/build/bin/request_handler_test [==[--gtest_filter=RequestHandlerTest.ErrorHandlerToStringTest]==] --gtest_also_run_disabled_tests)
+set_tests_properties( RequestHandlerTest.ErrorHandlerToStringTest PROPERTIES WORKING_DIRECTORY /usr/src/projects/rubberduck/tests)
 add_test( RequestHandlerTest.EchoHandlerToStringTest /usr/src/projects/rubberduck/build/bin/request_handler_test [==[--gtest_filter=RequestHandlerTest.EchoHandlerToStringTest]==] --gtest_also_run_disabled_tests)
 set_tests_properties( RequestHandlerTest.EchoHandlerToStringTest PROPERTIES WORKING_DIRECTORY /usr/src/projects/rubberduck/tests)
 add_test( RequestHandlerTest.EchoHandlerRequestTest /usr/src/projects/rubberduck/build/bin/request_handler_test [==[--gtest_filter=RequestHandlerTest.EchoHandlerRequestTest]==] --gtest_also_run_disabled_tests)
@@ -6,4 +10,4 @@ add_test( RequestHandlerTest.StaticHandlerRequestTest /usr/src/projects/rubberdu
 set_tests_properties( RequestHandlerTest.StaticHandlerRequestTest PROPERTIES WORKING_DIRECTORY /usr/src/projects/rubberduck/tests)
 add_test( RequestHandlerTest.StaticHandlerRequestNotFoundTest /usr/src/projects/rubberduck/build/bin/request_handler_test [==[--gtest_filter=RequestHandlerTest.StaticHandlerRequestNotFoundTest]==] --gtest_also_run_disabled_tests)
 set_tests_properties( RequestHandlerTest.StaticHandlerRequestNotFoundTest PROPERTIES WORKING_DIRECTORY /usr/src/projects/rubberduck/tests)
-set( request_handler_test_TESTS RequestHandlerTest.EchoHandlerToStringTest RequestHandlerTest.EchoHandlerRequestTest RequestHandlerTest.StaticHandlerRequestTest RequestHandlerTest.StaticHandlerRequestNotFoundTest)
+set( request_handler_test_TESTS RequestHandlerTest.ErrorHandlerRequestTest RequestHandlerTest.ErrorHandlerToStringTest RequestHandlerTest.EchoHandlerToStringTest RequestHandlerTest.EchoHandlerRequestTest RequestHandlerTest.StaticHandlerRequestTest RequestHandlerTest.StaticHandlerRequestNotFoundTest)

@@ -10,6 +10,7 @@ CMakeFiles/request_handler_test.dir/tests/request_handler_test.cc.o
  ../include/http/request_parser.h
  ../include/request_handler/request_handler.h
  ../include/request_handler/request_handler_echo.h
+ ../include/request_handler/request_handler_error.h
  ../include/request_handler/request_handler_static.h
  ../include/request_handler_dispatcher.h
  /usr/src/googletest/googletest/include/gtest/gtest-death-test.h

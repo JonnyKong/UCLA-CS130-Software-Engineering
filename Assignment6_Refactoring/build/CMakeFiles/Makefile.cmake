@@ -65,8 +65,10 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
+  "CMakeFiles/request_handler_test.dir/DependInfo.cmake"
   "CMakeFiles/logger_test.dir/DependInfo.cmake"
   "CMakeFiles/session_test.dir/DependInfo.cmake"
+  "CMakeFiles/reply_test.dir/DependInfo.cmake"
   "CMakeFiles/request_parser_test.dir/DependInfo.cmake"
   "CMakeFiles/config_parser_test.dir/DependInfo.cmake"
   "CMakeFiles/ExperimentalBuild.dir/DependInfo.cmake"

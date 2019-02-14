@@ -168,6 +168,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named request_handler_test
+
+# Build rule for target.
+request_handler_test: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 request_handler_test
+.PHONY : request_handler_test
+
+# fast build rule for target.
+request_handler_test/fast:
+	$(MAKE) -f CMakeFiles/request_handler_test.dir/build.make CMakeFiles/request_handler_test.dir/build
+.PHONY : request_handler_test/fast
+
+#=============================================================================
 # Target rules for targets named logger_test
 
 # Build rule for target.
@@ -192,6 +205,19 @@ session_test: cmake_check_build_system
 session_test/fast:
 	$(MAKE) -f CMakeFiles/session_test.dir/build.make CMakeFiles/session_test.dir/build
 .PHONY : session_test/fast
+
+#=============================================================================
+# Target rules for targets named reply_test
+
+# Build rule for target.
+reply_test: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 reply_test
+.PHONY : reply_test
+
+# fast build rule for target.
+reply_test/fast:
+	$(MAKE) -f CMakeFiles/reply_test.dir/build.make CMakeFiles/reply_test.dir/build
+.PHONY : reply_test/fast
 
 #=============================================================================
 # Target rules for targets named request_parser_test
@@ -904,6 +930,33 @@ src/request_handler/request_handler_echo.cc.s:
 	$(MAKE) -f CMakeFiles/request_handler.dir/build.make CMakeFiles/request_handler.dir/src/request_handler/request_handler_echo.cc.s
 .PHONY : src/request_handler/request_handler_echo.cc.s
 
+src/request_handler/request_handler_error.o: src/request_handler/request_handler_error.cc.o
+
+.PHONY : src/request_handler/request_handler_error.o
+
+# target to build an object file
+src/request_handler/request_handler_error.cc.o:
+	$(MAKE) -f CMakeFiles/request_handler.dir/build.make CMakeFiles/request_handler.dir/src/request_handler/request_handler_error.cc.o
+.PHONY : src/request_handler/request_handler_error.cc.o
+
+src/request_handler/request_handler_error.i: src/request_handler/request_handler_error.cc.i
+
+.PHONY : src/request_handler/request_handler_error.i
+
+# target to preprocess a source file
+src/request_handler/request_handler_error.cc.i:
+	$(MAKE) -f CMakeFiles/request_handler.dir/build.make CMakeFiles/request_handler.dir/src/request_handler/request_handler_error.cc.i
+.PHONY : src/request_handler/request_handler_error.cc.i
+
+src/request_handler/request_handler_error.s: src/request_handler/request_handler_error.cc.s
+
+.PHONY : src/request_handler/request_handler_error.s
+
+# target to generate assembly for a file
+src/request_handler/request_handler_error.cc.s:
+	$(MAKE) -f CMakeFiles/request_handler.dir/build.make CMakeFiles/request_handler.dir/src/request_handler/request_handler_error.cc.s
+.PHONY : src/request_handler/request_handler_error.cc.s
+
 src/request_handler/request_handler_static.o: src/request_handler/request_handler_static.cc.o
 
 .PHONY : src/request_handler/request_handler_static.o
@@ -1099,6 +1152,60 @@ tests/logger_test.cc.s:
 	$(MAKE) -f CMakeFiles/logger_test.dir/build.make CMakeFiles/logger_test.dir/tests/logger_test.cc.s
 .PHONY : tests/logger_test.cc.s
 
+tests/reply_test.o: tests/reply_test.cc.o
+
+.PHONY : tests/reply_test.o
+
+# target to build an object file
+tests/reply_test.cc.o:
+	$(MAKE) -f CMakeFiles/reply_test.dir/build.make CMakeFiles/reply_test.dir/tests/reply_test.cc.o
+.PHONY : tests/reply_test.cc.o
+
+tests/reply_test.i: tests/reply_test.cc.i
+
+.PHONY : tests/reply_test.i
+
+# target to preprocess a source file
+tests/reply_test.cc.i:
+	$(MAKE) -f CMakeFiles/reply_test.dir/build.make CMakeFiles/reply_test.dir/tests/reply_test.cc.i
+.PHONY : tests/reply_test.cc.i
+
+tests/reply_test.s: tests/reply_test.cc.s
+
+.PHONY : tests/reply_test.s
+
+# target to generate assembly for a file
+tests/reply_test.cc.s:
+	$(MAKE) -f CMakeFiles/reply_test.dir/build.make CMakeFiles/reply_test.dir/tests/reply_test.cc.s
+.PHONY : tests/reply_test.cc.s
+
+tests/request_handler_test.o: tests/request_handler_test.cc.o
+
+.PHONY : tests/request_handler_test.o
+
+# target to build an object file
+tests/request_handler_test.cc.o:
+	$(MAKE) -f CMakeFiles/request_handler_test.dir/build.make CMakeFiles/request_handler_test.dir/tests/request_handler_test.cc.o
+.PHONY : tests/request_handler_test.cc.o
+
+tests/request_handler_test.i: tests/request_handler_test.cc.i
+
+.PHONY : tests/request_handler_test.i
+
+# target to preprocess a source file
+tests/request_handler_test.cc.i:
+	$(MAKE) -f CMakeFiles/request_handler_test.dir/build.make CMakeFiles/request_handler_test.dir/tests/request_handler_test.cc.i
+.PHONY : tests/request_handler_test.cc.i
+
+tests/request_handler_test.s: tests/request_handler_test.cc.s
+
+.PHONY : tests/request_handler_test.s
+
+# target to generate assembly for a file
+tests/request_handler_test.cc.s:
+	$(MAKE) -f CMakeFiles/request_handler_test.dir/build.make CMakeFiles/request_handler_test.dir/tests/request_handler_test.cc.s
+.PHONY : tests/request_handler_test.cc.s
+
 tests/request_parser_test.o: tests/request_parser_test.cc.o
 
 .PHONY : tests/request_parser_test.o
@@ -1163,8 +1270,10 @@ help:
 	@echo "... list_install_components"
 	@echo "... edit_cache"
 	@echo "... test"
+	@echo "... request_handler_test"
 	@echo "... logger_test"
 	@echo "... session_test"
+	@echo "... reply_test"
 	@echo "... request_parser_test"
 	@echo "... config_parser_test"
 	@echo "... ExperimentalBuild"
@@ -1228,6 +1337,9 @@ help:
 	@echo "... src/request_handler/request_handler_echo.o"
 	@echo "... src/request_handler/request_handler_echo.i"
 	@echo "... src/request_handler/request_handler_echo.s"
+	@echo "... src/request_handler/request_handler_error.o"
+	@echo "... src/request_handler/request_handler_error.i"
+	@echo "... src/request_handler/request_handler_error.s"
 	@echo "... src/request_handler/request_handler_static.o"
 	@echo "... src/request_handler/request_handler_static.i"
 	@echo "... src/request_handler/request_handler_static.s"
@@ -1249,6 +1361,12 @@ help:
 	@echo "... tests/logger_test.o"
 	@echo "... tests/logger_test.i"
 	@echo "... tests/logger_test.s"
+	@echo "... tests/reply_test.o"
+	@echo "... tests/reply_test.i"
+	@echo "... tests/reply_test.s"
+	@echo "... tests/request_handler_test.o"
+	@echo "... tests/request_handler_test.i"
+	@echo "... tests/request_handler_test.s"
 	@echo "... tests/request_parser_test.o"
 	@echo "... tests/request_parser_test.i"
 	@echo "... tests/request_parser_test.s"

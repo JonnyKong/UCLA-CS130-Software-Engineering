@@ -4,6 +4,7 @@
 #include "request_handler/request_handler.h"
 #include "request_handler/request_handler_static.h"
 #include "request_handler/request_handler_echo.h"
+#include "request_handler/request_handler_error.h"
 
 /**
  * Constructor - Construct the RequestHandler set. After initialization, all
@@ -35,27 +36,39 @@ RequestHandlerDispatcher::getRequestHandler(const request &request_) const {
         uri.pop_back();
     std::shared_ptr<RequestHandler> matched_handler = nullptr;
     std::string matched_prefix;
-    for (auto it = handlers_.begin(); it != handlers_.end(); ++it) {
+    for (auto it = handler_configs_.begin(); it != handler_configs_.end(); ++it) {
+        std::cout << "Matching" << std::endl;
         if (uri.substr(0, it->first.length()) == it->first) {   // Prefix match
             if (it->first.length() > matched_prefix.length()) { // Longest
                 matched_prefix = it->first;
-                matched_handler = it->second;
+                std::cout << "Matched" << std::endl;
             }
         }
     }
 
-    if (handlers_type_.find(matched_prefix)->second == StaticHandler) {
+    if (handler_configs_.find(matched_prefix) == handler_configs_.end()) {
+        // Failed to match to any handler
+        NginxConfigStatement empty_statement;
+        return std::make_unique<RequestHandlerError>(
+            NginxConfig()
+        );
+    }
+    else if (handler_configs_.find(matched_prefix)->second->tokens_[1] == StaticHandler) {
         return std::make_unique<RequestHandlerStatic>(
-            *(std::dynamic_pointer_cast<RequestHandlerStatic>(handlers_.find(matched_prefix)->second))
+            *(handler_configs_.find(matched_prefix)->second->child_block_),
+            matched_prefix
         );
     } 
-    else if (handlers_type_.find(matched_prefix)->second == EchoHandler) {
+    else if (handler_configs_.find(matched_prefix)->second->tokens_[1] == EchoHandler) {
         return std::make_unique<RequestHandlerEcho>(
-            *(std::dynamic_pointer_cast<RequestHandlerEcho>(handlers_.find(matched_prefix)->second))
+            *(handler_configs_.find(matched_prefix)->second->child_block_)
         );
     }
 
-    return nullptr;
+    // Wouldn't actually get here. Keep GCC happy
+    return std::make_unique<RequestHandlerError>(
+        NginxConfig()
+    );
 }
 
 
@@ -77,7 +90,7 @@ size_t RequestHandlerDispatcher::initRequestHandlers(const NginxConfig &config) 
             continue;   // Format error
 
         if (registerPath((config.statements_[i])->tokens_[1],
-                                *(config.statements_[i])->child_block_))
+                         config.statements_[i]))
             num_registered++;
 
     }
@@ -95,30 +108,33 @@ size_t RequestHandlerDispatcher::initRequestHandlers(const NginxConfig &config) 
  * For example, path "/static/" should be stored as "/static".
  */
 bool RequestHandlerDispatcher::registerPath(HandlerType handler_type,
-                                            const NginxConfig &config) {
-
-    for (int i = 0; i < config.statements_.size(); ++i) {
-        if ((config.statements_[i])->tokens_[0] != "location")
-            continue;   // Format error
-
-        PathUri path_uri = config.statements_[i]->tokens_[1];
-        //Remove trailing slashes
-        while (path_uri.length() > 1 && path_uri.back() == '/')
-            path_uri.pop_back();
-
-        if (handlers_.find(path_uri) != handlers_.end())
-            return false;   // Already registered
-
-        if (handler_type == StaticHandler) {
-            handlers_[path_uri] = std::make_shared<RequestHandlerStatic>(config, path_uri);
-            handlers_type_[path_uri] = StaticHandler;
-        } else if (handler_type == EchoHandler) {
-            handlers_[path_uri] = std::make_shared<RequestHandlerEcho>(config);
-            handlers_type_[path_uri] = EchoHandler;
-        } else {
-            return false;
+                                            std::shared_ptr<const NginxConfigStatement> statement) {
+    if (statement->child_block_ == nullptr)
+        return false;   // No child block
+    else if (statement->tokens_.size() != 2 || 
+             statement->tokens_[0] != "handler")
+        return false;   // Invalid format
+    
+    // Retrieve path from child block. If there are multiple paths in this block,
+    //  only use the first one.
+    PathUri path;
+    for (int i = 0; i < statement->child_block_->statements_.size(); ++i) {
+        if (statement->child_block_->statements_[i]->tokens_.size() == 2 &&
+            statement->child_block_->statements_[i]->tokens_[0] == "location") {
+            path = statement->child_block_->statements_[i]->tokens_[1];
+            break;
         }
-        std::cout << "Path registered: " << path_uri << " as " << handler_type << std::endl;
     }
-    return false;
+    // Remove trailing slashes
+    while (path.length() > 1 && path.back() == '/')
+        path.pop_back();
+    
+    if (path == "")
+        return false;   // No path in block, invalid
+    else if (handler_configs_.find(path) != handler_configs_.end())
+        return false;   // Already registered
+    handler_configs_[path] = statement;
+
+    std::cout << "Registered handler: " << path << std::endl;
+    return true;    
 }

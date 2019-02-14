@@ -64,6 +64,12 @@ iostream
 request_handler.h
 ../include/request_handler/request_handler.h
 
+../include/request_handler/request_handler_error.h
+iostream
+-
+request_handler.h
+../include/request_handler/request_handler.h
+
 ../include/request_handler/request_handler_static.h
 iostream
 -
@@ -369,6 +375,8 @@ request_handler/request_handler_echo.h
 /usr/src/projects/rubberduck/tests/request_handler/request_handler_echo.h
 request_handler/request_handler_static.h
 /usr/src/projects/rubberduck/tests/request_handler/request_handler_static.h
+request_handler/request_handler_error.h
+/usr/src/projects/rubberduck/tests/request_handler/request_handler_error.h
 http/request.h
 /usr/src/projects/rubberduck/tests/http/request.h
 http/request_parser.h

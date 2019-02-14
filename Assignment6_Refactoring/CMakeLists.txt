@@ -17,6 +17,7 @@ endif()
 
 # Output binaries to a sub directory "bin"
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_BUILD_TYPE Debug)
 
 # Enable cmake testing
 include(CTest)
@@ -49,6 +50,7 @@ add_library(request_handler
             src/request_handler_dispatcher.cc
             src/request_handler/request_handler_static.cc
             src/request_handler/request_handler_echo.cc
+            src/request_handler/request_handler_error.cc
             src/http/mime_types.cc)
 
 
@@ -61,15 +63,15 @@ target_link_libraries(server server_c session request_handler request_parser log
 # TODO(!): Update test executable name, srcs, and deps
 add_executable(config_parser_test tests/config_parser_test.cc)
 add_executable(request_parser_test tests/request_parser_test.cc)
-# add_executable(reply_test tests/reply_test.cc)
+add_executable(reply_test tests/reply_test.cc)
 add_executable(session_test tests/session_test.cc)
 add_executable(logger_test tests/logger_test.cc)
-# add_executable(request_handler_test tests/request_handler_test.cc)
+add_executable(request_handler_test tests/request_handler_test.cc)
 target_link_libraries(config_parser_test config_parser gtest_main)
 target_link_libraries(request_parser_test request_parser gtest_main)
 target_link_libraries(logger_test logger gtest_main Boost::log)
-# target_link_libraries(request_handler_test request_handler gtest_main request_parser config_parser reply Boost::system Boost::filesystem)
-# target_link_libraries(reply_test reply gtest_main Boost::system)
+target_link_libraries(request_handler_test request_handler gtest_main request_parser config_parser reply Boost::system Boost::filesystem)
+target_link_libraries(reply_test reply gtest_main Boost::system)
 target_link_libraries(session_test session request_handler request_parser
                       gtest_main gmock_main logger Boost::system
                       Boost::filesystem Boost::regex Boost::log_setup Boost::log)
@@ -80,10 +82,10 @@ target_link_libraries(session_test session request_handler request_parser
 # TODO(!): Update with test binary
 gtest_discover_tests(config_parser_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 gtest_discover_tests(request_parser_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
-# gtest_discover_tests(reply_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
+gtest_discover_tests(reply_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 gtest_discover_tests(session_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 gtest_discover_tests(logger_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
-# gtest_discover_tests(request_handler_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
+gtest_discover_tests(request_handler_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 add_test(NAME integration_test COMMAND ${BASH_PROGRAM} ${CMAKE_CURRENT_SOURCE_DIR}/tests/test.sh)
 
 

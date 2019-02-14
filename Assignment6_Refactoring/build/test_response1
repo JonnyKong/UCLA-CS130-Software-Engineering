@@ -1,1 +1,1 @@
-HTTP/1.0 400 Bad Request Content-Length: 89 Content-Type: text/html  <html><head><title>Bad Request</title></head><body><h1>400 Bad Request</h1></body></html>
+HTTP/1.0 404 Not Found Content-Length: 85 Content-Type: text/html  <html><head><title>Not Found</title></head><body><h1>404 Not Found</h1></body></html>
