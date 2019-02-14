@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/config_parser_test.dir/tests/config_parser_test.cc.o  -o bin/config_parser_test libconfig_parser.a googletest/googlemock/gtest/libgtest_main.a googletest/googlemock/gtest/libgtest.a -lpthread 

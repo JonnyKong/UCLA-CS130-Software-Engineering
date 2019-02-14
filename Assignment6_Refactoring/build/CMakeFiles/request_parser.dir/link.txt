@@ -1,0 +1,2 @@
+/usr/bin/ar qc librequest_parser.a  CMakeFiles/request_parser.dir/src/http/request_parser.cc.o CMakeFiles/request_parser.dir/src/http/reply.cc.o
+/usr/bin/ranlib librequest_parser.a

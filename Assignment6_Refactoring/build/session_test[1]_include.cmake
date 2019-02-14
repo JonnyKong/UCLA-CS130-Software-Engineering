@@ -1,0 +1,5 @@
+if(EXISTS "/usr/src/projects/rubberduck/build/session_test[1]_tests.cmake")
+  include("/usr/src/projects/rubberduck/build/session_test[1]_tests.cmake")
+else()
+  add_test(session_test_NOT_BUILT session_test_NOT_BUILT)
+endif()

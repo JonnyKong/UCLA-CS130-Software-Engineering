@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/http/header.h
+string
+-
+
+../include/http/reply.h
+string
+-
+vector
+-
+boost/asio.hpp
+-
+http/header.h
+../include/http/http/header.h
+
+../include/http/request.h
+string
+-
+vector
+-
+http/header.h
+../include/http/http/header.h
+
+../include/http/request_parser.h
+tuple
+-
+
+/usr/src/projects/rubberduck/src/http/reply.cc
+http/reply.h
+/usr/src/projects/rubberduck/src/http/http/reply.h
+string
+-
+
+/usr/src/projects/rubberduck/src/http/request_parser.cc
+http/request_parser.h
+/usr/src/projects/rubberduck/src/http/http/request_parser.h
+http/request.h
+/usr/src/projects/rubberduck/src/http/http/request.h
+

@@ -1,0 +1,7 @@
+
+foo bar;
+server {
+  port   8080;
+  server_name foo.com;
+  root /home/ubuntu/sites/foo/;
+}
