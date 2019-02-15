@@ -153,9 +153,33 @@ CMakeFiles/request_handler.dir/src/request_handler/request_handler_error.cc.o.pr
 CMakeFiles/request_handler.dir/src/request_handler/request_handler_error.cc.o.provides.build: CMakeFiles/request_handler.dir/src/request_handler/request_handler_error.cc.o
 
 
+CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o: CMakeFiles/request_handler.dir/flags.make
+CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o: ../src/request_handler/request_handler_status.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/usr/src/projects/rubberduck/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o -c /usr/src/projects/rubberduck/src/request_handler/request_handler_status.cc
+
+CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /usr/src/projects/rubberduck/src/request_handler/request_handler_status.cc > CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.i
+
+CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /usr/src/projects/rubberduck/src/request_handler/request_handler_status.cc -o CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.s
+
+CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o.requires:
+
+.PHONY : CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o.requires
+
+CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o.provides: CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o.requires
+	$(MAKE) -f CMakeFiles/request_handler.dir/build.make CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o.provides.build
+.PHONY : CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o.provides
+
+CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o.provides.build: CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o
+
+
 CMakeFiles/request_handler.dir/src/http/mime_types.cc.o: CMakeFiles/request_handler.dir/flags.make
 CMakeFiles/request_handler.dir/src/http/mime_types.cc.o: ../src/http/mime_types.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/usr/src/projects/rubberduck/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/request_handler.dir/src/http/mime_types.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/usr/src/projects/rubberduck/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/request_handler.dir/src/http/mime_types.cc.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/request_handler.dir/src/http/mime_types.cc.o -c /usr/src/projects/rubberduck/src/http/mime_types.cc
 
 CMakeFiles/request_handler.dir/src/http/mime_types.cc.i: cmake_force
@@ -183,6 +207,7 @@ request_handler_OBJECTS = \
 "CMakeFiles/request_handler.dir/src/request_handler/request_handler_static.cc.o" \
 "CMakeFiles/request_handler.dir/src/request_handler/request_handler_echo.cc.o" \
 "CMakeFiles/request_handler.dir/src/request_handler/request_handler_error.cc.o" \
+"CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o" \
 "CMakeFiles/request_handler.dir/src/http/mime_types.cc.o"
 
 # External object files for target request_handler
@@ -192,10 +217,11 @@ librequest_handler.a: CMakeFiles/request_handler.dir/src/request_handler_dispatc
 librequest_handler.a: CMakeFiles/request_handler.dir/src/request_handler/request_handler_static.cc.o
 librequest_handler.a: CMakeFiles/request_handler.dir/src/request_handler/request_handler_echo.cc.o
 librequest_handler.a: CMakeFiles/request_handler.dir/src/request_handler/request_handler_error.cc.o
+librequest_handler.a: CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o
 librequest_handler.a: CMakeFiles/request_handler.dir/src/http/mime_types.cc.o
 librequest_handler.a: CMakeFiles/request_handler.dir/build.make
 librequest_handler.a: CMakeFiles/request_handler.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/usr/src/projects/rubberduck/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX static library librequest_handler.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/usr/src/projects/rubberduck/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX static library librequest_handler.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/request_handler.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/request_handler.dir/link.txt --verbose=$(VERBOSE)
 
@@ -208,6 +234,7 @@ CMakeFiles/request_handler.dir/requires: CMakeFiles/request_handler.dir/src/requ
 CMakeFiles/request_handler.dir/requires: CMakeFiles/request_handler.dir/src/request_handler/request_handler_static.cc.o.requires
 CMakeFiles/request_handler.dir/requires: CMakeFiles/request_handler.dir/src/request_handler/request_handler_echo.cc.o.requires
 CMakeFiles/request_handler.dir/requires: CMakeFiles/request_handler.dir/src/request_handler/request_handler_error.cc.o.requires
+CMakeFiles/request_handler.dir/requires: CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o.requires
 CMakeFiles/request_handler.dir/requires: CMakeFiles/request_handler.dir/src/http/mime_types.cc.o.requires
 
 .PHONY : CMakeFiles/request_handler.dir/requires

@@ -9,7 +9,7 @@
 #include "logger.h"
 
 using boost::asio::ip::tcp;
-session::session(boost::asio::io_service& io_service, 
+session::session(boost::asio::io_service& io_service,
                  std::shared_ptr<const RequestHandlerDispatcher> dispatcher)
     : socket_(io_service), dispatcher_(dispatcher) {}
 
@@ -26,7 +26,7 @@ void session::handle_read() {
     socket_.async_read_some(boost::asio::buffer(data_),
         boost::bind(&session::handle_read_callback, this, self, _1, _2));
     Logger * logger = Logger::getLogger();
-    logger->logDebugFile("Read handler ");
+    logger->logDebugFile("Read handler");
 }
 
 void session::handle_write() {
@@ -50,12 +50,16 @@ int session::handle_read_callback(std::shared_ptr<session> self,
             logger->logDebugFile("Good Request");
             auto handler = dispatcher_ -> getRequestHandler(request_);
             reply_ = handler -> handleRequest(request_);
+            session::request_count++;
+            session::request_received_[request_.uri].push_back(reply_->status);
             logger->logDebugFile("Reply with status: " + std::to_string(reply_->status));
             handle_write();
             return 0;
         } else if (result == request_parser::bad) {
             logger->logWarningFile("Bad Request");
             reply_ = reply::stock_reply(reply::bad_request);    // Bad request
+            session::request_count++;
+            session::request_received_[request_.uri].push_back(reply_->status);
             handle_write();
             return 1;
         } else {
@@ -77,3 +81,7 @@ int session::handle_write_callback(std::shared_ptr<session> self,
     }
     return 0;
 }
+
+
+int session::request_count = 0;
+std::map<URL_Requested, std::vector<ReturnCode>> session::request_received_;

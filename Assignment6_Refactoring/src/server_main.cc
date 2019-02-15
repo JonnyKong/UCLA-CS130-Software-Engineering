@@ -21,12 +21,13 @@
 #include "server.h"
 #include "config_parser.h"
 #include "logger.h"
+#include "request_handler_dispatcher.h"
 using boost::asio::ip::tcp;
 
 void my_handler(int s){
     Logger * logger = Logger::getLogger();
     logger->logSig();
-    exit(1); 
+    exit(1);
 }
 int main(int argc, char* argv[])
 {

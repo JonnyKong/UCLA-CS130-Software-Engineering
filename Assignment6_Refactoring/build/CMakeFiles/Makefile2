@@ -63,15 +63,15 @@ CMAKE_BINARY_DIR = /usr/src/projects/rubberduck/build
 # Target rules for target CMakeFiles/request_handler_test.dir
 
 # All Build rule for target.
-CMakeFiles/request_handler_test.dir/all: CMakeFiles/request_parser.dir/all
 CMakeFiles/request_handler_test.dir/all: CMakeFiles/reply.dir/all
+CMakeFiles/request_handler_test.dir/all: CMakeFiles/request_parser.dir/all
 CMakeFiles/request_handler_test.dir/all: CMakeFiles/config_parser.dir/all
 CMakeFiles/request_handler_test.dir/all: CMakeFiles/request_handler.dir/all
 CMakeFiles/request_handler_test.dir/all: googletest/googlemock/gtest/CMakeFiles/gtest_main.dir/all
 CMakeFiles/request_handler_test.dir/all: googletest/googlemock/gtest/CMakeFiles/gtest.dir/all
 	$(MAKE) -f CMakeFiles/request_handler_test.dir/build.make CMakeFiles/request_handler_test.dir/depend
 	$(MAKE) -f CMakeFiles/request_handler_test.dir/build.make CMakeFiles/request_handler_test.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/usr/src/projects/rubberduck/build/CMakeFiles --progress-num=30,31 "Built target request_handler_test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/usr/src/projects/rubberduck/build/CMakeFiles --progress-num=31,32 "Built target request_handler_test"
 .PHONY : CMakeFiles/request_handler_test.dir/all
 
 # Include target in all.
@@ -81,7 +81,7 @@ all: CMakeFiles/request_handler_test.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/request_handler_test.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /usr/src/projects/rubberduck/build/CMakeFiles 19
+	$(CMAKE_COMMAND) -E cmake_progress_start /usr/src/projects/rubberduck/build/CMakeFiles 20
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/request_handler_test.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /usr/src/projects/rubberduck/build/CMakeFiles 0
 .PHONY : CMakeFiles/request_handler_test.dir/rule
@@ -144,16 +144,16 @@ clean: CMakeFiles/logger_test.dir/clean
 # Target rules for target CMakeFiles/session_test.dir
 
 # All Build rule for target.
-CMakeFiles/session_test.dir/all: CMakeFiles/request_parser.dir/all
 CMakeFiles/session_test.dir/all: CMakeFiles/logger.dir/all
 CMakeFiles/session_test.dir/all: CMakeFiles/session.dir/all
+CMakeFiles/session_test.dir/all: CMakeFiles/request_parser.dir/all
 CMakeFiles/session_test.dir/all: CMakeFiles/request_handler.dir/all
 CMakeFiles/session_test.dir/all: googletest/googlemock/CMakeFiles/gmock_main.dir/all
 CMakeFiles/session_test.dir/all: googletest/googlemock/gtest/CMakeFiles/gtest_main.dir/all
 CMakeFiles/session_test.dir/all: googletest/googlemock/gtest/CMakeFiles/gtest.dir/all
 	$(MAKE) -f CMakeFiles/session_test.dir/build.make CMakeFiles/session_test.dir/depend
 	$(MAKE) -f CMakeFiles/session_test.dir/build.make CMakeFiles/session_test.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/usr/src/projects/rubberduck/build/CMakeFiles --progress-num=45,46 "Built target session_test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/usr/src/projects/rubberduck/build/CMakeFiles --progress-num=46,47 "Built target session_test"
 .PHONY : CMakeFiles/session_test.dir/all
 
 # Include target in all.
@@ -163,7 +163,7 @@ all: CMakeFiles/session_test.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/session_test.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /usr/src/projects/rubberduck/build/CMakeFiles 24
+	$(CMAKE_COMMAND) -E cmake_progress_start /usr/src/projects/rubberduck/build/CMakeFiles 25
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/session_test.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /usr/src/projects/rubberduck/build/CMakeFiles 0
 .PHONY : CMakeFiles/session_test.dir/rule
@@ -231,7 +231,7 @@ CMakeFiles/request_parser_test.dir/all: googletest/googlemock/gtest/CMakeFiles/g
 CMakeFiles/request_parser_test.dir/all: googletest/googlemock/gtest/CMakeFiles/gtest.dir/all
 	$(MAKE) -f CMakeFiles/request_parser_test.dir/build.make CMakeFiles/request_parser_test.dir/depend
 	$(MAKE) -f CMakeFiles/request_parser_test.dir/build.make CMakeFiles/request_parser_test.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/usr/src/projects/rubberduck/build/CMakeFiles --progress-num=35,36 "Built target request_parser_test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/usr/src/projects/rubberduck/build/CMakeFiles --progress-num=36,37 "Built target request_parser_test"
 .PHONY : CMakeFiles/request_parser_test.dir/all
 
 # Include target in all.
@@ -371,7 +371,7 @@ clean: CMakeFiles/ContinuousUpdate.dir/clean
 CMakeFiles/request_parser.dir/all:
 	$(MAKE) -f CMakeFiles/request_parser.dir/build.make CMakeFiles/request_parser.dir/depend
 	$(MAKE) -f CMakeFiles/request_parser.dir/build.make CMakeFiles/request_parser.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/usr/src/projects/rubberduck/build/CMakeFiles --progress-num=32,33,34 "Built target request_parser"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/usr/src/projects/rubberduck/build/CMakeFiles --progress-num=33,34,35 "Built target request_parser"
 .PHONY : CMakeFiles/request_parser.dir/all
 
 # Include target in all.
@@ -829,7 +829,7 @@ clean: CMakeFiles/NightlyBuild.dir/clean
 CMakeFiles/server_c.dir/all:
 	$(MAKE) -f CMakeFiles/server_c.dir/build.make CMakeFiles/server_c.dir/depend
 	$(MAKE) -f CMakeFiles/server_c.dir/build.make CMakeFiles/server_c.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/usr/src/projects/rubberduck/build/CMakeFiles --progress-num=39,40,41 "Built target server_c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/usr/src/projects/rubberduck/build/CMakeFiles --progress-num=40,41,42 "Built target server_c"
 .PHONY : CMakeFiles/server_c.dir/all
 
 # Include target in all.
@@ -1191,7 +1191,7 @@ clean: CMakeFiles/logger.dir/clean
 CMakeFiles/session.dir/all:
 	$(MAKE) -f CMakeFiles/session.dir/build.make CMakeFiles/session.dir/depend
 	$(MAKE) -f CMakeFiles/session.dir/build.make CMakeFiles/session.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/usr/src/projects/rubberduck/build/CMakeFiles --progress-num=42,43,44 "Built target session"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/usr/src/projects/rubberduck/build/CMakeFiles --progress-num=43,44,45 "Built target session"
 .PHONY : CMakeFiles/session.dir/all
 
 # Include target in all.
@@ -1393,7 +1393,7 @@ clean: CMakeFiles/NightlyCoverage.dir/clean
 CMakeFiles/request_handler.dir/all:
 	$(MAKE) -f CMakeFiles/request_handler.dir/build.make CMakeFiles/request_handler.dir/depend
 	$(MAKE) -f CMakeFiles/request_handler.dir/build.make CMakeFiles/request_handler.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/usr/src/projects/rubberduck/build/CMakeFiles --progress-num=24,25,26,27,28,29 "Built target request_handler"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/usr/src/projects/rubberduck/build/CMakeFiles --progress-num=24,25,26,27,28,29,30 "Built target request_handler"
 .PHONY : CMakeFiles/request_handler.dir/all
 
 # Include target in all.
@@ -1403,7 +1403,7 @@ all: CMakeFiles/request_handler.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/request_handler.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /usr/src/projects/rubberduck/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /usr/src/projects/rubberduck/build/CMakeFiles 7
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/request_handler.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /usr/src/projects/rubberduck/build/CMakeFiles 0
 .PHONY : CMakeFiles/request_handler.dir/rule
@@ -1459,16 +1459,16 @@ clean: CMakeFiles/ExperimentalStart.dir/clean
 # Target rules for target CMakeFiles/server.dir
 
 # All Build rule for target.
-CMakeFiles/server.dir/all: CMakeFiles/request_parser.dir/all
-CMakeFiles/server.dir/all: CMakeFiles/server_c.dir/all
+CMakeFiles/server.dir/all: CMakeFiles/reply.dir/all
 CMakeFiles/server.dir/all: CMakeFiles/logger.dir/all
 CMakeFiles/server.dir/all: CMakeFiles/session.dir/all
-CMakeFiles/server.dir/all: CMakeFiles/reply.dir/all
+CMakeFiles/server.dir/all: CMakeFiles/server_c.dir/all
+CMakeFiles/server.dir/all: CMakeFiles/request_parser.dir/all
 CMakeFiles/server.dir/all: CMakeFiles/config_parser.dir/all
 CMakeFiles/server.dir/all: CMakeFiles/request_handler.dir/all
 	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/depend
 	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/usr/src/projects/rubberduck/build/CMakeFiles --progress-num=37,38 "Built target server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/usr/src/projects/rubberduck/build/CMakeFiles --progress-num=38,39 "Built target server"
 .PHONY : CMakeFiles/server.dir/all
 
 # Include target in all.
@@ -1478,7 +1478,7 @@ all: CMakeFiles/server.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/server.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /usr/src/projects/rubberduck/build/CMakeFiles 23
+	$(CMAKE_COMMAND) -E cmake_progress_start /usr/src/projects/rubberduck/build/CMakeFiles 24
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/server.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /usr/src/projects/rubberduck/build/CMakeFiles 0
 .PHONY : CMakeFiles/server.dir/rule

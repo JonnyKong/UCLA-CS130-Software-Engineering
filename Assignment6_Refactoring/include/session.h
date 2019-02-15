@@ -15,12 +15,15 @@
 using boost::asio::ip::tcp;
 using http::server::request;
 using http::server::request_parser;
-using http::server::reply; 
+using http::server::reply;
+
+typedef std::string URL_Requested;
+typedef int ReturnCode;
 
 class session : public std::enable_shared_from_this<session>
 {
 public:
-    session(boost::asio::io_service& io_service, 
+    session(boost::asio::io_service& io_service,
             std::shared_ptr<const RequestHandlerDispatcher> dispatcher);
     session(std::shared_ptr<const RequestHandlerDispatcher> dispatcher);    // For testing
     tcp::socket& socket();
@@ -33,10 +36,10 @@ public:
 
     /// Callbacks that actually handles the requests
     int handle_read_callback(std::shared_ptr<session> self,
-                              boost::system::error_code error, 
+                              boost::system::error_code error,
                               std::size_t bytes_transferred);
     int handle_write_callback(std::shared_ptr<session> self,
-                               boost::system::error_code error, 
+                               boost::system::error_code error,
                                std::size_t);
 
     tcp::socket socket_;
@@ -55,6 +58,9 @@ public:
 
     /// Dispatcher shouldn't change during a session
     const std::shared_ptr<const RequestHandlerDispatcher> dispatcher_;
+
+    static int request_count;
+    static std::map<URL_Requested, std::vector<ReturnCode>> request_received_;
 
     /// For unit testing
     friend class SessionTest;

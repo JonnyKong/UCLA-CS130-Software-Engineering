@@ -984,6 +984,33 @@ src/request_handler/request_handler_static.cc.s:
 	$(MAKE) -f CMakeFiles/request_handler.dir/build.make CMakeFiles/request_handler.dir/src/request_handler/request_handler_static.cc.s
 .PHONY : src/request_handler/request_handler_static.cc.s
 
+src/request_handler/request_handler_status.o: src/request_handler/request_handler_status.cc.o
+
+.PHONY : src/request_handler/request_handler_status.o
+
+# target to build an object file
+src/request_handler/request_handler_status.cc.o:
+	$(MAKE) -f CMakeFiles/request_handler.dir/build.make CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o
+.PHONY : src/request_handler/request_handler_status.cc.o
+
+src/request_handler/request_handler_status.i: src/request_handler/request_handler_status.cc.i
+
+.PHONY : src/request_handler/request_handler_status.i
+
+# target to preprocess a source file
+src/request_handler/request_handler_status.cc.i:
+	$(MAKE) -f CMakeFiles/request_handler.dir/build.make CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.i
+.PHONY : src/request_handler/request_handler_status.cc.i
+
+src/request_handler/request_handler_status.s: src/request_handler/request_handler_status.cc.s
+
+.PHONY : src/request_handler/request_handler_status.s
+
+# target to generate assembly for a file
+src/request_handler/request_handler_status.cc.s:
+	$(MAKE) -f CMakeFiles/request_handler.dir/build.make CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.s
+.PHONY : src/request_handler/request_handler_status.cc.s
+
 src/request_handler_dispatcher.o: src/request_handler_dispatcher.cc.o
 
 .PHONY : src/request_handler_dispatcher.o
@@ -1343,6 +1370,9 @@ help:
 	@echo "... src/request_handler/request_handler_static.o"
 	@echo "... src/request_handler/request_handler_static.i"
 	@echo "... src/request_handler/request_handler_static.s"
+	@echo "... src/request_handler/request_handler_status.o"
+	@echo "... src/request_handler/request_handler_status.i"
+	@echo "... src/request_handler/request_handler_status.s"
 	@echo "... src/request_handler_dispatcher.o"
 	@echo "... src/request_handler_dispatcher.i"
 	@echo "... src/request_handler_dispatcher.s"

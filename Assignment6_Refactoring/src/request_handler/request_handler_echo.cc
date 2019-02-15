@@ -20,9 +20,9 @@ std::unique_ptr<reply> RequestHandlerEcho::handleRequest(const request &request_
 }
 
 /**
- * requestToString() - Convert request struct to std::string. 
- * 
- * Because only RequestHandlerEcho uses this function, it is defined here 
+ * requestToString() - Convert request struct to std::string.
+ *
+ * Because only RequestHandlerEcho uses this function, it is defined here
  *  instead of an member function of request struct.
  */
 std::string RequestHandlerEcho::requestToString(const request &request_) {
@@ -33,7 +33,7 @@ std::string RequestHandlerEcho::requestToString(const request &request_) {
     request_str.append(request_.uri);
     request_str.append(" ");
 
-    switch (request_.http_version_minor) {    
+    switch (request_.http_version_minor) {
         case 0:
             request_str.append("HTTP/1.0"); break;
         case 1:

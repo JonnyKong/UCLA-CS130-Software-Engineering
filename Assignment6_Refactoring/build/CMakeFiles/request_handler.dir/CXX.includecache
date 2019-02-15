@@ -84,6 +84,12 @@ request_handler.h
 ../http/mime_types.h
 ../include/http/mime_types.h
 
+../include/request_handler/request_handler_status.h
+iostream
+-
+request_handler.h
+../include/request_handler/request_handler.h
+
 ../include/request_handler_dispatcher.h
 iostream
 -
@@ -93,6 +99,26 @@ config_parser.h
 ../include/config_parser.h
 request_handler/request_handler.h
 ../include/request_handler/request_handler.h
+
+../include/session.h
+cstdlib
+-
+iostream
+-
+boost/bind.hpp
+-
+boost/asio.hpp
+-
+http/request.h
+../include/http/request.h
+http/request_parser.h
+../include/http/request_parser.h
+http/reply.h
+../include/http/reply.h
+http/header.h
+../include/http/header.h
+request_handler_dispatcher.h
+../include/request_handler_dispatcher.h
 
 /usr/src/projects/rubberduck/src/http/mime_types.cc
 http/mime_types.h
@@ -120,6 +146,18 @@ iostream
 request_handler/request_handler_static.h
 /usr/src/projects/rubberduck/src/request_handler/request_handler/request_handler_static.h
 
+/usr/src/projects/rubberduck/src/request_handler/request_handler_status.cc
+iostream
+-
+cassert
+-
+request_handler/request_handler_status.h
+/usr/src/projects/rubberduck/src/request_handler/request_handler/request_handler_status.h
+request_handler_dispatcher.h
+/usr/src/projects/rubberduck/src/request_handler/request_handler_dispatcher.h
+session.h
+/usr/src/projects/rubberduck/src/request_handler/session.h
+
 /usr/src/projects/rubberduck/src/request_handler_dispatcher.cc
 iostream
 -
@@ -133,4 +171,6 @@ request_handler/request_handler_echo.h
 /usr/src/projects/rubberduck/src/request_handler/request_handler_echo.h
 request_handler/request_handler_error.h
 /usr/src/projects/rubberduck/src/request_handler/request_handler_error.h
+request_handler/request_handler_status.h
+/usr/src/projects/rubberduck/src/request_handler/request_handler_status.h
 

@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/usr/src/projects/rubberduck/src/request_handler/request_handler_echo.cc" "/usr/src/projects/rubberduck/build/CMakeFiles/request_handler.dir/src/request_handler/request_handler_echo.cc.o"
   "/usr/src/projects/rubberduck/src/request_handler/request_handler_error.cc" "/usr/src/projects/rubberduck/build/CMakeFiles/request_handler.dir/src/request_handler/request_handler_error.cc.o"
   "/usr/src/projects/rubberduck/src/request_handler/request_handler_static.cc" "/usr/src/projects/rubberduck/build/CMakeFiles/request_handler.dir/src/request_handler/request_handler_static.cc.o"
+  "/usr/src/projects/rubberduck/src/request_handler/request_handler_status.cc" "/usr/src/projects/rubberduck/build/CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o"
   "/usr/src/projects/rubberduck/src/request_handler_dispatcher.cc" "/usr/src/projects/rubberduck/build/CMakeFiles/request_handler.dir/src/request_handler_dispatcher.cc.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

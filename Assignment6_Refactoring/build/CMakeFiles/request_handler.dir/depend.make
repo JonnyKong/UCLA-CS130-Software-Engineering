@@ -33,6 +33,17 @@ CMakeFiles/request_handler.dir/src/request_handler/request_handler_static.cc.o: 
 CMakeFiles/request_handler.dir/src/request_handler/request_handler_static.cc.o: ../include/request_handler_dispatcher.h
 CMakeFiles/request_handler.dir/src/request_handler/request_handler_static.cc.o: ../src/request_handler/request_handler_static.cc
 
+CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o: ../include/config_parser.h
+CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o: ../include/http/header.h
+CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o: ../include/http/reply.h
+CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o: ../include/http/request.h
+CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o: ../include/http/request_parser.h
+CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o: ../include/request_handler/request_handler.h
+CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o: ../include/request_handler/request_handler_status.h
+CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o: ../include/request_handler_dispatcher.h
+CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o: ../include/session.h
+CMakeFiles/request_handler.dir/src/request_handler/request_handler_status.cc.o: ../src/request_handler/request_handler_status.cc
+
 CMakeFiles/request_handler.dir/src/request_handler_dispatcher.cc.o: ../include/config_parser.h
 CMakeFiles/request_handler.dir/src/request_handler_dispatcher.cc.o: ../include/http/header.h
 CMakeFiles/request_handler.dir/src/request_handler_dispatcher.cc.o: ../include/http/mime_types.h
@@ -43,6 +54,7 @@ CMakeFiles/request_handler.dir/src/request_handler_dispatcher.cc.o: ../include/r
 CMakeFiles/request_handler.dir/src/request_handler_dispatcher.cc.o: ../include/request_handler/request_handler_echo.h
 CMakeFiles/request_handler.dir/src/request_handler_dispatcher.cc.o: ../include/request_handler/request_handler_error.h
 CMakeFiles/request_handler.dir/src/request_handler_dispatcher.cc.o: ../include/request_handler/request_handler_static.h
+CMakeFiles/request_handler.dir/src/request_handler_dispatcher.cc.o: ../include/request_handler/request_handler_status.h
 CMakeFiles/request_handler.dir/src/request_handler_dispatcher.cc.o: ../include/request_handler_dispatcher.h
 CMakeFiles/request_handler.dir/src/request_handler_dispatcher.cc.o: ../src/request_handler_dispatcher.cc
 

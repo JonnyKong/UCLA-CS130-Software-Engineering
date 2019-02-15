@@ -97,6 +97,8 @@ boost/bind.hpp
 -
 boost/asio.hpp
 -
+map
+-
 session.h
 ../include/session.h
 request_handler_dispatcher.h
@@ -147,4 +149,6 @@ config_parser.h
 /usr/src/projects/rubberduck/src/config_parser.h
 logger.h
 /usr/src/projects/rubberduck/src/logger.h
+request_handler_dispatcher.h
+/usr/src/projects/rubberduck/src/request_handler_dispatcher.h
 

@@ -5,6 +5,7 @@
 #include "request_handler/request_handler_static.h"
 #include "request_handler/request_handler_echo.h"
 #include "request_handler/request_handler_error.h"
+#include "request_handler/request_handler_status.h"
 
 /**
  * Constructor - Construct the RequestHandler set. After initialization, all
@@ -18,13 +19,13 @@ RequestHandlerDispatcher::RequestHandlerDispatcher(const NginxConfig &config) {
 
 /**
  * getRequestHandler() - Given a request, return a pointer to corresponding
- *  request handler object with ***LONGEST PREFIX MATCH***. 
+ *  request handler object with ***LONGEST PREFIX MATCH***.
  *
  * When matching, trailing slashes should be removed, but preceding
  *  slashes should be kept. However, "/" is a valid path.
  *
  * For example, path "/static/" should be stipped to "/static".
- * 
+ *
  * This is FACTORY pattern.
  */
 std::unique_ptr<RequestHandler>
@@ -37,11 +38,9 @@ RequestHandlerDispatcher::getRequestHandler(const request &request_) const {
     std::shared_ptr<RequestHandler> matched_handler = nullptr;
     std::string matched_prefix;
     for (auto it = handler_configs_.begin(); it != handler_configs_.end(); ++it) {
-        std::cout << "Matching" << std::endl;
         if (uri.substr(0, it->first.length()) == it->first) {   // Prefix match
             if (it->first.length() > matched_prefix.length()) { // Longest
                 matched_prefix = it->first;
-                std::cout << "Matched" << std::endl;
             }
         }
     }
@@ -58,12 +57,19 @@ RequestHandlerDispatcher::getRequestHandler(const request &request_) const {
             *(handler_configs_.find(matched_prefix)->second->child_block_),
             matched_prefix
         );
-    } 
+    }
     else if (handler_configs_.find(matched_prefix)->second->tokens_[1] == EchoHandler) {
         return std::make_unique<RequestHandlerEcho>(
             *(handler_configs_.find(matched_prefix)->second->child_block_)
         );
     }
+
+    else if (handler_configs_.find(matched_prefix)->second->tokens_[1] == StatusHandler) {
+        return std::make_unique<RequestHandlerStatus>(
+            *(handler_configs_.find(matched_prefix)->second->child_block_)
+        );
+    }
+
 
     // Wouldn't actually get here. Keep GCC happy
     return std::make_unique<RequestHandlerError>(
@@ -111,10 +117,10 @@ bool RequestHandlerDispatcher::registerPath(HandlerType handler_type,
                                             std::shared_ptr<const NginxConfigStatement> statement) {
     if (statement->child_block_ == nullptr)
         return false;   // No child block
-    else if (statement->tokens_.size() != 2 || 
+    else if (statement->tokens_.size() != 2 ||
              statement->tokens_[0] != "handler")
         return false;   // Invalid format
-    
+
     // Retrieve path from child block. If there are multiple paths in this block,
     //  only use the first one.
     PathUri path;
@@ -128,7 +134,7 @@ bool RequestHandlerDispatcher::registerPath(HandlerType handler_type,
     // Remove trailing slashes
     while (path.length() > 1 && path.back() == '/')
         path.pop_back();
-    
+
     if (path == "")
         return false;   // No path in block, invalid
     else if (handler_configs_.find(path) != handler_configs_.end())
@@ -136,5 +142,7 @@ bool RequestHandlerDispatcher::registerPath(HandlerType handler_type,
     handler_configs_[path] = statement;
 
     std::cout << "Registered handler: " << path << std::endl;
-    return true;    
+    return true;
 }
+
+std::map<PathUri, std::shared_ptr<const NginxConfigStatement>> RequestHandlerDispatcher::handler_configs_;

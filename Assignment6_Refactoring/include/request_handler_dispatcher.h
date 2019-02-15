@@ -17,8 +17,9 @@ typedef std::string HandlerType;
 
 
 /* Handler types */
-static HandlerType StaticHandler =    "static";
-static HandlerType EchoHandler =      "echo";
+static const HandlerType StaticHandler =    "static";
+static const HandlerType EchoHandler =      "echo";
+static const HandlerType StatusHandler =      "status";
 
 
 class RequestHandlerDispatcher {
@@ -27,9 +28,9 @@ public:
 
     virtual std::unique_ptr<RequestHandler> getRequestHandler(const request &request_) const;
 
-private:
-    std::map<PathUri, std::shared_ptr<const NginxConfigStatement>> handler_configs_;
 
+    static std::map<PathUri, std::shared_ptr<const NginxConfigStatement>> handler_configs_;
+private:
     size_t initRequestHandlers(const NginxConfig &config);
     bool registerPath(HandlerType handler_type, std::shared_ptr<const NginxConfigStatement> statement);
 

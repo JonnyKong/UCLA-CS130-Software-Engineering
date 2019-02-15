@@ -51,6 +51,7 @@ add_library(request_handler
             src/request_handler/request_handler_static.cc
             src/request_handler/request_handler_echo.cc
             src/request_handler/request_handler_error.cc
+            src/request_handler/request_handler_status.cc
             src/http/mime_types.cc)
 
 

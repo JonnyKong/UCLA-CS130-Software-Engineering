@@ -8,6 +8,7 @@ CMakeFiles/session_test.dir/tests/session_test.cc.o: ../include/http/request.h
 CMakeFiles/session_test.dir/tests/session_test.cc.o: ../include/http/request_parser.h
 CMakeFiles/session_test.dir/tests/session_test.cc.o: ../include/request_handler/request_handler.h
 CMakeFiles/session_test.dir/tests/session_test.cc.o: ../include/request_handler/request_handler_echo.h
+CMakeFiles/session_test.dir/tests/session_test.cc.o: ../include/request_handler/request_handler_status.h
 CMakeFiles/session_test.dir/tests/session_test.cc.o: ../include/request_handler_dispatcher.h
 CMakeFiles/session_test.dir/tests/session_test.cc.o: ../include/session.h
 CMakeFiles/session_test.dir/tests/session_test.cc.o: /usr/src/googletest/googlemock/include/gmock/gmock-actions.h

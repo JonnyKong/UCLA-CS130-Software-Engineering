@@ -11,7 +11,6 @@
 #include "request_handler_dispatcher.h"  // Include typedefs
 #include "http/mime_types.h"
 
-
 class RequestHandlerTest : public :: testing::Test{
 protected:
   http::server::request req;
@@ -26,7 +25,6 @@ protected:
   NginxConfig echo_handler_config;
   NginxConfig error_handler_config;
   NginxConfig  handler_config;
-
 
 };
 

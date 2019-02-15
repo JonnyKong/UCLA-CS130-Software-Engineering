@@ -9,6 +9,7 @@
 #include "request_handler_dispatcher.h"
 #include "request_handler/request_handler.h"
 #include "request_handler/request_handler_echo.h"
+#include "request_handler/request_handler_status.h"
 
 using ::testing::Return;
 using ::testing::_;
@@ -38,8 +39,8 @@ TEST_F(SessionTest, GoodRequest) {
     .WillRepeatedly(Return(empty_handler));
 
   sprintf(new_session -> data_, "GET / HTTP/1.1\r\nHost: www.example.com\r\nConnection: close\r\n\r\n");
-  int ret = new_session -> handle_read_callback(new_session->shared_from_this(), 
-                                                boost::system::error_code(), 
+  int ret = new_session -> handle_read_callback(new_session->shared_from_this(),
+                                                boost::system::error_code(),
                                                 strlen(new_session->data_));
   EXPECT_EQ(ret, 0);
 }
@@ -51,8 +52,8 @@ TEST_F(SessionTest, BadRequest) {
     .WillRepeatedly(Return(empty_handler));
 
   sprintf(new_session -> data_, "GET HTTP/1.1\r\nHost: www.example.com\r\nConnection: close\r\n\r\n");
-  int ret = new_session -> handle_read_callback(new_session->shared_from_this(), 
-                                                boost::system::error_code(), 
+  int ret = new_session -> handle_read_callback(new_session->shared_from_this(),
+                                                boost::system::error_code(),
                                                 strlen(new_session->data_));
   EXPECT_EQ(ret, 1);
 }
@@ -64,8 +65,8 @@ TEST_F(SessionTest, IndeterminateRequest) {
     .WillRepeatedly(Return(empty_handler));
 
   sprintf(new_session -> data_, "GET / HTTP/1.1\r\nHost: www.example.com\r\nConnection: close\r\n");
-  int ret = new_session -> handle_read_callback(new_session->shared_from_this(), 
-                                                boost::system::error_code(), 
+  int ret = new_session -> handle_read_callback(new_session->shared_from_this(),
+                                                boost::system::error_code(),
                                                 strlen(new_session->data_));
   EXPECT_EQ(ret, 2);
 }
@@ -76,8 +77,8 @@ TEST_F(SessionTest, WriteCallback) {
   EXPECT_CALL(*dispatcher, getRequestHandler(_))
     .WillRepeatedly(Return(empty_handler));
 
-  int ret = new_session -> handle_read_callback(new_session->shared_from_this(), 
-                                                boost::system::error_code(), 
+  int ret = new_session -> handle_read_callback(new_session->shared_from_this(),
+                                                boost::system::error_code(),
                                                 strlen(new_session->data_));
   EXPECT_EQ(ret, 2);
 }
