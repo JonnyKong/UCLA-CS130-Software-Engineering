@@ -1,5 +1,0 @@
-if(EXISTS "/usr/src/projects/rubberduck/build/reply_test[1]_tests.cmake")
-  include("/usr/src/projects/rubberduck/build/reply_test[1]_tests.cmake")
-else()
-  add_test(reply_test_NOT_BUILT reply_test_NOT_BUILT)
-endif()
