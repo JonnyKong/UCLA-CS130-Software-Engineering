@@ -37,7 +37,11 @@ The primary function of this program is to set up a server that can do simple ec
 
 ### Logging
 
-Although logging is not shown in the chart above, it is used in basically every file to record some important steps of the server. logger.h contains the schema of the logger class. It adopts singleton design pattern to make sure there is only one running instance of the logger. The logger has a specific method for different level the of severity and it has a specific logging function for HTTP request.
+Although logging is not shown in the chart above, it is used in basically every file to record some important steps of the server. `logger.h` contains the schema of the logger class. It adopts singleton design pattern to make sure there is only one running instance of the logger. The logger has a specific method for different level the of severity and it has a specific logging function for HTTP request.
+
+`void logTraceHTTPrequest(request http_request, tcp::socket& m_socket);` 
+
+This method above the signature for logging HTTP class.
 
 ### HTTP Folder
 This folder contains several classes related to HTTP (not shown on the graph):
@@ -50,7 +54,7 @@ This folder contains several classes related to HTTP (not shown on the graph):
 
 ### server.h
 
-Defines class `session`. A server object is initiated  
+Defines class `server`. A server object is initiated  
 
 ### session.h
 
@@ -62,12 +66,12 @@ Defines class `RequestHandlerDispatcher`. Each server object initializes and own
 
 ### request_handler.h
 
-Defines virtual base class `RequestHandler`. Given a `request` object, the handlers returns a pointer to a new `reply` object. Current implementation includes several kinds of handlers that implements this interface:
+Defines virtual base class `RequestHandler`. Given a `request` object, the handlers return a pointer to a new `reply` object. The current implementation includes several kinds of handlers that implement this interface:
 
 * `request_handler_echo.h`: Defines class `RequestHandlerEcho`. It returns a `response` whose body field resembles the `request`.
 * `request_handler_static.h`: Defines class `RequestHandlerEcho`. It returns a `response` containing the requested file with corresponding MIME type formats.
 * `request_handler_status.h`: Defines class `RequestHandlerStatus`. It returns a `response` containing the current server status (request history, registered handlers, etc).
-* `request_handler_error.h`: Defiles class `RequestHandlerError`. It returns a `response` containing a 404 html page. This handler is registered with path `/`, so this handler will be invoked for requests to unspecified paths.
+* `request_handler_error.h`: Defiles class `RequestHandlerError`. It returns a `response` containing a 404 HTML page. This handler is registered with path `/`, so this handler will be invoked for requests to unspecified paths.
 
 ### Prerequisites
 
