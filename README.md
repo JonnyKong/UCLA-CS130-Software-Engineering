@@ -38,16 +38,34 @@ TODO brief explaination of the program, descritiption
 ### Logging
 
 ### HTTP Folder
+This folder contains several classes related to HTTP (not shown on the graph):
 
-### `session.h`
+* `header.h`: Defines struct for common header format
+* `request.h`: Defines struct for HTTP requests
+* `reply.h`: Defines for HTTP replies
+* `request_parser.h`: Parses HTTP requests 
+* `mime_types.h`: Provides methods for converting file extensions to MIME types
 
-### `server.h`
+### server.h
 
-### `dispatcher.h`
+Defines class `session`. A server object is initiated  
 
-### `request_handler.h`
+### session.h
 
+Defines class `session`. A session object is initiated by the server upon receiving a new request.
 
+### dispatcher.h
+
+Defines class `RequestHandlerDispatcher`. Each server object initializes and owns a `RequestHandlerDispatcher` class. Given a `request` object, the dispatcher returns a base class pointer to a new handler object that has been registered using longest prefix matching.
+
+### request_handler.h
+
+Defines virtual base class `RequestHandler`. Given a `request` object, the handlers returns a pointer to a new `reply` object. Current implementation includes several kinds of handlers that implements this interface:
+
+* `request_handler_echo.h`: Defines class `RequestHandlerEcho`. It returns a `response` whose body field resembles the `request`.
+* `request_handler_static.h`: Defines class `RequestHandlerEcho`. It returns a `response` containing the requested file with corresponding MIME type formats.
+* `request_handler_status.h`: Defines class `RequestHandlerStatus`. It returns a `response` containing the current server status (request history, registered handlers, etc).
+* `request_handler_error.h`: Defiles class `RequestHandlerError`. It returns a `response` containing a 404 html page. This handler is registered with path `/`, so this handler will be invoked for requests to unspecified paths.
 
 ### Prerequisites
 
