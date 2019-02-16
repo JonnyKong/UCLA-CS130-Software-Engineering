@@ -1,36 +1,53 @@
 # UCLA-CS130-Software-Engineering
 
-                        +----------------------------+
-                        |        server_main.h       +-----------------------+
-                        +-------------+--------------+             get parsed|
-                                      |                            config    |
-                                      |                                      |
-                                      v                                      v
-                        +----------------------------+         +-------------+--------------+
-                   +----+          server.h          +----+    |      config_parser.h       |
-                   |    +----------------------------+    |    +----------------------------+
-                   |                                      |
-    init a session |                      setup dispatcher|
-    object for each|                      based on parsed |
-    request        v                      config          v
-     +-------------+--------------+        +--------------+-------------+
-     |         session.h          +------->+        dispatcher.h        |
-     +-------------+--------------+  get   +--------------+-------------+
-                   |                 hdlr                 |
-        get parsed |                         return an    |
-        request    v                         instance of  v
-     +-------------+--------------+        +--------------+-------------+
-     |      request_parser.h      |        |  request_handler.h         |
-     +----------------------------+        |  +-request_handler_static.h|
-                                           |  +-request_handler_echo.h  |
-                                           |  +-request_handler_error.h |
-                                           |  +-request_handler_status.h|
-                                           +----------------------------+
-One Paragraph of project description goes here
-
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+### Overall Structure of Source Code
+
+```
+                    +----------------------------+
+                    |        server_main.h       +-----------------------+
+                    +-------------+--------------+             get parsed|
+                                  |                            config    |
+                                  |                                      |
+                                  v                                      v
+                    +----------------------------+         +-------------+--------------+
+               +----+          server.h          +----+    |      config_parser.h       |
+               |    +----------------------------+    |    +----------------------------+
+               |                                      |
+init a session |                      setup dispatcher|
+object for each|                      based on parsed |
+request        v                      config          v
+ +-------------+--------------+        +--------------+-------------+
+ |         session.h          +------->+        dispatcher.h        |
+ +-------------+--------------+  get   +--------------+-------------+
+               |                 hdlr                 |
+    get parsed |                         return an    |
+    request    v                         instance of  v
+ +-------------+--------------+        +--------------+-------------+
+ |      request_parser.h      |        |  request_handler.h         |
+ +----------------------------+        |  +-request_handler_static.h|
+                                       |  +-request_handler_echo.h  |
+                                       |  +-request_handler_error.h |
+                                       |  +-request_handler_status.h|
+                                       +----------------------------+
+```
+
+TODO brief explaination of the program, descritiption
+
+### Logging
+
+### HTTP Folder
+
+### `session.h`
+
+### `server.h`
+
+### `dispatcher.h`
+
+### `request_handler.h`
+
+
 
 ### Prerequisites
 
