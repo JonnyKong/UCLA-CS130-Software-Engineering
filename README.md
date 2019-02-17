@@ -87,8 +87,13 @@ A step by step series of examples that tell you how to get a development env run
 
 Say what the step will be
 
+To build the project, run these following commands from the root directory:
+
 ```
-Give the example
+$ mkdir build (only do this if build directory has not been created)
+$ cd build
+$ cmake ..
+$ make
 ```
 
 And repeat
@@ -99,11 +104,52 @@ until finished
 
 End with an example of getting some data out of the system or using it for a little demo
 
-## Running the tests
+### CMakeLists
+
+The CMakeLists file specifies rules that connect all components of the project. If you would like to add your own component, here is the instruction on how to do so:
+
+1. Add an independent class and test for that class,
+
+   `add_library(new_class src/new_class.cc)`
+
+   Append `new_class` to the argument list of  `target_link_libraries(server ...)`  
+
+   `add_executable(new_class_test tests/new_class_test.cc)`
+
+   `target_link_libraries(new_class_test new_class gtest_main)`
+
+2. Add a new request handler and test for that handler
+
+   Append `src/new_handler.cc` to the argument list of  `add_library(request_handler ...)`
+
+   `target_link_libraries(new_handler_test new_handler gtest_main)`
+
+3. Include new test in the test coverage report
+
+   `gtest_discover_tests(new_class_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)`
+
+   Append `new_class_test` to the argument list of `generate_coverage_report(TARGETS ...)`
+
+Note that the instruction above is the minimum that you have to do to build successfully. If there are more dependencies for the class, you need to include them in each step as well.
+
+
+
+## Running the existing tests
 
 Explain how to run the automated tests for this system
 
+There are two ways to run tests: 
+
+1. go to the `build` directory of the project and run `make test` 
+2. go to the `tests` directory of the project and run `../build/bin/certain_test` (replace `certain_test` with the specific test file that you want to run)
+
+Currently, there are in total 6 test binary files, `config_parser_test`, `logger_test`, `reply_test`, `request_handler_test`, `request_parser_test`, `session_test`
+
 ### Break down into end to end tests
+
+### Tests Breakdown
+
+
 
 Explain what these tests test and why
 
