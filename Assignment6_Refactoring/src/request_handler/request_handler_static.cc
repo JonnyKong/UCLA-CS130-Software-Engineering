@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "request_handler/request_handler_static.h"
+#include "session.h"
 
 /**
  * constructor - If no root in config string, use "/" as default.
@@ -21,10 +22,10 @@ RequestHandlerStatic::RequestHandlerStatic(const NginxConfig &config, const Path
 /**
  * handleRequest() - Fill reply with static files.
  */
-std::unique_ptr<reply> RequestHandlerStatic::handleRequest(const request &request) noexcept {
+std::unique_ptr<reply> RequestHandlerStatic::handleRequest(const request &request_) noexcept {
     std::unique_ptr<reply> reply_ = std::make_unique<reply>();
     // Substitute matched prefix with root
-    std::string uri = request.uri;
+    std::string uri = request_.uri;
     uri.replace(0, prefix.length(), root);
     uri.replace(0, 1, "../");    // Change to relative path     // TODO: A more elegant solution?
     std::cout << "RequestHandlerStatic::handleRequest() Serving file: " << uri << std::endl;
@@ -33,12 +34,22 @@ std::unique_ptr<reply> RequestHandlerStatic::handleRequest(const request &reques
     boost::filesystem::path boost_path(uri);
     if (!boost::filesystem::exists(uri) || !boost::filesystem::is_regular_file(uri)) {
         reply_ = http::server::reply::stock_reply(reply::not_found);
+
+        //update the request records
+        session::request_count++;
+        session::request_received_[request_.uri].push_back(reply_->status);
+
         return reply_;
     }
 
     std::ifstream f(uri.c_str(), std::ios::in | std::ios::binary);
     if (!f) {
         reply_ = http::server::reply::stock_reply(reply::not_found);
+
+        //update the request records
+        session::request_count++;
+        session::request_received_[request_.uri].push_back(reply_->status);
+
         return reply_;
     }
 
@@ -61,5 +72,10 @@ std::unique_ptr<reply> RequestHandlerStatic::handleRequest(const request &reques
     reply_->headers[0].value = std::to_string(body.length());
     reply_->headers[1].name = "Content-Type";
     reply_->headers[1].value = http::server::mime_types::extension_to_type(extension);
+
+    //update the request records
+    session::request_count++;
+    session::request_received_[request_.uri].push_back(reply_->status);
+
     return reply_;
 }

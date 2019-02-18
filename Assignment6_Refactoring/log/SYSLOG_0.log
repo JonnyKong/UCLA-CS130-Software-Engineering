@@ -1,16 +1,16 @@
-[2019-02-15 04:24:42.891185]:[0x00007fef632cc740]:Trace: Parsing the config file...
-[2019-02-15 04:24:42.893247]:[0x00007fef632cc740]:Trace: Done parsing!
-[2019-02-15 04:24:42.893518]:[0x00007fef632cc740]:Trace: Server has been initialized
-[2019-02-15 04:24:42.893716]:[0x00007fef632cc740]:Trace: Starting server on port: 8080
-[2019-02-15 04:24:43.899555]:[0x00007fef632cc740]:Debug: Read handler
-[2019-02-15 04:24:43.899942]:[0x00007fef632cc740]:Trace: GET /echo HTTP 1.1 Sender IP: 127.0.0.1
-[2019-02-15 04:24:43.900186]:[0x00007fef632cc740]:Debug: Good Request
-[2019-02-15 04:24:43.900456]:[0x00007fef632cc740]:Debug: Reply with status: 404
-[2019-02-15 04:24:43.900779]:[0x00007fef632cc740]:Debug: write handler
-[2019-02-15 04:24:43.912768]:[0x00007fef632cc740]:Debug: Read handler
-[2019-02-15 04:24:43.913125]:[0x00007fef632cc740]:Trace: GET HTTP/1.1 HTTP 0.0 Sender IP: 127.0.0.1
-[2019-02-15 04:24:43.913411]:[0x00007fef632cc740]:Warning: Bad Request
-[2019-02-15 04:24:43.913826]:[0x00007fef632cc740]:Debug: write handler
-[2019-02-15 04:24:43.919216]:[0x00007fef632cc740]:Debug: Read handler
-[2019-02-15 04:24:43.919519]:[0x00007fef632cc740]:Trace: GET / HTTP 1.1 Sender IP: 127.0.0.1
-[2019-02-15 04:24:43.919775]:[0x00007fef632cc740]:Debug: Read handler
+[2019-02-18 21:19:27.994052]:[0x00007f077e27e740]:Trace: Parsing the config file...
+[2019-02-18 21:19:27.996909]:[0x00007f077e27e740]:Trace: Done parsing!
+[2019-02-18 21:19:27.997420]:[0x00007f077e27e740]:Trace: Server has been initialized
+[2019-02-18 21:19:27.997801]:[0x00007f077e27e740]:Trace: Starting server on port: 8080
+[2019-02-18 21:19:28.976455]:[0x00007f077e27e740]:Debug: Read handler
+[2019-02-18 21:19:28.977087]:[0x00007f077e27e740]:Trace: GET /echo HTTP 1.1 Sender IP: 127.0.0.1
+[2019-02-18 21:19:28.977722]:[0x00007f077e27e740]:Debug: Good Request
+[2019-02-18 21:19:28.978374]:[0x00007f077e27e740]:Debug: Reply with status: 404
+[2019-02-18 21:19:28.979064]:[0x00007f077e27e740]:Debug: write handler
+[2019-02-18 21:19:28.989287]:[0x00007f077e27e740]:Debug: Read handler
+[2019-02-18 21:19:28.989656]:[0x00007f077e27e740]:Trace: GET HTTP/1.1 HTTP 0.0 Sender IP: 127.0.0.1
+[2019-02-18 21:19:28.989981]:[0x00007f077e27e740]:Warning: Bad Request
+[2019-02-18 21:19:28.990485]:[0x00007f077e27e740]:Debug: write handler
+[2019-02-18 21:19:28.996205]:[0x00007f077e27e740]:Debug: Read handler
+[2019-02-18 21:19:28.996608]:[0x00007f077e27e740]:Trace: GET / HTTP 1.1 Sender IP: 127.0.0.1
+[2019-02-18 21:19:28.996921]:[0x00007f077e27e740]:Debug: Read handler

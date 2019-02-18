@@ -50,16 +50,16 @@ int session::handle_read_callback(std::shared_ptr<session> self,
             logger->logDebugFile("Good Request");
             auto handler = dispatcher_ -> getRequestHandler(request_);
             reply_ = handler -> handleRequest(request_);
-            session::request_count++;
-            session::request_received_[request_.uri].push_back(reply_->status);
+            // session::request_count++;
+            // session::request_received_[request_.uri].push_back(reply_->status);
             logger->logDebugFile("Reply with status: " + std::to_string(reply_->status));
             handle_write();
             return 0;
         } else if (result == request_parser::bad) {
             logger->logWarningFile("Bad Request");
             reply_ = reply::stock_reply(reply::bad_request);    // Bad request
-            session::request_count++;
-            session::request_received_[request_.uri].push_back(reply_->status);
+            // session::request_count++;
+            // session::request_received_[request_.uri].push_back(reply_->status);
             handle_write();
             return 1;
         } else {

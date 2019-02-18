@@ -11,6 +11,8 @@
 #include "request_handler_dispatcher.h"  // Include typedefs
 #include "http/mime_types.h"
 
+#include "session.h"
+
 class RequestHandlerTest : public :: testing::Test{
 protected:
   http::server::request req;

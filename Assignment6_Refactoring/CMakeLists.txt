@@ -61,6 +61,8 @@ target_link_libraries(server server_c session request_handler request_parser log
                       config_parser reply Boost::system Boost::filesystem
                       Boost::regex Boost::log_setup Boost::log)
 
+target_link_libraries(session logger Boost::regex Boost::log_setup Boost::log Boost::system Boost::filesystem)
+
 # TODO(!): Update test executable name, srcs, and deps
 add_executable(config_parser_test tests/config_parser_test.cc)
 add_executable(request_parser_test tests/request_parser_test.cc)
@@ -71,11 +73,10 @@ add_executable(request_handler_test tests/request_handler_test.cc)
 target_link_libraries(config_parser_test config_parser gtest_main)
 target_link_libraries(request_parser_test request_parser gtest_main)
 target_link_libraries(logger_test logger gtest_main Boost::log)
-target_link_libraries(request_handler_test request_handler gtest_main request_parser config_parser reply Boost::system Boost::filesystem)
+target_link_libraries(request_handler_test request_handler session gtest_main request_parser config_parser reply)
 target_link_libraries(reply_test reply gtest_main Boost::system)
 target_link_libraries(session_test session request_handler request_parser
-                      gtest_main gmock_main logger Boost::system
-                      Boost::filesystem Boost::regex Boost::log_setup Boost::log)
+                      gtest_main gmock_main)
 
 
 
@@ -93,5 +94,5 @@ add_test(NAME integration_test COMMAND ${BASH_PROGRAM} ${CMAKE_CURRENT_SOURCE_DI
 # TODO(!): Update with target/test targets
 include(cmake/CodeCoverageReportConfig.cmake)
 generate_coverage_report(TARGETS session server config_parser request_parser
-                         reply logger request_handler TESTS config_parser_test request_parser_test
-                         reply_test session_test logger_test request_handler_test)
+                         reply logger request_handler TESTS config_parser_test request_parser_test request_handler_test
+                         reply_test session_test logger_test)
