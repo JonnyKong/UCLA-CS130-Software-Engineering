@@ -145,17 +145,34 @@ There are two ways to run tests:
 
 Currently, there are in total 6 test binary files, `config_parser_test`, `logger_test`, `reply_test`, `request_handler_test`, `request_parser_test`, `session_test`
 
-### Break down into end to end tests
-
 ### Tests Breakdown
 
-
+#### Unit Test
 
 Explain what these tests test and why
 
 ```
 Give an example
 ```
+
+There are now unit tests for 6 classes. The following is a description about what each of them is about.
+
+1. reply_test: It tests whether the reply generated given a status code is valid and correct.
+2. request_parser_test: It tests whether the parser can report invalid HTTP request and convert valid request string to request object with the correct headers and body.
+3. config_parser_test: It tests whether the parser can correctly parse the config file to a NginxConfig object.
+4. logger_test: It tests whether the string output by logger is as expected in each severity.
+5. session_test: This is a mock test that tests whether the session object passes valid/invalid requests to request handler and shuts down afterwards correctly. 
+6. request_handler_test: It tests whether the request handler handles all types of requests (echo, static, status) correctly and returns the correct HTTP response object.
+
+#### Integration Test
+
+The integration test for this project is implemented by shell script`/tests/test.sh`. To run it separately, just run `./tests/test.sh` from the root directory. The Integration test now consists of three tests:
+
+1. A successful echo response of a valid request
+2. A failed echo response because of insufficient request headers
+3. A failed echo response because of invalid request body
+
+
 
 ### And coding style tests
 
@@ -167,7 +184,11 @@ Give an example
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+To run the server, run the following command from the root server
+
+`./build/bin/server ./conf/http.conf`
+
+You can use your own configuration file as the argument for the program.
 
 ## Built With
 
