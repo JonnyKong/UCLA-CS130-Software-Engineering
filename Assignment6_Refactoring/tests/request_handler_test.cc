@@ -10,7 +10,6 @@
 #include "http/reply.h"
 #include "request_handler_dispatcher.h"  // Include typedefs
 #include "http/mime_types.h"
-
 #include "session.h"
 
 class RequestHandlerTest : public :: testing::Test{
@@ -26,6 +25,7 @@ protected:
   NginxConfig static_handler_config;
   NginxConfig echo_handler_config;
   NginxConfig error_handler_config;
+  NginxConfig status_handler_config;
   NginxConfig  handler_config;
 
 };
