@@ -246,35 +246,19 @@ RequestHandlerDispatcher::getRequestHandler(const request &request_) const {
 }
 ```
 
-### CMakeLists
+5. Add new handler to CMakeLists.txt
 
-The CMakeLists file specifies rules that connect all components of the project. If you would like to add your own component, here is the instruction on how to do so:
+The CMakeLists file specifies rules that connect all components of the project. If you would like to add your own request handler, just compile the new handler into the `request_handler` library by updating the `CMakeLists.txt` file:
+```pytho
+add_library(request_handler
+            src/request_handler_dispatcher.cc
+            src/request_handler/request_handler_static.cc
+            ...
+            src/request_handler/request_handler_status.cc   # Add the new handler
+            src/http/mime_types.cc)
+```
 
-1. Add an independent class and test for that class,
-
-   `add_library(new_handler src/<new_handler>.cc)`
-
-   Append `new_handler` to the argument list of  `target_link_libraries(server ...)`  
-
-   `add_executable(<new_handler_test> tests/<new_handler_test>.cc)`
-
-   `target_link_libraries(<new_handler_test> <new_handler> gtest_main)`
-
-2. Add a new request handler and test for that handler
-
-   Append `src/<new_handler>.cc` to the argument list of  `add_library(request_handler ...)`
-
-   `target_link_libraries(<new_handler_test> <new_handler> gtest_main)`
-
-3. Include new test in the test coverage report
-
-   `gtest_discover_tests(<new_handler_test> WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)`
-
-   Append `new_handler_test` to the argument list of `generate_coverage_report(TARGETS ...)`
-
-Note that the instruction above is the minimum that you have to do to build successfully. If there are more dependencies for the class, you need to include them in each step as well.
-
-Note these libs are required to be linked to the project:
+Note that the instruction above is the minimum that you have to do to build successfully. If there are more dependencies for the class, you need to include them in each step as well. Also, these libs are required:
 * Boost::system
 * Boost::filesystem
 * Boost::regex
