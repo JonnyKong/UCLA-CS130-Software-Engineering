@@ -141,15 +141,15 @@ Here we use the `StatusHandler` class as an example to demonstrate how to add a 
 
 1. Declare the new status handler, specify the url path and other attributes (if any) for `StatusHandler` in the HTTP config file
 ```python
-# File: http.conf 
+# File: conf/http.conf 
 handler status{
     location /status;
 }
 ```
    
-2. Define the class for the new request handler. The `StatusHandler` class here uses public inheritance to inherit the `RequestHanlder` base class and overrides the `handleRequest` method. The header file `request_handler_status.h` should be in `include\request_handler` folder and the .cc file `request_handler_status.cc` should be in `src\request_handler` folder.
+2. Define the class for the new request handler. The `StatusHandler` class here uses public inheritance to inherit the `RequestHanlder` base class and overrides the `handleRequest` method. The header file `request_handler_status.h` should be in `include/request_handler` folder and the .cc file `request_handler_status.cc` should be in `src/request_handler` folder.
 ```C++
-/* File: request_handler_status.h */
+/* File: include/request_handler/request_handler_status.h */
 #include <iostream>
 #include "request_handler.h"
 
@@ -192,7 +192,7 @@ std::string RequestHandlerStatus::requestToString(const request &request_) {
 ```
 3. In `request_handler_dispatcher.h`, add the handler type for the new added status handler 
 ```C++
-/* File: request_handler_dispatcher.h */
+/* File: include/request_handler_dispatcher.h */
 // Handler types already defined
 static const HandlerType StaticHandler = "static";
 static const HandlerType EchoHandler =   "echo";
@@ -203,7 +203,7 @@ static const HandlerType StatusHandler = "status";
 4. Include the `request_handler_status.h` header file in `request_handler_dispatcher.cc`, add the option for `StatusHandler` in the matching of prefixs and request handlers in `RequestHandlerDispatcher::getRequestHandler`
 
 ```C++
-/* File: request_handler_dispatcher.cc */
+/* File: src/request_handler/request_handler_dispatcher.cc */
 // Handlers already defined
 #include "request_handler_dispatcher.h"
 #include "request_handler/request_handler.h"
@@ -245,7 +245,61 @@ RequestHandlerDispatcher::getRequestHandler(const request &request_) const {
    ...
 }
 ```
+5. Append the new handler `src/request_handler_status.cc` to the argument list of `add_library(request_handler ...)` in `CMakeLists.txt`
+```python
+# File: CMakeLists.txt
+add_library(request_handler
+            src/request_handler_dispatcher.cc
+            src/request_handler/request_handler_static.cc
+            src/request_handler/request_handler_echo.cc
+            src/request_handler/request_handler_error.cc
+            # link the new request handler class
+            src/request_handler/request_handler_status.cc
+            src/http/mime_types.cc)
+```
+   
+6. Add unit tests for the new request handler in `test/request_handler_test.cc`
+```C++
+/* File: test/request_handler_test.cc */
+#include <iostream>
 
+#include "gtest/gtest.h"
+#include "request_handler/request_handler_echo.h"
+#include "request_handler/request_handler_error.h"
+//include the header file of new request handler 
+#include "request_handler/request_handler_static.h"
+#include "http/request.h"
+#include "http/request_parser.h"
+#include "config_parser.h"
+#include "http/reply.h"
+#include "request_handler_dispatcher.h"  // Include typedefs
+#include "http/mime_types.h"
+#include "session.h"
+
+//Test fixture for request handler unit testing
+class RequestHandlerTest : public :: testing::Test{
+protected:
+  http::server::request req;
+  NginxConfigParser config_parser;
+  NginxConfig config;
+  http::server::request_parser::result_type result;
+  http::server::request_parser request_parser;
+  std::unique_ptr<http::server::reply> reply_;
+  char c;
+  std::ifstream f;
+  NginxConfig static_handler_config;
+  NginxConfig echo_handler_config;
+  NginxConfig error_handler_config;
+  //Add the NginxConfig object for status request handler for unit test
+  NginxConfig status_handler_config;
+};
+
+TEST_F(RequestHandlerTest, StatusHandlerRequestTest){
+    //Write Unit test for new added status hanlder
+    ...
+}
+```
+   
 ### CMakeLists
 
 The CMakeLists file specifies rules that connect all components of the project. If you would like to add your own component, here is the instruction on how to do so:
