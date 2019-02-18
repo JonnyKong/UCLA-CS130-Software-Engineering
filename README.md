@@ -73,6 +73,135 @@ Defines virtual base class `RequestHandler`. Given a `request` object, the handl
 * `request_handler_status.h`: Defines class `RequestHandlerStatus`. It returns a `response` containing the current server status (request history, registered handlers, etc).
 * `request_handler_error.h`: Defiles class `RequestHandlerError`. It returns a `response` containing a 404 HTML page. This handler is registered with path `/`, so this handler will be invoked for requests to unspecified paths.
 
+### How to Add a Request Handler
+Here we use the `StatusHandler` class as an example to demonstrate how to add a new request handler to the server.
+
+1. Declare the new status handler, specify the url path and other attributes (if any) for `StatusHandler` in the HTTP config file
+```python
+#http.conf 
+
+#add the declaration of new status request handler
+handler status{
+	location /status;
+}
+```
+   
+2. Define the class for the new request handler. The `StatusHandler` class here uses public inheritance to inherit the `RequestHanlder` base class and overrides the `handleRequest` method. The header file `request_handler_status.h` should be in `include\request_handler` folder and the .cc file `request_handler_status.cc` should be in `src\request_handler` folder.
+```C++
+/**
+ * request_handler_status.h
+ */
+
+#ifndef REQUEST_HANDLER_STATUS_H
+#define REQUEST_HANDLER_STATUS_H
+
+#include <iostream>
+//include the request handler base class header file
+#include "request_handler.h"
+
+//inhertis the Request Handler base class
+class RequestHandlerStatus : public RequestHandler {
+public:
+    //Define the constructor of RequestHandlerStatus class. In our implementation we simply do nothing, you can initialize attributes or call other methods in your own request handler
+    explicit RequestHandlerStatus(const NginxConfig &config) {}    
+    //override the handlerRequest method
+    std::unique_ptr<reply> handleRequest(const request &request_) noexcept override;
+
+   //define other methods of status request handler 
+    std::string requestToString(const request &request_);
+    ...
+
+};
+
+#endif  // REQUEST_HANDLER_STATUS_H
+```
+In the .cc file we implement the methods of `StatusHandler`
+```C++
+/**
+ * request_handler_status.cc
+ */
+#include <iostream>
+#include <cassert>
+
+//include the request_handler_status.h file
+#include "request_handler/request_handler_status.h"
+//include other header files if needed
+#include "request_handler_dispatcher.h"
+#include "session.h"
+
+std::unique_ptr<reply> RequestHandlerStatus::handleRequest(const request &request_) noexcept {
+   //implement the handleRequest method here
+   ...
+}
+
+std::string RequestHandlerStatus::requestToString(const request &request_) {
+   //implement the requestToString method here
+   ...
+}
+```
+3. In `request_handler_dispatcher.h`, add the handler type for the new added status handler 
+```C++
+/* Handler types */
+static const HandlerType StaticHandler =    "static";
+static const HandlerType EchoHandler =      "echo";
+//add HandlerType for status handler
+static const HandlerType StatusHandler =      "status";
+```
+4. Include the `request_handler_status.h` header file in `request_handler_dispatcher.cc`, add the option for `StatusHandler` in the matching of prefixs and request handlers in `RequestHandlerDispatcher::getRequestHandler`
+
+```C++
+/**
+ * request_handler_dispatcher.cc
+ */
+#include <iostream>
+
+#include "request_handler_dispatcher.h"
+#include "request_handler/request_handler.h"
+#include "request_handler/request_handler_static.h"
+#include "request_handler/request_handler_echo.h"
+#include "request_handler/request_handler_error.h"
+//include the new added request handler
+#include "request_handler/request_handler_status.h"
+
+...
+
+//Add an matching option in getRequestHandler method
+std::unique_ptr<RequestHandler>
+RequestHandlerDispatcher::getRequestHandler(const request &request_) const {
+
+   //other codes
+   ...
+   
+   if (handler_configs_.find(matched_prefix) == handler_configs_.end()) {
+        // Failed to match to any handler
+        NginxConfigStatement empty_statement;
+        return std::make_unique<RequestHandlerError>(
+            NginxConfig()
+        );
+   }
+   else if (handler_configs_.find(matched_prefix)->second->tokens_[1] == StaticHandler) {
+        return std::make_unique<RequestHandlerStatic>(
+            *(handler_configs_.find(matched_prefix)->second->child_block_),
+            matched_prefix
+        );
+   }
+   else if (handler_configs_.find(matched_prefix)->second->tokens_[1] == EchoHandler) {
+        return std::make_unique<RequestHandlerEcho>(
+            *(handler_configs_.find(matched_prefix)->second->child_block_)
+        );
+   }
+   // add the matching of StatusHandler's prefix and class object 
+   else if (handler_configs_.find(matched_prefix)->second->tokens_[1] == StatusHandler) {
+        return std::make_unique<RequestHandlerStatus>(
+            *(handler_configs_.find(matched_prefix)->second->child_block_)
+        );
+   }
+
+   //other codes
+   ...
+}
+```
+
 ### Prerequisites
 
 ```
