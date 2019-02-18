@@ -75,10 +75,8 @@ Defines virtual base class `RequestHandler`. Given a `request` object, the handl
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
-
 ```
-Give examples
+Boost::system,Boost::filesystem, Boost::regex
 ```
 
 ### Installing
@@ -95,14 +93,6 @@ $ cd build
 $ cmake ..
 $ make
 ```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ### CMakeLists
 
@@ -136,8 +126,6 @@ Note that the instruction above is the minimum that you have to do to build succ
 
 ## Running the existing tests
 
-Explain how to run the automated tests for this system
-
 There are two ways to run tests: 
 
 1. go to the `build` directory of the project and run `make test` 
@@ -148,12 +136,6 @@ Currently, there are in total 6 test binary files, `config_parser_test`, `logger
 ### Tests Breakdown
 
 #### Unit Test
-
-Explain what these tests test and why
-
-```
-Give an example
-```
 
 There are now unit tests for 6 classes. The following is a description about what each of them is about.
 
@@ -172,19 +154,9 @@ The integration test for this project is implemented by shell script`/tests/test
 2. A failed echo response because of insufficient request headers
 3. A failed echo response because of invalid request body
 
-
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
 ## Deployment
 
-To run the server, run the following command from the root server
+To run the server, run the following command from the root directory
 
 `./build/bin/server ./conf/http.conf`
 
