@@ -1,5 +1,0 @@
-if(EXISTS "/usr/src/projects/rubberduck/build/logger_test[1]_tests.cmake")
-  include("/usr/src/projects/rubberduck/build/logger_test[1]_tests.cmake")
-else()
-  add_test(logger_test_NOT_BUILT logger_test_NOT_BUILT)
-endif()

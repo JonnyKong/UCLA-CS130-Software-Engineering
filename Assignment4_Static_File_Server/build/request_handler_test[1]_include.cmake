@@ -1,5 +1,0 @@
-if(EXISTS "/usr/src/projects/rubberduck/build/request_handler_test[1]_tests.cmake")
-  include("/usr/src/projects/rubberduck/build/request_handler_test[1]_tests.cmake")
-else()
-  add_test(request_handler_test_NOT_BUILT request_handler_test_NOT_BUILT)
-endif()

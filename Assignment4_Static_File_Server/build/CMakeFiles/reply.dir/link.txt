@@ -1,2 +1,0 @@
-/usr/bin/ar qc libreply.a  CMakeFiles/reply.dir/src/http/reply.cc.o
-/usr/bin/ranlib libreply.a

@@ -1,7 +1,0 @@
-.dockerignore
-.git*
-.vscode
-build
-build_*
-docker
-mirror

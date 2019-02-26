@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/request_parser_test.dir/tests/request_parser_test.cc.o  -o bin/request_parser_test librequest_parser.a googletest/googlemock/gtest/libgtest_main.a googletest/googlemock/gtest/libgtest.a -lpthread 
