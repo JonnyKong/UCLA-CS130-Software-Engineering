@@ -1,0 +1,14 @@
+[2019-02-24 03:59:33.550265]:[0x00007fc4853f1740]:Trace: Parsing the config file ...
+[2019-02-24 03:59:33.551992]:[0x00007fc4853f1740]:Trace: Parsing success
+[2019-02-24 03:59:33.552468]:[0x00007fc4853f1740]:Trace: Server has been initialized
+[2019-02-24 03:59:33.552834]:[0x00007fc4853f1740]:Trace: Starting server on port: 8080
+[2019-02-24 03:59:33.553203]:[0x00007fc4853f1740]:Trace: Start working thread 0
+[2019-02-24 03:59:33.553604]:[0x00007fc4853f1740]:Trace: Start working thread 1
+[2019-02-24 03:59:34.552661]:[0x00007fc484287700]:Debug: Read handler
+[2019-02-24 03:59:35.554063]:[0x00007fc483a86700]:Trace: GET /echo HTTP 1.1 Sender IP: 127.0.0.1
+[2019-02-24 03:59:35.555184]:[0x00007fc483a86700]:Debug: Read handler
+[2019-02-24 03:59:35.558176]:[0x00007fc484287700]:Debug: Read handler
+[2019-02-24 03:59:35.558772]:[0x00007fc483a86700]:Trace: GET /echo HTTP 1.1 Sender IP: 127.0.0.1
+[2019-02-24 03:59:35.559185]:[0x00007fc483a86700]:Debug: Good Request
+[2019-02-24 03:59:35.559645]:[0x00007fc483a86700]:Debug: Reply with status: 200
+[2019-02-24 03:59:35.560115]:[0x00007fc483a86700]:Debug: write handler

@@ -1,0 +1,18 @@
+server {
+    root /usr/src/projects/bigbear; # comments are ignored
+    listen 5476;
+    handler static {
+        location /static;
+        root static_files/some_files;
+    }
+    handler echo {
+            location /echo;
+        }
+    handler static {
+            location /static2;
+            root static_files/more_files;
+        }
+    handler echo {
+            location /echo2;
+        }
+}

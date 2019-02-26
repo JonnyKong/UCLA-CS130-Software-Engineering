@@ -1,0 +1,13 @@
+server {
+    root /usr/src/projects/bigbear;
+    listen 5476;
+    location /static {
+        root /static_files/some_files;
+    }
+    location /fun {
+            root /static_files/more_files;
+        }
+    location /echo {
+        action echo;
+    }
+}

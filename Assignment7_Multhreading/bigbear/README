@@ -1,0 +1,226 @@
+Build and Run our project:
+
+Buliding command (execute at /build):
+$ cmake .. && make && make test && sudo bin/server ../sample_server_config
+
+In another terminal, I used nc to send an example GET request:
+$ printf "GET /echo HTTP/1.1\r\nUser-Agent: nc/0.0.1\r\nHost: 127.0.0.1\r\nAccept: */*\r\n\r\n" | nc localhost 80
+
+Test other mmessages by doing:
+$ printf "whatever message here" | nc localhost 8080
+
+There might be a better way of doing this, but this is all I know so far
+*******************************************************************
+
+Request Static Files
+
+In Browser, go:
+http://35.247.92.66/static/bearlist.txt
+
+In terminal, use
+$ printf "GET /static/bearlist.txt HTTP/1.1\r\nUser-Agent: nc/0.0.1\r\nHost: 127.0.0.1\r\nAccept: */*\r\n\r\n" | nc localhost 80
+or
+$ curl -X GET localhost/static/bearlist.txt
+
+*******************************************************************
+
+Run Echo Service
+
+In Browser, go:
+http://35.247.92.66/echo
+
+In terminal, use
+$ printf "GET /echo HTTP/1.1\r\nUser-Agent: nc/0.0.1\r\nHost: 127.0.0.1\r\nAccept: */*\r\n\r\n" | nc localhost 80
+or
+$ curl -X GET localhost/echo
+
+*******************************************************************
+
+Run existing tests
+
+under /build, run
+$ make test
+or
+$ cd ../tests && ../build/bin/config_parser_test; cd ../build
+
+Built and run tests
+
+$ cmake .. && make && make test
+
+*******************************************************************
+
+Generage Coverage Report
+
+First time:
+$ mkdir build_coverage
+$ cd build_coverage
+$ cmake -DCMAKE_BUILD_TYPE=Coverage ..
+$ make coverage
+
+Then you can find coverage report in {REPO}/build_coverage/report/index.html
+
+Then, under /build:
+$ cd ../build_coverage && cmake -DCMAKE_BUILD_TYPE=Coverage .. && make coverage; cd ../build
+
+
+*******************************************************************
+
+How to access the service on Google cloud:
+
+After modifying the code, run the following command to rebuild:
+$ gcloud builds submit --config docker/cloudbuild.yaml .
+*** In order to deploy the new build, you need to reset the VM instance on Google Cloud UI ***
+Google Cloud Home > Computing Engine > VM instances > web-server > Reset
+
+To access the server:
+IP: 35.247.92.66
+Port: 80
+Ex: curl -X GET "http://35.247.92.66" -d "Hello World"
+
+To access server with URL:
+http://static.bigbear.cs130.org/
+
+*******************************************************************
+
+How to add a request handler:
+
+1. A new request handler should have the following two functions in order to work:
+
+    - static std::unique_ptr<RequestHandler> create(const NginxConfig& config, const std::string& root_path);
+
+        Description: Based on the config file and root_path, set up and return a RequestHandler pointer.
+
+        Parameters:
+            * config: The NginxConfig object defined in nginx_config.h.
+            * root_path: a std::string that specifies your working directory.
+
+        Return Value:
+            * a unique_ptr that has the parent type RequestHandler
+
+    - std::unique_ptr<HttpResponse> HandleRequest(const HttpRequest& request);
+
+        Description: Takes in a HttpRequest object and returns the HttpResponse accordingly.
+
+        Parameters:
+            * request: The HttpRequest object defined in http_request.h
+
+        Return Value:
+            * a unique pointer pointing to a HttpResponse object defined in http_response.h
+
+
+2. In handler_manager.cc, add an "else if" statement to register a new handler.
+
+3. Update CMakeLists.txt to include your new handler
+
+
+The StaticFileRequestHandler as an Example:
+
+    - std::unordered_map<std::string, std::string> validURIMap: The mapping from URI to path.
+
+    - void setURIAndFileName(std::string uriWithFileName): Parse the whole request URI to setup the URI(without filename) and file name
+
+    - void initRequestVariables(): Setup the file path and file type to prepare for the response. If the file doesn't exist, set the response to 404.
+
+    - std::string fileToString(const std::string &name): Takes the file path as input and return the file in a string
+
+    - void setResponse(HttpResponse& response, std::string& fileStr): Takes the file string and setup the response to the HttpResponse object.
+
+
+**************************
+NGINX CONFIG DOCUMENTATION
+**************************
+
+
+EXAMPLE CONFIG FILE FOR REFERENCE:
+---------------------------------
+
+server {
+    root /usr/src/projects/bigbear;
+    listen 80;
+    handler static {
+        location /static;
+        root static_files/some_files;
+    }
+    handler static {
+        location /fun;
+        root static_files/more_files;
+    }
+    handler echo {
+        location /echo;
+    }
+}
+
+
+ATTRIBUTES OF NginxConfig CLASS:
+------------------------------
+
+    * .getFlatParameters()   - returns const unordered_map<string,string> of single-line
+                               parameters (key:value) of current block context
+                             - example would be {"root", "/usr/src/projects/bigbear", "listen": "80"}
+                               from 'server' block of config file above
+
+    * .getNestedParameters() - returns const unordered_map<string,NginxConfig*> of nested block parameter
+                               of current block context
+                             - example would be { {"static1", &static1Config}, {"static2", &static2Config},
+                               {"echo1", &echo1config} } from the 'server' block of the config file above
+
+    * .getOrderOfParams()    - returns vector<string> with the parameter names as they are ordered in the
+                               config file
+                             - example from the 'server' block config would be: ["root", "listen", "static1",
+                               "static2", "echo1"]
+
+    * .compareParamOrder()   - takes 2 parameter names as arguments, and returns the name of the parameter that
+                               was ordered first in teh config file
+                             - from the config file above in 'server' block: compareParamOrder("echo1", "static1")
+                               would return "static1"
+                             - if neither name is found in the config, "" will be returned
+
+
+
+USE WITH REQUEST HANDLER:
+----------------------------
+
+    * Each request handler constructor will be passed
+      a NginxConfig* with the info included inside the
+      block statement of the config file
+
+    * For example,from the config file above: handler static1
+      would be passed an NginxConfig* with the following:
+        - .getFlatParameters() returns   -- { {"location": "/static"},
+          {"root", "static_files/some_files"} }
+        - .getNestedParameters() returns -- {} (this handler has no nested blocks)
+        - .getOrderOfParams() returns    -- ["location", "root"]
+
+    * Anything specified in the handler block of the config file
+      will be available to the handler for construction
+
+
+INITIALIZATION OF NginxConfig OBJECT:
+-----------------------------------
+
+#include "nginx_config.h"
+#include "config_parser.h"
+
+NginxConfig config;
+NginxConfigParser parser;
+
+if(parser.Parse("config_file_name", &config))
+{
+    // config will now hold all info in config file
+}
+
+FOR USE WITH SERVER:
+-------------------
+
+#include "nginx_config.h"
+#include "config_parser.h"
+
+NginxConfig config;
+NginxConfigParser parser;
+
+if(parser.Parse("config_file_name", &config))
+{
+    // config will be used to init server parameters and be passed
+    // on to relevant handlers by dispatcher
+    server svr(io_service, &config)
+}

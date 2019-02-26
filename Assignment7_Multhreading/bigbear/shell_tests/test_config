@@ -1,0 +1,19 @@
+server {
+    root /usr/src/projects/bigbear;
+    listen 5566;
+    handler static {
+        location /static;
+        root static_files/some_files;
+    }
+    handler static {
+        location /fun;
+        root static_files/more_files;
+    }
+    handler echo {
+        location /echo;
+    }
+    handler proxy {
+        location /moved_echo;
+        dest 35.247.29.163/redirect;
+    }
+}

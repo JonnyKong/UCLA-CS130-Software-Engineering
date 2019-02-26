@@ -1,0 +1,98 @@
+**************************
+NGINX CONFIG DOCUMENTATION
+**************************
+
+
+EXAMPLE CONFIG FILE FOR REFERENCE:
+---------------------------------
+
+server {
+    root /usr/src/projects/bigbear;
+    listen 80;
+    handler static {
+        location /static;
+        root static_files/some_files;
+    }
+    handler static {
+        location /fun;
+        root static_files/more_files;
+    }
+    handler echo {
+        location /echo;
+    }
+}
+
+
+ATTRIBUTES OF NginxConfig CLASS:
+------------------------------
+
+    * .getFlatParameters()   - returns const unordered_map<string,string> of single-line
+                               parameters (key:value) of current block context
+                             - example would be {"root", "/usr/src/projects/bigbear", "listen": "80"}
+                               from 'server' block of config file above
+
+    * .getNestedParameters() - returns const unordered_map<string,NginxConfig*> of nested block parameter
+                               of current block context
+                             - example would be { {"static1", &static1Config}, {"static2", &static2Config},
+                               {"echo1", &echo1config} } from the 'server' block of the config file above
+
+    * .getOrderOfParams()    - returns vector<string> with the parameter names as they are ordered in the
+                               config file
+                             - example from the 'server' block config would be: ["root", "listen", "static1",
+                               "static2", "echo1"]
+
+    * .compareParamOrder()   - takes 2 parameter names as arguments, and returns the name of the parameter that
+                               was ordered first in teh config file
+                             - from the config file above in 'server' block: compareParamOrder("echo1", "static1")
+                               would return "static1"
+                             - if neither name is found in the config, "" will be returned
+
+
+
+USE WITH REQUEST HANDLER:
+----------------------------
+
+    * Each request handler constructor will be passed
+      a NginxConfig* with the info included inside the
+      block statement of the config file
+
+    * For example,from the config file above: handler static1
+      would be passed an NginxConfig* with the following:
+        - .getFlatParameters() returns   -- { {"location": "/static"},
+          {"root", "static_files/some_files"} }
+        - .getNestedParameters() returns -- {} (this handler has no nested blocks)
+        - .getOrderOfParams() returns    -- ["location", "root"]
+
+    * Anything specified in the handler block of the config file
+      will be available to the handler for construction
+
+
+INITIALIZATION OF NginxConfig OBJECT:
+-----------------------------------
+
+#include "nginx_config.h"
+#include "config_parser.h"
+
+NginxConfig config;
+NginxConfigParser parser;
+
+if(parser.Parse("config_file_name", &config))
+{
+    // config will now hold all info in config file
+}
+
+FOR USE WITH SERVER:
+-------------------
+
+#include "nginx_config.h"
+#include "config_parser.h"
+
+NginxConfig config;
+NginxConfigParser parser;
+
+if(parser.Parse("config_file_name", &config))
+{
+    // config will be used to init server parameters and be passed
+    // on to relevant handlers by dispatcher
+    server svr(io_service, &config)
+}

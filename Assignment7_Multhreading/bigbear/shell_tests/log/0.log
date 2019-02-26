@@ -1,0 +1,13 @@
+[2019-02-26 07:59:07.586327] [0x00007f19121ed740] [info] Listening port:5566
+[2019-02-26 07:59:07.587418] [0x00007f19121ed740] [info] Server is running
+[2019-02-26 07:59:08.095420] [0x00007f19121ed740] [trace] TCP socket connection established
+[2019-02-26 07:59:08.096039] [0x00007f19121ed740] [trace] New thread handling connection. ID: 139745636660992
+[2019-02-26 07:59:08.595402] [0x00007f19121ed740] [info] Client IP: 127.0.0.1
+[2019-02-26 07:59:08.596123] [0x00007f19121ed740] [trace] Parsing HTTP request
+[2019-02-26 07:59:09.114634] [0x00007f19121ed740] [trace] TCP socket connection established
+[2019-02-26 07:59:09.115579] [0x00007f19121ed740] [trace] New thread handling connection. ID: 139745636660992
+[2019-02-26 07:59:09.116339] [0x00007f19121ed740] [info] Client IP: 127.0.0.1
+[2019-02-26 07:59:09.117075] [0x00007f19121ed740] [trace] Parsing HTTP request
+[2019-02-26 07:59:09.119455] [0x00007f19121ed740] [trace] built http response
+[2019-02-26 07:59:09.121966] [0x00007f19121ed740] [trace] Parsing HTTP request
+[2019-02-26 07:59:09.123848] [0x00007f19121ed740] [trace] built http response

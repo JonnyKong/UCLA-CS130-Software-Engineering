@@ -1,0 +1,41 @@
+server {
+    root /usr/src/projects/bigbear;
+    listen 80;
+    handler static {
+        location /static;
+        root static_files/some_files;
+    }
+    handler static {
+        location /fun;
+        root static_files/more_files;
+    }
+    handler echo {
+        location /echo;
+    }
+    handler status {
+        location /status;
+    }
+    handler error {
+        location /;
+    }
+
+    handler proxy {
+        location /rubberducks;
+        dest www.rubberducks.cs130.org/status;
+    }
+
+    handler proxy {
+        location /ucla;
+        dest www.ucla.edu;
+    }
+
+    handler proxy {
+        location /moved_echo;
+        dest 35.247.29.163/redirect;
+    }
+
+    handler redirect {
+        location /redirect;
+        dest www.rubberducks.cs130.org/static/index.html;
+    }
+}
