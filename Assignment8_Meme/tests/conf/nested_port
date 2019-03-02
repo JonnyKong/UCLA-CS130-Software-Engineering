@@ -1,0 +1,8 @@
+foo "bar";
+
+server {
+  location /{
+    port 8080;
+    proxy_pass http://localhost:8080;
+  }
+}

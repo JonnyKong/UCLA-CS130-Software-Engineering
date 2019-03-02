@@ -1,0 +1,6 @@
+foo "bar";
+
+server {
+    location /{
+    }
+}

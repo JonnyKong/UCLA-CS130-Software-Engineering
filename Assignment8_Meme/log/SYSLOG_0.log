@@ -1,0 +1,59 @@
+[2019-03-02 00:37:39.529523]:[0x00007fafae42f740]:Trace: Parsing the config file ...
+[2019-03-02 00:37:39.532822]:[0x00007fafae42f740]:Trace: Parsing success
+[2019-03-02 00:37:39.533402]:[0x00007fafae42f740]:Trace: Server has been initialized
+[2019-03-02 00:37:39.533834]:[0x00007fafae42f740]:Trace: Starting server on port: 8080
+[2019-03-02 00:37:39.534235]:[0x00007fafae42f740]:Trace: Start working thread 0
+[2019-03-02 00:37:39.534780]:[0x00007fafae42f740]:Trace: Start working thread 1
+[2019-03-02 00:37:39.535352]:[0x00007fafae42f740]:Trace: Start working thread 2
+[2019-03-02 00:37:39.535801]:[0x00007fafae42f740]:Trace: Start working thread 3
+[2019-03-02 00:37:48.382225]:[0x00007fafacdb8700]:Debug: Read handler
+[2019-03-02 00:37:48.383025]:[0x00007fafac5b7700]:Trace: GET / HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-02 00:37:48.383575]:[0x00007fafac5b7700]:Debug: Good Request
+[2019-03-02 00:37:48.384051]:[0x00007fafac5b7700]:Debug: Reply with status: 404
+[2019-03-02 00:37:48.384598]:[0x00007fafac5b7700]:Debug: write handler
+[2019-03-02 00:37:50.421814]:[0x00007fafabdb6700]:Debug: Read handler
+[2019-03-02 00:37:50.422558]:[0x00007fafab5b5700]:Trace: GET / HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-02 00:37:50.422997]:[0x00007fafab5b5700]:Debug: Good Request
+[2019-03-02 00:37:50.423600]:[0x00007fafab5b5700]:Debug: Reply with status: 404
+[2019-03-02 00:37:50.424211]:[0x00007fafab5b5700]:Debug: write handler
+[2019-03-02 00:37:50.806888]:[0x00007fafabdb6700]:Debug: Read handler
+[2019-03-02 00:37:50.807516]:[0x00007fafac5b7700]:Trace: GET /meme/new HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-02 00:37:50.808060]:[0x00007fafac5b7700]:Debug: Good Request
+[2019-03-02 00:37:50.808531]:[0x00007fafac5b7700]:Debug: Reply with status: 200
+[2019-03-02 00:37:50.809067]:[0x00007fafac5b7700]:Debug: write handler
+[2019-03-02 00:37:57.498796]:[0x00007fafacdb8700]:Debug: Read handler
+[2019-03-02 00:37:57.499455]:[0x00007fafab5b5700]:Trace: GET /meme/create?image=Select+a+template...&top=jonny&bottom=Kong HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-02 00:37:57.500028]:[0x00007fafab5b5700]:Debug: Good Request
+[2019-03-02 00:37:57.509004]:[0x00007fafab5b5700]:Debug: Reply with status: 201
+[2019-03-02 00:37:57.509513]:[0x00007fafab5b5700]:Debug: write handler
+[2019-03-02 00:37:57.519391]:[0x00007fafabdb6700]:Debug: Read handler
+[2019-03-02 00:37:57.519979]:[0x00007fafac5b7700]:Trace: GET /favicon.ico HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-02 00:37:57.520308]:[0x00007fafac5b7700]:Debug: Good Request
+[2019-03-02 00:37:57.520780]:[0x00007fafac5b7700]:Debug: Reply with status: 404
+[2019-03-02 00:37:57.521278]:[0x00007fafac5b7700]:Debug: write handler
+[2019-03-02 00:37:58.783392]:[0x00007fafacdb8700]:Debug: Read handler
+[2019-03-02 00:37:58.784160]:[0x00007fafab5b5700]:Trace: GET /meme/create?image=Select+a+template...&top=jonny&bottom=Kong HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-02 00:37:58.784740]:[0x00007fafab5b5700]:Debug: Good Request
+[2019-03-02 00:37:58.788564]:[0x00007fafab5b5700]:Debug: Reply with status: 400
+[2019-03-02 00:37:58.789272]:[0x00007fafab5b5700]:Debug: write handler
+[2019-03-02 00:37:59.401836]:[0x00007fafabdb6700]:Debug: Read handler
+[2019-03-02 00:37:59.402641]:[0x00007fafac5b7700]:Trace: GET /meme/create?image=Select+a+template...&top=jonny&bottom=Kong HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-02 00:37:59.403211]:[0x00007fafac5b7700]:Debug: Good Request
+[2019-03-02 00:37:59.406681]:[0x00007fafac5b7700]:Debug: Reply with status: 400
+[2019-03-02 00:37:59.407266]:[0x00007fafac5b7700]:Debug: write handler
+[2019-03-02 00:37:59.761213]:[0x00007fafacdb8700]:Debug: Read handler
+[2019-03-02 00:37:59.762076]:[0x00007fafab5b5700]:Trace: GET /meme/create?image=Select+a+template...&top=jonny&bottom=Kong HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-02 00:37:59.762575]:[0x00007fafab5b5700]:Debug: Good Request
+[2019-03-02 00:37:59.766843]:[0x00007fafab5b5700]:Debug: Reply with status: 400
+[2019-03-02 00:37:59.767542]:[0x00007fafab5b5700]:Debug: write handler
+[2019-03-02 00:38:01.662390]:[0x00007fafac5b7700]:Debug: Read handler
+[2019-03-02 00:38:01.663407]:[0x00007fafabdb6700]:Trace: GET /meme/create?image=Select+a+template...&top=jonny&bottom=Kon HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-02 00:38:01.664115]:[0x00007fafabdb6700]:Debug: Good Request
+[2019-03-02 00:38:01.675430]:[0x00007fafabdb6700]:Debug: Reply with status: 201
+[2019-03-02 00:38:01.675938]:[0x00007fafabdb6700]:Debug: write handler
+[2019-03-02 00:38:01.688757]:[0x00007fafacdb8700]:Debug: Read handler
+[2019-03-02 00:38:01.689354]:[0x00007fafab5b5700]:Trace: GET /favicon.ico HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-02 00:38:01.689900]:[0x00007fafab5b5700]:Debug: Good Request
+[2019-03-02 00:38:01.690505]:[0x00007fafab5b5700]:Debug: Reply with status: 404
+[2019-03-02 00:38:01.691188]:[0x00007fafab5b5700]:Debug: write handler
+[2019-03-02 00:38:23.680640]:[0x00007fafae42f740]:Warning: Shutting down the server...

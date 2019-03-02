@@ -1,0 +1,16 @@
+server {
+
+    port 8080;
+    
+    location /static/ StaticHandler {
+        root /data/www;
+    }
+
+    location /static2/ StaticHandler {
+        root /data/www2;
+    }
+
+    location /echo/ EchoHandler {
+        
+    }
+}

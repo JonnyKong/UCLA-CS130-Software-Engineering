@@ -1,0 +1,11 @@
+[2019-03-02 00:02:13.487418]:[0x00007f8a946a4700]:Debug: Read handler
+[2019-03-02 00:02:13.793061]:[0x00007f8a93ea3700]:Trace: GET / HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-02 00:02:13.794062]:[0x00007f8a93ea3700]:Debug: Good Request
+[2019-03-02 00:02:13.794994]:[0x00007f8a93ea3700]:Debug: Reply with status: 404
+[2019-03-02 00:02:13.795807]:[0x00007f8a93ea3700]:Debug: write handler
+[2019-03-02 00:02:14.203020]:[0x00007f8a956a6700]:Debug: Read handler
+[2019-03-02 00:02:14.203877]:[0x00007f8a94ea5700]:Trace: GET /admin-scripts.asp HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-02 00:02:14.204555]:[0x00007f8a94ea5700]:Debug: Good Request
+[2019-03-02 00:02:14.205239]:[0x00007f8a94ea5700]:Debug: Reply with status: 404
+[2019-03-02 00:02:14.206162]:[0x00007f8a94ea5700]:Debug: write handler
+[2019-03-02 00:04:45.562469]:[0x00007f8a96d1d740]:Warning: Shutting down the server...
