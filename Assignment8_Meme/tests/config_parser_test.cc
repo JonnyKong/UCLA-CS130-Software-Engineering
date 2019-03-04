@@ -78,7 +78,7 @@ TEST_F(NginxConfigParserTest, GetPortNumber) {
   bool success = parser.Parse("conf/http.conf", &out_config);
 
   int port = out_config.get_port_from_config();
-  bool same = port==80;
+  bool same = port==8080;
 
   EXPECT_TRUE(same);
 }

@@ -54,7 +54,10 @@ add_library(request_handler
             src/request_handler/request_handler_status.cc
             src/request_handler/request_handler_redirect.cc
             src/request_handler/request_handler_meme_form.cc
+            src/request_handler/request_handler_meme_view.cc
             src/request_handler/request_handler_meme_create.cc
+            src/request_handler/request_handler_meme_list.cc
+            src/request_handler/meme_common.cc
             src/http/mime_types.cc)
 add_library(request_handler_proxy src/request_handler/request_handler_proxy.cc)
 add_library(mime_types src/http/mime_types.cc)
@@ -73,10 +76,14 @@ add_executable(session_test tests/session_test.cc)
 add_executable(logger_test tests/logger_test.cc)
 add_executable(request_handler_test tests/request_handler_test.cc)
 add_executable(request_handler_proxy_test tests/request_handler_proxy_test.cc)
+add_executable(request_handler_meme_test tests/request_handler_meme_test.cc)
+add_executable(request_handler_meme_create_test tests/request_handler_meme_create_test.cc)
 target_link_libraries(config_parser_test config_parser gtest_main)
 target_link_libraries(request_parser_test request_parser gtest_main)
 target_link_libraries(logger_test logger gtest_main Boost::log)
 target_link_libraries(request_handler_test request_handler request_handler_proxy mime_types session gtest_main request_parser config_parser reply sqlite3)
+target_link_libraries(request_handler_meme_test request_handler request_handler_proxy mime_types session gtest_main request_parser config_parser reply sqlite3)
+target_link_libraries(request_handler_meme_create_test request_handler request_handler_proxy mime_types session gtest_main request_parser config_parser reply sqlite3)
 target_link_libraries(reply_test reply gtest_main Boost::system)
 target_link_libraries(session_test session request_handler request_handler_proxy mime_types request_parser gtest_main gmock_main sqlite3)
 target_link_libraries(request_handler_proxy_test request_handler_proxy request_handler session mime_types request_parser gtest_main gmock_main config_parser reply logger Boost::system Boost::log_setup Boost::log)
@@ -90,6 +97,8 @@ gtest_discover_tests(reply_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/te
 gtest_discover_tests(session_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 gtest_discover_tests(logger_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 gtest_discover_tests(request_handler_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
+gtest_discover_tests(request_handler_meme_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
+gtest_discover_tests(request_handler_meme_create_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 gtest_discover_tests(request_handler_proxy_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 add_test(NAME integration_test COMMAND ${BASH_PROGRAM} ${CMAKE_CURRENT_SOURCE_DIR}/tests/test.sh)
 add_test(NAME integration_test_concurrency COMMAND ${BASH_PROGRAM} ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_concurrency.sh)

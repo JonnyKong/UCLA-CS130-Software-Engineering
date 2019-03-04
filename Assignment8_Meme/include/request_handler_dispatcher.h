@@ -24,6 +24,9 @@ static const HandlerType ProxyHandler =      "proxy";
 static const HandlerType RedirectHandler =   "redirect";
 static const HandlerType MemeFormHandler =   "memeForm";
 static const HandlerType MemeCreateHandler = "memeCreate";
+static const HandlerType MemeViewHandler = "memeView";
+static const HandlerType MemeListHandler = "memeList";
+
 
 
 class RequestHandlerDispatcher {

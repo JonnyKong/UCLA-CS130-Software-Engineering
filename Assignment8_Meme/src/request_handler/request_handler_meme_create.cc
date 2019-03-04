@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cassert>
-
+#include <string>
+#include <mutex>
 #include "request_handler/request_handler_meme_create.h"
 #include "session.h"
 
@@ -11,7 +12,7 @@
 RequestHandlerMemeCreate::RequestHandlerMemeCreate(const NginxConfig &config) 
   : database_name("../assets/meme.db")
 {
-  maybeInit();
+  maybeInit(database_name);
 }
 
 
@@ -38,72 +39,44 @@ std::unique_ptr<reply> RequestHandlerMemeCreate::handleRequest(const request &re
   if (params.find("bottom") == params.end())
     params["bottom"] = "";
   
-  MemeEntry entry(params["string"], params["top"], params["bottom"]);
-  std::string ret = insertToStorage(entry);
+  MemeEntry entry(params["image"], params["top"], params["bottom"]);
+  std::replace(entry.top.begin(), entry.top.end(), '+', ' ');
+  std::replace(entry.bottom.begin(), entry.bottom.end(), '+', ' ');
+  int id;
+  std::string ret = insertToStorage(entry, id);
   if (ret != "SUCCESS")
     reply_ = http::server::reply::stock_reply(reply::bad_request);
-  else
-    reply_ = http::server::reply::stock_reply(reply::created);
+  else {
+
+    std::string display_html_content = "<html>\n"
+                               "<title>Created meme!</title>\n"
+                               "<body> Meme Created! <a href=\"/meme/view/"+std::to_string(id)+"\">"+"Meme ID: " + std::to_string(id)+"</a>"
+                               "</body>\n"
+                               "</html>\n";
+    reply_->status = reply::ok;
+    reply_->headers.resize(2);
+    reply_->content = display_html_content;
+    reply_->headers[0].name = "Content-Length";
+    reply_->headers[0].value = std::to_string((reply_->content).length());
+    reply_->headers[1].name = "Content-Type";
+    reply_->headers[1].value = "text/html";
+  }
   return reply_;
 }
 
-
-
-
-/**
- * createTableIfNotExists() - When the server is deployed to a new server, need
- *  to create the database and table. This function is called by the constructor.
- */
-void RequestHandlerMemeCreate::maybeInit() {
-  sqlite3 *db;
-  char *err_message = 0;
-  int rc;
-  char *sql;
-  sqlite3_stmt *res;
-
-  // Open database
-  rc = sqlite3_open(database_name.c_str(), &db);
-  if (rc != SQLITE_OK) {
-    fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
-    sqlite3_close(db);
-    exit(1);
-  }
-
-  // Create table if not exists. Use all columns as primary key to prevent
-  //  inserting duplicate entries into the table.
-  const char *sql_query = "CREATE TABLE IF NOT EXISTS tbl1 ("
-                          "image  varchar(100), "
-                          "top    varchar(100), "
-                          "bottom varchar(100), "
-                          "PRIMARY KEY (image, top, bottom)"
-                          ")";
-  rc = sqlite3_exec(db, sql_query, 0, 0, &err_message);
-  if (rc != SQLITE_OK) {
-    fprintf(stderr, "SQL error: %s\n", err_message);
-    sqlite3_free(err_message);
-    sqlite3_close(db);
-    exit(1);
-  } else {
-    fprintf(stdout, "Table tbl1 created successfully or already exists\n");
-  }
-
-  sqlite3_close(db);
-}
-
-
-
+std::mutex RequestHandlerMemeCreate::mtx;
 
 /**
  * insertToStorage() - Insert this entry into persistent storage
  */
-std::string RequestHandlerMemeCreate::insertToStorage(const MemeEntry &entry) {
+std::string RequestHandlerMemeCreate::insertToStorage(const MemeEntry &entry, int &id) {
   sqlite3 *db;
   char *err_message = 0;
   int rc;
   char *sql;
   sqlite3_stmt *stmt;
   std::string ret;
-
+  std::lock_guard<std::mutex> lock(mtx);
   // Open database
   rc = sqlite3_open(database_name.c_str(), &db);
   if (rc != SQLITE_OK) {
@@ -122,6 +95,7 @@ std::string RequestHandlerMemeCreate::insertToStorage(const MemeEntry &entry) {
   sqlite3_bind_text(stmt, 1, entry.image.c_str(),  -1, SQLITE_STATIC);
   sqlite3_bind_text(stmt, 2, entry.top.c_str(),    -1, SQLITE_STATIC);
   sqlite3_bind_text(stmt, 3, entry.bottom.c_str(), -1, SQLITE_STATIC);
+  std::cout<<"bottom txt: "<<entry.bottom<<std::endl;
   rc = sqlite3_step(stmt);
   if (rc != SQLITE_DONE) {
     // ret = fmt::sprintf("ERROR inserting data: %s\n", sqlite3_errmsg(db));
@@ -129,14 +103,51 @@ std::string RequestHandlerMemeCreate::insertToStorage(const MemeEntry &entry) {
           std::string(sqlite3_errmsg(db)) + 
           "\n";
     std::cout << ret << std::endl;
+    id = -1;
   } else {
     ret = "SUCCESS";
+    id = getTableSize();
   }
   sqlite3_finalize(stmt);
 
   sqlite3_close(db);
   return ret;
 }
+
+int RequestHandlerMemeCreate::sqlCount(void*data, int argc, char**argv, char**azColName) {
+    int * tbl_cnt = (int *) data;
+    if (argc == 0) return -1;
+    for (int i = 0; i<argc; i++) {
+        printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+        *tbl_cnt = std::atoi(argv[i]);
+        return 1;  
+    }
+    return 1;
+};
+
+// get table size
+int RequestHandlerMemeCreate::getTableSize() noexcept {
+    //======Database Part========
+    sqlite3 *db;
+    char *err_message = 0;
+    int rc;
+    char * sql;
+    int tbl_cnt;
+    //open database
+    rc = sqlite3_open(database_name.c_str(), &db);
+    if (rc != SQLITE_OK) {
+        fprintf(stderr, "Cannot open database: %s\n", sqlite3_errmsg(db));
+        sqlite3_close(db);
+        exit(1);
+    }
+    //find the record
+    std::string sql_resp;
+    std::string query_str = "SELECT COUNT(*) FROM tbl1";
+    const char *sql_query= query_str.c_str();
+    rc = sqlite3_exec(db, sql_query, sqlCount, (void*)(&tbl_cnt), &err_message);
+    std::cout<<"table count: "<<tbl_cnt<<std::endl;
+    return tbl_cnt;
+};
 
 
 

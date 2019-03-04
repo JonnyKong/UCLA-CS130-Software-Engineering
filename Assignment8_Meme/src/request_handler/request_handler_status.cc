@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cassert>
-
 #include "request_handler/request_handler_status.h"
 #include "request_handler_dispatcher.h"
 #include "session.h"
@@ -37,16 +36,16 @@ std::unique_ptr<reply> RequestHandlerStatus::handleRequest(const request &reques
     //HTML content in reply
 
     std::string display_html_content = "<html><head>" + page_style +
-    "<title>Server Status</title></head>"
-    "<body><h2>Total number of requests</h1><div>"+ std::to_string(session::request_count) +"</div>"
-    "<h2>Detail Request Status</h2>"
-    "<table>"
-    "<tr><th>URL Requested</th><th>Return Code</th></tr>" + request_info + "</table>"
-    "<h2>Request Handlers</h2>"
-    "<table>"
-    "<tr><th>URL Prefix</th><th>Handler</th></tr>" + handler_info +  "</table>"
-    "</body>"
-    "</html>";
+    "<title>Server Status</title></head>\n"
+    "<body><h2>Total number of requests</h1><div>"+ std::to_string(session::request_count) +"</div>\n"
+    "<h2>Detail Request Status</h2>\n"
+    "<table>\n"
+    "<tr><th>URL Requested</th><th>Return Code</th></tr>" + request_info + "</table>\n"
+    "<h2>Request Handlers</h2>\n"
+    "<table>\n"
+    "<tr><th>URL Prefix</th><th>Handler</th></tr>" + handler_info +  "</table>\n"
+    "</body>\n"
+    "</html>\n";
 
 
     reply_->headers.resize(2);

@@ -202,16 +202,16 @@ TEST_F(RequestHandlerTest, StatusHandlerRequestTest){
   std::string request_info = "<tr><td>/status</td><td>200</td></tr>";
   std::string handler_info = "<tr><td>/</td><td>error</td></tr><tr><td>/echo</td><td>echo</td></tr><tr><td>/static</td><td>static</td></tr><tr><td>/static2</td><td>static</td></tr><tr><td>/status</td><td>status</td></tr>";
   std::string display_html_content =   "<html><head>" + page_style +
-    "<title>Server Status</title></head>"
-    "<body><h2>Total number of requests</h1><div>1</div>"
-    "<h2>Detail Request Status</h2>"
-    "<table>"
-    "<tr><th>URL Requested</th><th>Return Code</th></tr>" + request_info + "</table>"
-    "<h2>Request Handlers</h2>"
-    "<table>"
-    "<tr><th>URL Prefix</th><th>Handler</th></tr>" + handler_info +  "</table>"
-    "</body>"
-    "</html>";
+    "<title>Server Status</title></head>\n"
+    "<body><h2>Total number of requests</h1><div>1</div>\n"
+    "<h2>Detail Request Status</h2>\n"
+    "<table>\n"
+    "<tr><th>URL Requested</th><th>Return Code</th></tr>" + request_info + "</table>\n"
+    "<h2>Request Handlers</h2>\n"
+    "<table>\n"
+    "<tr><th>URL Prefix</th><th>Handler</th></tr>" + handler_info +  "</table>\n"
+    "</body>\n"
+    "</html>\n";
 
   bool success_1 = rep->status == http::server::reply::ok && rep->content == display_html_content;
   bool success_2 = rep->headers[0].name == "Content-Length" &&  rep->headers[0].value == std::to_string(rep->content.size()) &&  rep->headers[1].name == "Content-Type" &&  rep->headers[1].value == "text/html";
