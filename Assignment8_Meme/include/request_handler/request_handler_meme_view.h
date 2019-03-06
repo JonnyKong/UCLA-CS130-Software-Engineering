@@ -10,6 +10,7 @@
 class RequestHandlerMemeView : public RequestHandler {
     public:
         explicit RequestHandlerMemeView(const NginxConfig &config);
+        RequestHandlerMemeView(){}
         std::unique_ptr<reply> handleRequest(const request &request_) noexcept override;
         static int sqlCallback(void*data, int argc, char**argv, char**azColName);
         std::string fetchImage(const std::string& img_uri, const std::string& top_txt, const std::string& bottom_txt);

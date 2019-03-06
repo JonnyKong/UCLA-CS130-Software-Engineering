@@ -15,4 +15,6 @@ RUN apt-get update && apt-get install -y \
     libgtest-dev \
     netcat \
     sqlite3 \
-    libsqlite3-dev
+    libsqlite3-dev \
+    libsqlite3-0 \
+    sqlite3-doc

@@ -2,6 +2,7 @@
 #include <cassert>
 #include <string>
 #include <mutex>
+#include <thread>
 #include "request_handler/request_handler_meme_create.h"
 #include "session.h"
 
@@ -70,13 +71,14 @@ std::mutex RequestHandlerMemeCreate::mtx;
  * insertToStorage() - Insert this entry into persistent storage
  */
 std::string RequestHandlerMemeCreate::insertToStorage(const MemeEntry &entry, int &id) {
+  std::lock_guard<std::mutex> lock(mtx);
+  std::cout<<"start "<< std::this_thread::get_id()<< std::endl;
   sqlite3 *db;
   char *err_message = 0;
   int rc;
   char *sql;
   sqlite3_stmt *stmt;
   std::string ret;
-  std::lock_guard<std::mutex> lock(mtx);
   // Open database
   rc = sqlite3_open(database_name.c_str(), &db);
   if (rc != SQLITE_OK) {
@@ -97,6 +99,7 @@ std::string RequestHandlerMemeCreate::insertToStorage(const MemeEntry &entry, in
   sqlite3_bind_text(stmt, 3, entry.bottom.c_str(), -1, SQLITE_STATIC);
   std::cout<<"bottom txt: "<<entry.bottom<<std::endl;
   rc = sqlite3_step(stmt);
+  sqlite3_finalize(stmt);
   if (rc != SQLITE_DONE) {
     // ret = fmt::sprintf("ERROR inserting data: %s\n", sqlite3_errmsg(db));
     ret = std::string("ERROR inserting data: ") + 
@@ -108,9 +111,8 @@ std::string RequestHandlerMemeCreate::insertToStorage(const MemeEntry &entry, in
     ret = "SUCCESS";
     id = getTableSize();
   }
-  sqlite3_finalize(stmt);
-
   sqlite3_close(db);
+  std::cout<<"end "<< std::this_thread::get_id()<< std::endl;
   return ret;
 }
 
@@ -146,6 +148,7 @@ int RequestHandlerMemeCreate::getTableSize() noexcept {
     const char *sql_query= query_str.c_str();
     rc = sqlite3_exec(db, sql_query, sqlCount, (void*)(&tbl_cnt), &err_message);
     std::cout<<"table count: "<<tbl_cnt<<std::endl;
+    sqlite3_close(db);
     return tbl_cnt;
 };
 

@@ -64,7 +64,7 @@ add_library(mime_types src/http/mime_types.cc)
 
 # TODO(!): Update executable name, srcs, and deps
 add_executable(server src/server_main.cc)
-target_link_libraries(server server_c session request_handler request_handler_proxy mime_types request_parser logger config_parser reply Boost::system Boost::filesystem Boost::regex Boost::log_setup Boost::log sqlite3)
+target_link_libraries(server server_c session request_handler request_handler_proxy mime_types request_parser logger config_parser reply Boost::system Boost::filesystem Boost::regex Boost::log_setup Boost::log libsqlite3.a ${CMAKE_DL_LIBS})
 
 target_link_libraries(session logger Boost::regex Boost::log_setup Boost::log Boost::system Boost::filesystem)
 
@@ -75,17 +75,21 @@ add_executable(reply_test tests/reply_test.cc)
 add_executable(session_test tests/session_test.cc)
 add_executable(logger_test tests/logger_test.cc)
 add_executable(request_handler_test tests/request_handler_test.cc)
+add_executable(meme_view_test tests/meme_view_test.cc)
 add_executable(request_handler_proxy_test tests/request_handler_proxy_test.cc)
 add_executable(request_handler_meme_test tests/request_handler_meme_test.cc)
 add_executable(request_handler_meme_create_test tests/request_handler_meme_create_test.cc)
+add_executable(request_handler_meme_list_test tests/request_handler_meme_list_test.cc)
 target_link_libraries(config_parser_test config_parser gtest_main)
 target_link_libraries(request_parser_test request_parser gtest_main)
 target_link_libraries(logger_test logger gtest_main Boost::log)
-target_link_libraries(request_handler_test request_handler request_handler_proxy mime_types session gtest_main request_parser config_parser reply sqlite3)
-target_link_libraries(request_handler_meme_test request_handler request_handler_proxy mime_types session gtest_main request_parser config_parser reply sqlite3)
-target_link_libraries(request_handler_meme_create_test request_handler request_handler_proxy mime_types session gtest_main request_parser config_parser reply sqlite3)
+target_link_libraries(request_handler_test request_handler request_handler_proxy mime_types session gtest_main request_parser config_parser reply libsqlite3.a ${CMAKE_DL_LIBS})
+target_link_libraries(meme_view_test request_handler request_handler_proxy mime_types session gtest_main request_parser config_parser reply libsqlite3.a ${CMAKE_DL_LIBS})
+target_link_libraries(request_handler_meme_test request_handler request_handler_proxy mime_types session gtest_main request_parser config_parser reply libsqlite3.a ${CMAKE_DL_LIBS})
+target_link_libraries(request_handler_meme_create_test request_handler request_handler_proxy mime_types session gtest_main request_parser config_parser reply libsqlite3.a ${CMAKE_DL_LIBS})
+target_link_libraries(request_handler_meme_list_test request_handler request_handler_proxy mime_types session gtest_main request_parser config_parser reply libsqlite3.a ${CMAKE_DL_LIBS})
 target_link_libraries(reply_test reply gtest_main Boost::system)
-target_link_libraries(session_test session request_handler request_handler_proxy mime_types request_parser gtest_main gmock_main sqlite3)
+target_link_libraries(session_test session request_handler request_handler_proxy mime_types request_parser gtest_main gmock_main libsqlite3.a ${CMAKE_DL_LIBS})
 target_link_libraries(request_handler_proxy_test request_handler_proxy request_handler session mime_types request_parser gtest_main gmock_main config_parser reply logger Boost::system Boost::log_setup Boost::log)
 
 
@@ -97,8 +101,10 @@ gtest_discover_tests(reply_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/te
 gtest_discover_tests(session_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 gtest_discover_tests(logger_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 gtest_discover_tests(request_handler_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
+gtest_discover_tests(meme_view_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 gtest_discover_tests(request_handler_meme_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 gtest_discover_tests(request_handler_meme_create_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
+gtest_discover_tests(request_handler_meme_list_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 gtest_discover_tests(request_handler_proxy_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 add_test(NAME integration_test COMMAND ${BASH_PROGRAM} ${CMAKE_CURRENT_SOURCE_DIR}/tests/test.sh)
 add_test(NAME integration_test_concurrency COMMAND ${BASH_PROGRAM} ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_concurrency.sh)
@@ -108,5 +114,5 @@ add_test(NAME integration_test_proxy COMMAND ${BASH_PROGRAM} ${CMAKE_CURRENT_SOU
 # TODO(!): Update with target/test targets
 include(cmake/CodeCoverageReportConfig.cmake)
 generate_coverage_report(TARGETS session server config_parser request_parser
-                         reply logger request_handler request_handler_proxy TESTS config_parser_test request_parser_test request_handler_test
+                         reply logger request_handler request_handler_proxy TESTS config_parser_test request_parser_test request_handler_test meme_view_test
                          reply_test session_test logger_test request_handler_proxy_test)

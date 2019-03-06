@@ -16,6 +16,9 @@
 
 
 class RequestHandlerMemeList : public RequestHandler {
+protected:
+    /* For unit testing mock class delegate constructor */
+    explicit RequestHandlerMemeList() {}
 public:
     explicit RequestHandlerMemeList(const NginxConfig &config);    /* To conform with sibling class */
     std::unique_ptr<reply> handleRequest(const request &request_) noexcept override;

@@ -22,6 +22,8 @@ COPY --from=builder /usr/src/project/conf/example.conf .
 
 # Copy static data files
 COPY --from=builder /usr/src/project/data .
+# COPY --from=builder /usr/src/project/assets .
+RUN mkdir assets
 
 # TODO(!): Expose some port(s)
 EXPOSE 80

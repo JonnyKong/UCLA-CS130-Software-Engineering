@@ -24,8 +24,8 @@ std::unique_ptr<reply> RequestHandlerMemeForm::handleRequest(const request &requ
     "<option value=\"simply.jpg\">one does not simply</option>"
     "<option value=\"grumpy.jpg\">grumpy cat</option>"
     "</select><br>"
-    "<input type=\"text\" name=\"top\" placeholder=\"Top text...\"><br>"
-    "<input type=\"text\" name=\"bottom\" placeholder=\"Bottom text...\"><br>"
+    "<input type=\"text\" name=\"top\" placeholder=\"Top text...\" required><br>"
+    "<input type=\"text\" name=\"bottom\" placeholder=\"Bottom text...\" required><br>"
     "<input type=\"submit\" value=\"Create\">"
     "</form>";
 

@@ -1,22 +1,22 @@
-[2019-03-04 20:57:20.218848]:[0x00007f59082e7740]:Trace: Parsing the config file ...
-[2019-03-04 20:57:20.222389]:[0x00007f59082e7740]:Trace: Parsing success
-[2019-03-04 20:57:20.222956]:[0x00007f59082e7740]:Trace: Server has been initialized
-[2019-03-04 20:57:20.223352]:[0x00007f59082e7740]:Trace: Starting server on port: 8080
-[2019-03-04 20:57:20.223694]:[0x00007f59082e7740]:Trace: Start working thread 0
-[2019-03-04 20:57:20.224017]:[0x00007f59082e7740]:Trace: Start working thread 1
-[2019-03-04 20:57:20.224365]:[0x00007f59082e7740]:Trace: Start working thread 2
-[2019-03-04 20:57:20.224695]:[0x00007f59082e7740]:Trace: Start working thread 3
-[2019-03-04 20:57:21.228041]:[0x00007f5906c70700]:Debug: Read handler
-[2019-03-04 20:57:21.228460]:[0x00007f590646f700]:Trace: GET /static/data1.dat HTTP 1.1 Sender IP: 127.0.0.1
-[2019-03-04 20:57:21.228774]:[0x00007f590646f700]:Debug: Good Request
-[2019-03-04 20:57:21.229914]:[0x00007f590646f700]:Debug: Reply with status: 200
-[2019-03-04 20:57:21.230386]:[0x00007f590646f700]:Debug: write handler
-019-03-04 20:57:21.227107]:[0x00007f57b592d700]:GET /static/data1.dat HTTP/1.1
+[2019-03-06 20:27:25.117533]:[0x00007f6f12422740]:Trace: Parsing the config file ...
+[2019-03-06 20:27:25.122555]:[0x00007f6f12422740]:Trace: Parsing success
+[2019-03-06 20:27:25.123067]:[0x00007f6f12422740]:Trace: Server has been initialized
+[2019-03-06 20:27:25.123556]:[0x00007f6f12422740]:Trace: Starting server on port: 8080
+[2019-03-06 20:27:25.124099]:[0x00007f6f12422740]:Trace: Start working thread 0
+[2019-03-06 20:27:25.124534]:[0x00007f6f12422740]:Trace: Start working thread 1
+[2019-03-06 20:27:25.124907]:[0x00007f6f12422740]:Trace: Start working thread 2
+[2019-03-06 20:27:25.125336]:[0x00007f6f12422740]:Trace: Start working thread 3
+[2019-03-06 20:27:26.127430]:[0x00007f6f110b4700]:Debug: Read handler
+[2019-03-06 20:27:26.127870]:[0x00007f6f108b3700]:Trace: GET /static/data1.dat HTTP 1.1 Sender IP: 127.0.0.1
+[2019-03-06 20:27:26.128227]:[0x00007f6f108b3700]:Debug: Good Request
+[2019-03-06 20:27:26.129499]:[0x00007f6f108b3700]:Debug: Reply with status: 200
+[2019-03-06 20:27:26.130026]:[0x00007f6f108b3700]:Debug: write handler
+019-03-06 20:27:26.126590]:[0x00007f24b12b9700]:GET /static/data1.dat HTTP/1.1
 
 
-[2019-03-04 20:57:21.230406]:[0x00007f57b592d700]:HTTP/1.0 200 OK
+[2019-03-06 20:27:26.130081]:[0x00007f24b12b9700]:HTTP/1.0 200 OK
 Content-Length: 20
 Content-Type: text/plain
 
-[2019-03-04 20:57:21.231119]:[0x00007f57b592d700]:Debug: Reply with status: 200
-[2019-03-04 20:57:21.231436]:[0x00007f57b592d700]:Debug: write handler
+[2019-03-06 20:27:26.130706]:[0x00007f24b12b9700]:Debug: Reply with status: 200
+[2019-03-06 20:27:26.131027]:[0x00007f24b12b9700]:Debug: write handler
