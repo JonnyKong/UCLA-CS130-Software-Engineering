@@ -25,9 +25,12 @@ public:
 
 // Private:
     std::vector<MemeEntry> selectAllMeme();
+    std::vector<MemeEntry> searchMeme(std::string &search_content);
     static int appendMeme(void *data, int argc, char **argv, char **azColName);
+    std::string parseSearch(const std::string &uri);
 
     std::string database_name;  // TODO: Use absolute path?
+    
 };
 
 #endif  // REQUEST_HANDLER_MEME_LIST_H

@@ -1,7 +1,8 @@
 #include <iostream>
-
+#include <string>
 #include "request_handler/request_handler_meme_view.h"
 #include "session.h"
+#include "request_handler/meme_common.h"
 
 RequestHandlerMemeView::RequestHandlerMemeView(const NginxConfig &config) : database_name("../assets/meme.db") {
     name2uri["Tom"] = "http://127.0.0.1:8080/static/image1.jpg";
@@ -22,24 +23,27 @@ int RequestHandlerMemeView::sqlCallback(void*data, int argc, char**argv, char**a
 
 std::unique_ptr<reply> RequestHandlerMemeView::handleRequest(const request & request_) noexcept {
    //parse the uri
-    std::string id_str = request_.uri.substr(request_.uri.find_last_of("/")+1);
+    std::map<std::string, std::string> params = parseRESTParams(request_.uri);
+    std::string id_str = params["id"];
     //id check
     if(id_str.size() == 0 ) {
         std::cout<<"original uri"<<std::endl;
         std::cout<<"invalid meme id"<<std::endl;
+        exit(1);
     }
     for (int i = 0; i < id_str.length(); i++) {
         if (!std::isdigit(id_str[i])) {
             std::cout<<"invalid meme id"<<std::endl;
+            exit(1);
             break;
         }
     }
-
+    int meme_idx = std::stoi(id_str);
     //======Database Part========
     sqlite3 *db;
-    char *err_message = 0;
     int rc;
     char * sql;
+    sqlite3_stmt *stmt;
     std::vector<std::string> fetched_tuple;
 
     //open database
@@ -51,25 +55,36 @@ std::unique_ptr<reply> RequestHandlerMemeView::handleRequest(const request & req
     }
     //find the record
     std::string sql_resp;
-    std::string query_str = "SELECT * FROM tbl1 WHERE oid="+id_str;
+    std::string query_str = "SELECT * FROM tbl1 WHERE id=?1";
     const char *sql_query= query_str.c_str();
+    sqlite3_prepare_v2(db, sql_query, -1, &stmt, 0);
+    sqlite3_bind_int(stmt, 1, meme_idx);
+    while ( sqlite3_step( stmt ) == SQLITE_ROW ) {
+        for ( int colIndex = 0; colIndex < sqlite3_column_count(stmt); colIndex++ ) { 
+            fetched_tuple.push_back(
+                std::string(reinterpret_cast<const char*>(
+                    sqlite3_column_text(stmt, colIndex))
+                )
+            );
+        }
+    }
+    rc = sqlite3_clear_bindings(stmt);
+    rc = sqlite3_reset(stmt);
     std::string display_html_content;
-    rc = sqlite3_exec(db, sql_query, sqlCallback, (void*)(&fetched_tuple), &err_message);
     if (fetched_tuple.size() == 0) {
         sql_resp = "MEME ID does Not Exist\n";
-        sqlite3_free(err_message);
         sqlite3_close(db);
-        // exit(1);
         display_html_content = "This meme id does not exist";
     } else { 
         sql_resp = "Find the record!";
-        sqlite3_free(err_message);
         sqlite3_close(db);
-        display_html_content = fetchImage(name2uri[fetched_tuple[0]],fetched_tuple[1], fetched_tuple[2]);
+        display_html_content = fetchImage(fetched_tuple[0], 
+                                          name2uri[fetched_tuple[1]],
+                                          fetched_tuple[2],
+                                          fetched_tuple[3]);
     }
     std::cout<<sql_resp<<std::endl;
     //========end of sql=======
-    int meme_idx = std::stoi(id_str);
     std::cout<<"meme id: "<<meme_idx<<std::endl;
     std::cout<<request_.uri<<std::endl;
     std::unique_ptr<reply> reply_ = std::make_unique<reply>();
@@ -83,7 +98,18 @@ std::unique_ptr<reply> RequestHandlerMemeView::handleRequest(const request & req
     return reply_;
 };
 
-std::string RequestHandlerMemeView::fetchImage(const std::string& img_uri, const std::string& top_txt, const std::string& bottom_txt) {
+
+/**
+ * fetchImage() - Generate image using given image name and meme text. Id is 
+ *  used to generate link for edit.
+ */
+std::string RequestHandlerMemeView::fetchImage(const std::string &id,
+                                               const std::string &img_uri, 
+                                               const std::string &top_txt, 
+                                               const std::string &bottom_txt) {
+    std::cout<<"Image URI: "<<img_uri<<std::endl;
+    std::cout<<"Top txt: "<<top_txt<<std::endl;
+    std::cout<<"Bottom txt: "<<bottom_txt<<std::endl;
     // return "An html page will be displayed";
     std::string display_html_content = "<html>\n"
     "<style>\n"
@@ -92,10 +118,12 @@ std::string RequestHandlerMemeView::fetchImage(const std::string& img_uri, const
         "#top { top: 0; color: blue;}\n"
         "#bottom { bottom: 0; color: blue;}\n"
     "</style>\n"
-    "<body>\n"                                                                                                                                         
-        "<img src=\""+img_uri+"\">\n"
-        "<span id=\"top\">"+top_txt+"</span>\n"
-        "<span id=\"bottom\">"+bottom_txt+"</span>\n"
+    "<body>\n"
+        "<img src=\"" + img_uri + "\">\n"
+        "<br/>\n"
+        "<a href=\"/meme/new?update=" + id + "\">Edit</a>\n"
+        "<span id=\"top\">" + top_txt + "</span>\n"
+        "<span id=\"bottom\">" + bottom_txt + "</span>\n"
     "</body>\n"
     "</html>\n";
     return display_html_content;

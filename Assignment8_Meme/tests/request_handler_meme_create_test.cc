@@ -32,7 +32,7 @@ TEST(RequestHandlerMemeCreateTest, InsertionTest) {
     NginxConfig empty_config;
     MockRequestHandlerMemeCreate mock_hdlr(empty_config);
     int id;
-    MemeEntry entry("image_1", "top_1", "top_2");
+    MemeEntry entry("image_1", "top_1", "top_2", 0);
     std::string result = mock_hdlr.insertToStorage(entry, id);
     EXPECT_TRUE(result == std::string("SUCCESS"));
 }
@@ -41,7 +41,7 @@ TEST(RequestHandlerMemeCreateTest, DuplicateInsertionTest) {
     NginxConfig empty_config;
     MockRequestHandlerMemeCreate mock_hdlr(empty_config);
     int id;
-    MemeEntry entry("image_1", "top_1", "top_2");
+    MemeEntry entry("image_1", "top_1", "top_2", 0);
 
     std::string result_1 = mock_hdlr.insertToStorage(entry, id);
     std::string result_2 = mock_hdlr.insertToStorage(entry, id);
@@ -55,7 +55,7 @@ TEST(RequestHandlerMemeCreateTest, ParseRESTParamsTest) {
     MockRequestHandlerMemeCreate mock_hdlr(empty_config);
 
     std::string uri = "foo/bar?param1=value1&param2=value2";
-    std::map<std::string, std::string> params = mock_hdlr.parseRESTParams(uri);
+    std::map<std::string, std::string> params = parseRESTParams(uri);
     EXPECT_TRUE(params.size() == 2);
     EXPECT_TRUE(params["param1"] == "value1");
     EXPECT_TRUE(params["param2"] == "value2");
@@ -66,7 +66,7 @@ TEST(RequstHandlerMemeCreateTest, ConcurrencyTest1) {
     MockRequestHandlerMemeCreate mock_hdlr(empty_config);
     int id1 = 0;
     int id2 = 0;
-    MemeEntry entry("image_1", "top_sim", "top_2");
+    MemeEntry entry("image_1", "top_sim", "top_2", 0);
     std::thread t1(&MockRequestHandlerMemeCreate::insertToStorage, &mock_hdlr, std::ref(entry), std::ref(id1));
     std::thread t2(&MockRequestHandlerMemeCreate::insertToStorage, &mock_hdlr, std::ref(entry), std::ref(id2));
     t1.join();
@@ -83,7 +83,7 @@ TEST(RequstHandlerMemeCreateTest, ConcurrencyTest2) {
     std::vector<MemeEntry> entries;
     for (int i = 0; i < 10; i++) {
         ids.push_back(0);
-        entries.emplace_back(MemeEntry("image_1", "top_1_"+std::to_string(i), "bottom_1_"+std::to_string(i)));
+        entries.emplace_back(MemeEntry("image_1", "top_1_"+std::to_string(i), "bottom_1_"+std::to_string(i), 0));
     }
     for (int i = 0; i < 10; i++) {
         threads.emplace_back(std::thread(&MockRequestHandlerMemeCreate::insertToStorage, &mock_hdlr, std::ref(entries[i]), std::ref(ids[i])));

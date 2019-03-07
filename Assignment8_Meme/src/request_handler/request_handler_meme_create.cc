@@ -44,16 +44,29 @@ std::unique_ptr<reply> RequestHandlerMemeCreate::handleRequest(const request &re
   std::replace(entry.top.begin(), entry.top.end(), '+', ' ');
   std::replace(entry.bottom.begin(), entry.bottom.end(), '+', ' ');
   int id;
-  std::string ret = insertToStorage(entry, id);
+  std::string ret, display_html_content;
+
+  if (params.find("update") == params.end()) {
+    ret = insertToStorage(entry, id);
+    display_html_content = "<html>\n"
+                           "<title>Created meme!</title>\n"
+                           "<body> Meme Created! <a href=\"/meme/view?id="+std::to_string(id)+"\">"+"Meme ID: " + std::to_string(id)+"</a>"
+                           "</body>\n"
+                           "</html>\n";
+  } else {
+    entry.id = std::stoi(params["update"]);
+    id = entry.id;  
+    ret = updateStorage(entry);
+    display_html_content = "<html>\n"
+                           "<title>Updated meme!</title>\n"
+                           "<body> Meme Updated! <a href=\"/meme/view?id="+std::to_string(id)+"\">"+"Meme ID: " + std::to_string(id)+"</a>"
+                           "</body>\n"
+                           "</html>\n";
+  }
+
   if (ret != "SUCCESS")
     reply_ = http::server::reply::stock_reply(reply::bad_request);
   else {
-
-    std::string display_html_content = "<html>\n"
-                               "<title>Created meme!</title>\n"
-                               "<body> Meme Created! <a href=\"/meme/view/"+std::to_string(id)+"\">"+"Meme ID: " + std::to_string(id)+"</a>"
-                               "</body>\n"
-                               "</html>\n";
     reply_->status = reply::ok;
     reply_->headers.resize(2);
     reply_->content = display_html_content;
@@ -68,11 +81,12 @@ std::unique_ptr<reply> RequestHandlerMemeCreate::handleRequest(const request &re
 std::mutex RequestHandlerMemeCreate::mtx;
 
 /**
- * insertToStorage() - Insert this entry into persistent storage
+ * insertToStorage() - Insert this entry into persistent storage. Because the
+ *  id of this entry is unknown until the insertion is completed, this field is
+ *  left empty.
  */
 std::string RequestHandlerMemeCreate::insertToStorage(const MemeEntry &entry, int &id) {
   std::lock_guard<std::mutex> lock(mtx);
-  std::cout<<"start "<< std::this_thread::get_id()<< std::endl;
   sqlite3 *db;
   char *err_message = 0;
   int rc;
@@ -88,11 +102,9 @@ std::string RequestHandlerMemeCreate::insertToStorage(const MemeEntry &entry, in
   }
 
   // Insert record
-  const char *sql_query = "INSERT INTO tbl1 VALUES("
-                          "?1, "
-                          "?2, "
-                          "?3  "
-                          ")";
+  const char *sql_query = "INSERT INTO tbl1 "
+                          "(image, top, bottom) "
+                          "VALUES(?1, ?2, ?3)";
   sqlite3_prepare_v2(db, sql_query, -1, &stmt, NULL);
   sqlite3_bind_text(stmt, 1, entry.image.c_str(),  -1, SQLITE_STATIC);
   sqlite3_bind_text(stmt, 2, entry.top.c_str(),    -1, SQLITE_STATIC);
@@ -109,11 +121,78 @@ std::string RequestHandlerMemeCreate::insertToStorage(const MemeEntry &entry, in
     id = -1;
   } else {
     ret = "SUCCESS";
-    id = getTableSize();
+    id = getMaxId();
   }
   sqlite3_close(db);
-  std::cout<<"end "<< std::this_thread::get_id()<< std::endl;
+  std::cout << "Created one database entry" << std::endl;
   return ret;
+}
+
+/**
+ * insertToStorage() - Update entry in the database. Identify this database 
+ *  entry by id, and update the remaining fields to the given values.
+ */
+std::string RequestHandlerMemeCreate::updateStorage(const MemeEntry &entry) {
+  sqlite3 *db;
+  char *err_message = 0;
+  int rc;
+  char *sql;
+  sqlite3_stmt *stmt;
+  std::string ret;
+  // Open database
+  rc = sqlite3_open(database_name.c_str(), &db);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
+    sqlite3_close(db);
+    exit(1);
+  }
+
+  // Update record
+  const char *sql_query = "UPDATE tbl1 "
+                          "SET image = ?1, top = ?2, bottom = ?3"
+                          "WHERE id = ?4";
+  sqlite3_prepare_v2(db, sql_query, -1, &stmt, NULL);
+  sqlite3_bind_text(stmt, 1, entry.image.c_str(),  -1, SQLITE_STATIC);
+  sqlite3_bind_text(stmt, 2, entry.top.c_str(),    -1, SQLITE_STATIC);
+  sqlite3_bind_text(stmt, 3, entry.bottom.c_str(), -1, SQLITE_STATIC);
+  sqlite3_bind_int(stmt, 4, entry.id);
+  rc = sqlite3_step(stmt);
+  sqlite3_finalize(stmt);
+  if (rc != SQLITE_DONE) {
+    ret = std::string("ERROR inserting data: ") + 
+          std::string(sqlite3_errmsg(db)) + 
+          "\n";
+    std::cout << ret << std::endl;
+  } else {
+    ret = "SUCCESS";
+  }
+  sqlite3_close(db);
+  std::cout << "Updated one database entry" << std::endl;
+  return ret;
+}
+
+
+/* getMaxId() - Get the id of entry just inserted */
+int RequestHandlerMemeCreate::getMaxId() noexcept {
+  sqlite3 *db;
+  char *err_message = 0;
+  int rc;
+  char * sql;
+  int max_id;
+  rc = sqlite3_open(database_name.c_str(), &db);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Cannot open database: %s\n", sqlite3_errmsg(db));
+    sqlite3_close(db);
+    exit(1);
+  }
+  //find the record
+  std::string sql_resp;
+  std::string query_str = "SELECT MAX(id) FROM tbl1";
+  const char *sql_query= query_str.c_str();
+  rc = sqlite3_exec(db, sql_query, sqlCount, (void*)(&max_id), &err_message);
+  std::cout<< "Max ID: "<<max_id<<std::endl;
+  sqlite3_close(db);
+  return max_id;
 }
 
 int RequestHandlerMemeCreate::sqlCount(void*data, int argc, char**argv, char**azColName) {
@@ -126,59 +205,3 @@ int RequestHandlerMemeCreate::sqlCount(void*data, int argc, char**argv, char**az
     }
     return 1;
 };
-
-// get table size
-int RequestHandlerMemeCreate::getTableSize() noexcept {
-    //======Database Part========
-    sqlite3 *db;
-    char *err_message = 0;
-    int rc;
-    char * sql;
-    int tbl_cnt;
-    //open database
-    rc = sqlite3_open(database_name.c_str(), &db);
-    if (rc != SQLITE_OK) {
-        fprintf(stderr, "Cannot open database: %s\n", sqlite3_errmsg(db));
-        sqlite3_close(db);
-        exit(1);
-    }
-    //find the record
-    std::string sql_resp;
-    std::string query_str = "SELECT COUNT(*) FROM tbl1";
-    const char *sql_query= query_str.c_str();
-    rc = sqlite3_exec(db, sql_query, sqlCount, (void*)(&tbl_cnt), &err_message);
-    std::cout<<"table count: "<<tbl_cnt<<std::endl;
-    sqlite3_close(db);
-    return tbl_cnt;
-};
-
-
-
-/**
- * parseRESTParams() - Given an RESTful URI, return a map of its params.
- */
-std::map<std::string, std::string> RequestHandlerMemeCreate::
-parseRESTParams(const std::string &uri) {
-  size_t cursor = uri.find("?") + 1;
-  std::map<std::string, std::string> params;
-  while (cursor < uri.size() && cursor != std::string::npos) {
-    size_t cursor_equal = uri.find("=", cursor);
-    size_t cursor_next_param = uri.find("&", cursor);
-    std::string param = uri.substr(cursor, cursor_equal - cursor);
-    std::string value;
-    if (cursor_equal != std::string::npos && cursor_equal < cursor_next_param) {
-      if (cursor_next_param != std::string::npos)
-        value = uri.substr(cursor_equal + 1, cursor_next_param - cursor_equal - 1);
-      else
-        value = uri.substr(cursor_equal + 1, uri.length() - cursor_equal - 1);
-    } else {
-      value = "";
-    }           
-    params[param] = value;   
-    cursor = (cursor_next_param == std::string::npos) ? 
-             std::string::npos : cursor_next_param + 1;
-  }
-  return params;
-}
-
-// TODO: Return success status to user?

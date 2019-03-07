@@ -26,6 +26,8 @@ static const HandlerType MemeFormHandler =   "memeForm";
 static const HandlerType MemeCreateHandler = "memeCreate";
 static const HandlerType MemeViewHandler = "memeView";
 static const HandlerType MemeListHandler = "memeList";
+static const HandlerType MemeDeleteHandler = "memeDelete";
+static const HandlerType HealthHandler = "health";
 
 
 

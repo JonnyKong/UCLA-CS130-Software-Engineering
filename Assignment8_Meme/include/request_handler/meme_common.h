@@ -9,18 +9,17 @@ typedef struct MemeEntry_ {
   std::string image;
   std::string top;
   std::string bottom;
-  MemeEntry_(std::string image_, std::string top_, std::string bottom_) {
+  int id;
+  MemeEntry_(std::string image_, std::string top_, std::string bottom_, int id_ = 0) {
       image = image_;
       top = top_;
       bottom = bottom_;
+      id = id_;
   }
 } MemeEntry;
 
 
-/**
- * createTableIfNotExists() - When the server is deployed to a new server, need
- *  to create the database and table. This function is called by the constructor.
- */
 void maybeInit(std::string database_name);
+std::map<std::string, std::string> parseRESTParams(const std::string &uri);
 
 #endif  // MEME_COMMON_H

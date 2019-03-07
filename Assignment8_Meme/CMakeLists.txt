@@ -56,7 +56,9 @@ add_library(request_handler
             src/request_handler/request_handler_meme_form.cc
             src/request_handler/request_handler_meme_view.cc
             src/request_handler/request_handler_meme_create.cc
+            src/request_handler/request_handler_meme_delete.cc
             src/request_handler/request_handler_meme_list.cc
+            src/request_handler/request_handler_health.cc
             src/request_handler/meme_common.cc
             src/http/mime_types.cc)
 add_library(request_handler_proxy src/request_handler/request_handler_proxy.cc)

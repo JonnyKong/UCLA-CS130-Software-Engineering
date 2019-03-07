@@ -26,10 +26,11 @@ void maybeInit(std::string database_name) {
   // Create table if not exists. Use all columns as primary key to prevent
   //  inserting duplicate entries into the table.
   const char *sql_query = "CREATE TABLE IF NOT EXISTS tbl1 ("
+                          "id     INTEGER PRIMARY KEY AUTOINCREMENT, "
                           "image  varchar(100), "
                           "top    varchar(100), "
                           "bottom varchar(100), "
-                          "PRIMARY KEY (image, top, bottom)"
+                          "UNIQUE (image, top, bottom)"
                           ")";
   rc = sqlite3_exec(db, sql_query, 0, 0, &err_message);
   if (rc != SQLITE_OK) {
@@ -42,4 +43,31 @@ void maybeInit(std::string database_name) {
   }
 
   sqlite3_close(db);
+}
+
+
+/**
+ * parseRESTParams() - Given an RESTful URI, return a map of its params.
+ */
+std::map<std::string, std::string> parseRESTParams(const std::string &uri) {
+  size_t cursor = uri.find("?") + 1;
+  std::map<std::string, std::string> params;
+  while (cursor < uri.size() && cursor != std::string::npos) {
+    size_t cursor_equal = uri.find("=", cursor);
+    size_t cursor_next_param = uri.find("&", cursor);
+    std::string param = uri.substr(cursor, cursor_equal - cursor);
+    std::string value;
+    if (cursor_equal != std::string::npos && cursor_equal < cursor_next_param) {
+      if (cursor_next_param != std::string::npos)
+        value = uri.substr(cursor_equal + 1, cursor_next_param - cursor_equal - 1);
+      else
+        value = uri.substr(cursor_equal + 1, uri.length() - cursor_equal - 1);
+    } else {
+      value = "";
+    }           
+    params[param] = value;   
+    cursor = (cursor_next_param == std::string::npos) ? 
+             std::string::npos : cursor_next_param + 1;
+  }
+  return params;
 }

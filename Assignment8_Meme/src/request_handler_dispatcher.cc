@@ -11,7 +11,9 @@
 #include "request_handler/request_handler_meme_form.h"
 #include "request_handler/request_handler_meme_view.h"
 #include "request_handler/request_handler_meme_create.h"
+#include "request_handler/request_handler_meme_delete.h"
 #include "request_handler/request_handler_meme_list.h"
+#include "request_handler/request_handler_health.h"
 
 /**
  * Constructor - Construct the RequestHandler set. After initialization, all
@@ -100,6 +102,12 @@ RequestHandlerDispatcher::getRequestHandler(const request &request_) const {
         );
     }
 
+    else if (handler_configs_.find(matched_prefix)->second->tokens_[1] == MemeDeleteHandler) {
+        return std::make_unique<RequestHandlerMemeDelete> (
+            *(handler_configs_.find(matched_prefix)->second->child_block_)
+        );
+    }
+
     else if (handler_configs_.find(matched_prefix)->second->tokens_[1] == MemeViewHandler) {
         return std::make_unique<RequestHandlerMemeView> (
             *(handler_configs_.find(matched_prefix)->second->child_block_)
@@ -108,6 +116,12 @@ RequestHandlerDispatcher::getRequestHandler(const request &request_) const {
 
     else if (handler_configs_.find(matched_prefix)->second->tokens_[1] == MemeListHandler) {
         return std::make_unique<RequestHandlerMemeList> (
+            *(handler_configs_.find(matched_prefix)->second->child_block_)
+        );
+    }
+
+    else if (handler_configs_.find(matched_prefix)->second->tokens_[1] == HealthHandler) {
+        return std::make_unique<RequestHandlerHealth> (
             *(handler_configs_.find(matched_prefix)->second->child_block_)
         );
     }

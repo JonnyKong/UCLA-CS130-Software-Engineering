@@ -45,11 +45,11 @@ TEST(RequestHandlerMemeListTest, SelectionTest) {
     int count = 3;
     int id;
 
-    MemeEntry entry1("image_1", "top_1", "bot_1");
+    MemeEntry entry1("image_1", "top_1", "bot_1",0);
     mock_create_hdlr.insertToStorage(entry1, id);
-    MemeEntry entry2("image_1", "top_2", "bot_2");
+    MemeEntry entry2("image_1", "top_2", "bot_2",0);
     mock_create_hdlr.insertToStorage(entry2, id);
-    MemeEntry entry3("image_1", "top_3", "bot_3");
+    MemeEntry entry3("image_1", "top_3", "bot_3",0);
     mock_create_hdlr.insertToStorage(entry3, id);
 
     std::vector<MemeEntry> meme_list = mock_list_hdlr.selectAllMeme();

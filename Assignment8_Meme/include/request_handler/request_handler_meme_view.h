@@ -13,7 +13,10 @@ class RequestHandlerMemeView : public RequestHandler {
         RequestHandlerMemeView(){}
         std::unique_ptr<reply> handleRequest(const request &request_) noexcept override;
         static int sqlCallback(void*data, int argc, char**argv, char**azColName);
-        std::string fetchImage(const std::string& img_uri, const std::string& top_txt, const std::string& bottom_txt);
+        std::string fetchImage(const std::string &id, 
+                               const std::string &top_txt, 
+                               const std::string &bottom_txt,
+                               const std::string &img_uri);
         std::string database_name;
         std::unordered_map<std::string, std::string> name2uri;
 };

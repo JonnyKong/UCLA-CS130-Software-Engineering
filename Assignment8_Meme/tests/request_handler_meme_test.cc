@@ -84,7 +84,8 @@ TEST_F(RequestHandlerMemeTest, MemeListLayout){
   std::vector<MemeEntry> meme_list = request_handler_meme_list.selectAllMeme();
   std::string expected_html;
   for(int i = 0; i < meme_list.size(); i++) {
-        expected_html += boost::str(boost::format("<a href= \"/meme/view/%s\">Meme ID: %s</a><br>")% (i+1) % (i+1));
+      int id = meme_list[i].id;
+      expected_html += boost::str(boost::format("<a href= \"/meme/view?id=%s\">Meme ID: %s</a><br>")% id % id);
   }
   expected_html = "<html><body>" + expected_html + "</body></html>"; 
   std::unique_ptr<reply> rep = request_handler_meme_list.handleRequest(req);

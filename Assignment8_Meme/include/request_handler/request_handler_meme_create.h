@@ -22,13 +22,12 @@ protected:
     explicit RequestHandlerMemeCreate() {}
 public:
     explicit RequestHandlerMemeCreate(const NginxConfig &config);    /* To conform with sibling class */
-
     std::unique_ptr<reply> handleRequest(const request &request_) noexcept override;
-    static int sqlCount(void*data, int argc, char**argv, char**azColName);
-    int getTableSize() noexcept;
 // Private:
-    std::string insertToStorage(const MemeEntry &entry, int & id);
-    std::map<std::string, std::string> parseRESTParams(const std::string &uri);
+    std::string insertToStorage(const MemeEntry &entry, int &id);
+    std::string updateStorage(const MemeEntry &entry);
+    static int sqlCount(void*data, int argc, char**argv, char**azColName);
+    int getMaxId() noexcept;
 
     std::string database_name;
 };
