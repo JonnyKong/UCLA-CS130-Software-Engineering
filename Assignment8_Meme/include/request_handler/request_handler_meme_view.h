@@ -17,6 +17,7 @@ class RequestHandlerMemeView : public RequestHandler {
                                const std::string &top_txt, 
                                const std::string &bottom_txt,
                                const std::string &img_uri);
+        std::unique_ptr<reply>generateReply(const std::string & html_content, http::server::reply::status_type status);
         std::string database_name;
         std::unordered_map<std::string, std::string> name2uri;
 };

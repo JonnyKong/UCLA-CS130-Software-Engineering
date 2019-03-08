@@ -1,35 +1,34 @@
-#include <iostream>
-#include <cassert>
-#include <string>
-#include <mutex>
-#include <thread>
 #include "request_handler/request_handler_meme_create.h"
 #include "session.h"
+#include <cassert>
+#include <iostream>
+#include <mutex>
+#include <string>
+#include <thread>
 
 /**
- * Constructor: Maybe init the database and tables. The constructor doesn't need 
+ * Constructor: Maybe init the database and tables. The constructor doesn't need
  *  to take config as input.
  */
-RequestHandlerMemeCreate::RequestHandlerMemeCreate(const NginxConfig &config) 
-  : database_name("../assets/meme.db")
-{
+RequestHandlerMemeCreate::RequestHandlerMemeCreate(const NginxConfig &config)
+    : database_name("../assets/meme.db") {
   maybeInit(database_name);
 }
 
-
 /**
- * handleRequest() - Parse the request, and write to persistent store. Then, 
+ * handleRequest() - Parse the request, and write to persistent store. Then,
  *  return a HTTP response as to whether the operation has succeeded.
  */
-std::unique_ptr<reply> RequestHandlerMemeCreate::handleRequest(const request &request_) noexcept {
+std::unique_ptr<reply>
+RequestHandlerMemeCreate::handleRequest(const request &request_) noexcept {
   std::unique_ptr<reply> reply_ = std::make_unique<reply>();
   std::cout << "RequestHandlerMemeCreate::handleRequest()" << std::endl;
 
   std::map<std::string, std::string> params = parseRESTParams(request_.uri);
 
-  // If no image parameter in params, return bad request  
+  // If no image parameter in params, return bad request
   auto it = params.find("image");
-  if (it == params.end() || it -> second.empty()) {
+  if (it == params.end() || it->second.empty()) {
     reply_ = http::server::reply::stock_reply(reply::bad_request);
     return reply_;
   }
@@ -39,8 +38,9 @@ std::unique_ptr<reply> RequestHandlerMemeCreate::handleRequest(const request &re
     params["top"] = "";
   if (params.find("bottom") == params.end())
     params["bottom"] = "";
-  
-  MemeEntry entry(params["image"], params["top"], params["bottom"]);
+
+  MemeEntry entry(escape(params["image"]), escape(params["top"]),
+                  escape(params["bottom"]));
   std::replace(entry.top.begin(), entry.top.end(), '+', ' ');
   std::replace(entry.bottom.begin(), entry.bottom.end(), '+', ' ');
   int id;
@@ -50,16 +50,22 @@ std::unique_ptr<reply> RequestHandlerMemeCreate::handleRequest(const request &re
     ret = insertToStorage(entry, id);
     display_html_content = "<html>\n"
                            "<title>Created meme!</title>\n"
-                           "<body> Meme Created! <a href=\"/meme/view?id="+std::to_string(id)+"\">"+"Meme ID: " + std::to_string(id)+"</a>"
+                           "<body> Meme Created! <a href=\"/meme/view?id=" +
+                           std::to_string(id) + "\">" +
+                           "Meme ID: " + std::to_string(id) +
+                           "</a>"
                            "</body>\n"
                            "</html>\n";
   } else {
     entry.id = std::stoi(params["update"]);
-    id = entry.id;  
+    id = entry.id;
     ret = updateStorage(entry);
     display_html_content = "<html>\n"
                            "<title>Updated meme!</title>\n"
-                           "<body> Meme Updated! <a href=\"/meme/view?id="+std::to_string(id)+"\">"+"Meme ID: " + std::to_string(id)+"</a>"
+                           "<body> Meme Updated! <a href=\"/meme/view?id=" +
+                           std::to_string(id) + "\">" +
+                           "Meme ID: " + std::to_string(id) +
+                           "</a>"
                            "</body>\n"
                            "</html>\n";
   }
@@ -85,7 +91,8 @@ std::mutex RequestHandlerMemeCreate::mtx;
  *  id of this entry is unknown until the insertion is completed, this field is
  *  left empty.
  */
-std::string RequestHandlerMemeCreate::insertToStorage(const MemeEntry &entry, int &id) {
+std::string RequestHandlerMemeCreate::insertToStorage(const MemeEntry &entry,
+                                                      int &id) {
   std::lock_guard<std::mutex> lock(mtx);
   sqlite3 *db;
   char *err_message = 0;
@@ -106,17 +113,16 @@ std::string RequestHandlerMemeCreate::insertToStorage(const MemeEntry &entry, in
                           "(image, top, bottom) "
                           "VALUES(?1, ?2, ?3)";
   sqlite3_prepare_v2(db, sql_query, -1, &stmt, NULL);
-  sqlite3_bind_text(stmt, 1, entry.image.c_str(),  -1, SQLITE_STATIC);
-  sqlite3_bind_text(stmt, 2, entry.top.c_str(),    -1, SQLITE_STATIC);
+  sqlite3_bind_text(stmt, 1, entry.image.c_str(), -1, SQLITE_STATIC);
+  sqlite3_bind_text(stmt, 2, entry.top.c_str(), -1, SQLITE_STATIC);
   sqlite3_bind_text(stmt, 3, entry.bottom.c_str(), -1, SQLITE_STATIC);
-  std::cout<<"bottom txt: "<<entry.bottom<<std::endl;
+  std::cout << "bottom txt: " << entry.bottom << std::endl;
   rc = sqlite3_step(stmt);
   sqlite3_finalize(stmt);
   if (rc != SQLITE_DONE) {
     // ret = fmt::sprintf("ERROR inserting data: %s\n", sqlite3_errmsg(db));
-    ret = std::string("ERROR inserting data: ") + 
-          std::string(sqlite3_errmsg(db)) + 
-          "\n";
+    ret = std::string("ERROR inserting data: ") +
+          std::string(sqlite3_errmsg(db)) + "\n";
     std::cout << ret << std::endl;
     id = -1;
   } else {
@@ -129,7 +135,7 @@ std::string RequestHandlerMemeCreate::insertToStorage(const MemeEntry &entry, in
 }
 
 /**
- * insertToStorage() - Update entry in the database. Identify this database 
+ * insertToStorage() - Update entry in the database. Identify this database
  *  entry by id, and update the remaining fields to the given values.
  */
 std::string RequestHandlerMemeCreate::updateStorage(const MemeEntry &entry) {
@@ -152,16 +158,15 @@ std::string RequestHandlerMemeCreate::updateStorage(const MemeEntry &entry) {
                           "SET image = ?1, top = ?2, bottom = ?3"
                           "WHERE id = ?4";
   sqlite3_prepare_v2(db, sql_query, -1, &stmt, NULL);
-  sqlite3_bind_text(stmt, 1, entry.image.c_str(),  -1, SQLITE_STATIC);
-  sqlite3_bind_text(stmt, 2, entry.top.c_str(),    -1, SQLITE_STATIC);
+  sqlite3_bind_text(stmt, 1, entry.image.c_str(), -1, SQLITE_STATIC);
+  sqlite3_bind_text(stmt, 2, entry.top.c_str(), -1, SQLITE_STATIC);
   sqlite3_bind_text(stmt, 3, entry.bottom.c_str(), -1, SQLITE_STATIC);
   sqlite3_bind_int(stmt, 4, entry.id);
   rc = sqlite3_step(stmt);
   sqlite3_finalize(stmt);
   if (rc != SQLITE_DONE) {
-    ret = std::string("ERROR inserting data: ") + 
-          std::string(sqlite3_errmsg(db)) + 
-          "\n";
+    ret = std::string("ERROR inserting data: ") +
+          std::string(sqlite3_errmsg(db)) + "\n";
     std::cout << ret << std::endl;
   } else {
     ret = "SUCCESS";
@@ -171,13 +176,12 @@ std::string RequestHandlerMemeCreate::updateStorage(const MemeEntry &entry) {
   return ret;
 }
 
-
 /* getMaxId() - Get the id of entry just inserted */
 int RequestHandlerMemeCreate::getMaxId() noexcept {
   sqlite3 *db;
   char *err_message = 0;
   int rc;
-  char * sql;
+  char *sql;
   int max_id;
   rc = sqlite3_open(database_name.c_str(), &db);
   if (rc != SQLITE_OK) {
@@ -185,23 +189,25 @@ int RequestHandlerMemeCreate::getMaxId() noexcept {
     sqlite3_close(db);
     exit(1);
   }
-  //find the record
+  // find the record
   std::string sql_resp;
   std::string query_str = "SELECT MAX(id) FROM tbl1";
-  const char *sql_query= query_str.c_str();
-  rc = sqlite3_exec(db, sql_query, sqlCount, (void*)(&max_id), &err_message);
-  std::cout<< "Max ID: "<<max_id<<std::endl;
+  const char *sql_query = query_str.c_str();
+  rc = sqlite3_exec(db, sql_query, sqlCount, (void *)(&max_id), &err_message);
+  std::cout << "Max ID: " << max_id << std::endl;
   sqlite3_close(db);
   return max_id;
 }
 
-int RequestHandlerMemeCreate::sqlCount(void*data, int argc, char**argv, char**azColName) {
-    int * tbl_cnt = (int *) data;
-    if (argc == 0) return -1;
-    for (int i = 0; i<argc; i++) {
-        printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
-        *tbl_cnt = std::atoi(argv[i]);
-        return 1;  
-    }
+int RequestHandlerMemeCreate::sqlCount(void *data, int argc, char **argv,
+                                       char **azColName) {
+  int *tbl_cnt = (int *)data;
+  if (argc == 0)
+    return -1;
+  for (int i = 0; i < argc; i++) {
+    printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+    *tbl_cnt = std::atoi(argv[i]);
     return 1;
+  }
+  return 1;
 };

@@ -1,0 +1,100 @@
+[2019-03-08 00:01:36.617259]:[0x00007fe0f199a700]:Debug: Read handler
+[2019-03-08 00:01:36.619593]:[0x00007fe0f319d700]:Trace: GET /meme/new?update=3 HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-08 00:01:36.620207]:[0x00007fe0f319d700]:Debug: Good Request
+[2019-03-08 00:01:36.622646]:[0x00007fe0f319d700]:Debug: Reply with status: 200
+[2019-03-08 00:01:36.623089]:[0x00007fe0f319d700]:Debug: write handler
+[2019-03-08 00:01:49.350969]:[0x00007fe0f299c700]:Debug: Read handler
+[2019-03-08 00:01:49.351664]:[0x00007fe0f219b700]:Trace: GET /meme/new?update=3 HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-08 00:01:49.352602]:[0x00007fe0f219b700]:Debug: Good Request
+[2019-03-08 00:01:49.355827]:[0x00007fe0f219b700]:Debug: Reply with status: 200
+[2019-03-08 00:01:49.356498]:[0x00007fe0f219b700]:Debug: write handler
+[2019-03-08 00:01:49.374352]:[0x00007fe0f299c700]:Debug: Read handler
+[2019-03-08 00:01:49.375116]:[0x00007fe0f299c700]:Debug: Read handler
+[2019-03-08 00:01:49.608623]:[0x00007fe0f199a700]:Trace: GET /favicon.ico HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-08 00:01:49.609269]:[0x00007fe0f199a700]:Debug: Good Request
+[2019-03-08 00:01:49.610007]:[0x00007fe0f199a700]:Debug: Reply with status: 404
+[2019-03-08 00:01:49.610580]:[0x00007fe0f199a700]:Debug: write handler
+[2019-03-08 00:01:50.748454]:[0x00007fe0f319d700]:Debug: Read handler
+[2019-03-08 00:02:57.704411]:[0x00007fe0f299c700]:Debug: Read handler
+[2019-03-08 00:02:57.705551]:[0x00007fe0f299c700]:Debug: Read handler
+[2019-03-08 00:03:30.020724]:[0x00007fe0f319d700]:Debug: Read handler
+[2019-03-08 00:03:30.021543]:[0x00007fe0f319d700]:Debug: Read handler
+[2019-03-08 00:03:59.625801]:[0x00007fe0f299c700]:Debug: Read handler
+[2019-03-08 00:03:59.627098]:[0x00007fe0f319d700]:Debug: Read handler
+[2019-03-08 00:04:44.635801]:[0x00007fe0f199a700]:Debug: Read handler
+[2019-03-08 00:04:44.636842]:[0x00007fe0f219b700]:Trace: GET / HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-08 00:04:44.637508]:[0x00007fe0f219b700]:Debug: Good Request
+[2019-03-08 00:04:44.638232]:[0x00007fe0f219b700]:Debug: Reply with status: 404
+[2019-03-08 00:04:44.638973]:[0x00007fe0f219b700]:Debug: write handler
+[2019-03-08 00:08:58.157576]:[0x00007fe0f319d700]:Debug: Read handler
+[2019-03-08 00:08:58.158488]:[0x00007fe0f219b700]:Trace: GET /meme/create?image=grumpy.jpg&top=funny+text+&bottom=foo&update=3 HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-08 00:08:58.159238]:[0x00007fe0f219b700]:Debug: Good Request
+[2019-03-08 00:08:58.159838]:[0x00007fe0f299c700]:Debug: Read handler
+[2019-03-08 00:08:58.171040]:[0x00007fe0f219b700]:Debug: Reply with status: 200
+[2019-03-08 00:08:58.171626]:[0x00007fe0f219b700]:Debug: write handler
+[2019-03-08 00:08:59.034731]:[0x00007fe0f199a700]:Trace: GET /meme/view?id=3 HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-08 00:08:59.035307]:[0x00007fe0f199a700]:Debug: Good Request
+[2019-03-08 00:08:59.037031]:[0x00007fe0f319d700]:Debug: Read handler
+[2019-03-08 00:08:59.038688]:[0x00007fe0f199a700]:Debug: Reply with status: 200
+[2019-03-08 00:08:59.039568]:[0x00007fe0f199a700]:Debug: write handler
+[2019-03-08 00:09:00.625213]:[0x00007fe0f299c700]:Trace: GET /meme/new?update=3 HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-08 00:09:00.626297]:[0x00007fe0f299c700]:Debug: Good Request
+[2019-03-08 00:09:00.627134]:[0x00007fe0f219b700]:Debug: Read handler
+[2019-03-08 00:09:00.629719]:[0x00007fe0f299c700]:Debug: Reply with status: 200
+[2019-03-08 00:09:00.630487]:[0x00007fe0f299c700]:Debug: write handler
+[2019-03-08 00:09:03.491753]:[0x00007fe0f319d700]:Debug: Read handler
+[2019-03-08 00:09:42.618864]:[0x00007fe0f199a700]:Debug: Read handler
+[2019-03-08 00:09:42.620147]:[0x00007fe0f199a700]:Debug: Read handler
+[2019-03-08 00:09:42.620866]:[0x00007fe0f219b700]:Trace: GET /meme/create?image=grumpy.jpg&top=funny+text+%22+onclick%3D%22location%3D%27http%3A%2F%2Fevil.com%27&bottom=foo&update=3 HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-08 00:09:42.621451]:[0x00007fe0f219b700]:Debug: Good Request
+[2019-03-08 00:09:42.633174]:[0x00007fe0f219b700]:Debug: Reply with status: 200
+[2019-03-08 00:09:42.633775]:[0x00007fe0f219b700]:Debug: write handler
+[2019-03-08 00:09:46.968369]:[0x00007fe0f319d700]:Trace: GET /meme/view?id=3 HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-08 00:09:46.969654]:[0x00007fe0f319d700]:Debug: Good Request
+[2019-03-08 00:09:46.970529]:[0x00007fe0f299c700]:Debug: Read handler
+[2019-03-08 00:09:46.972733]:[0x00007fe0f319d700]:Debug: Reply with status: 200
+[2019-03-08 00:09:46.973562]:[0x00007fe0f319d700]:Debug: write handler
+[2019-03-08 00:09:48.655954]:[0x00007fe0f199a700]:Trace: GET /meme/new?update=3 HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-08 00:09:48.657018]:[0x00007fe0f199a700]:Debug: Good Request
+[2019-03-08 00:09:48.657834]:[0x00007fe0f219b700]:Debug: Read handler
+[2019-03-08 00:09:48.660059]:[0x00007fe0f199a700]:Debug: Reply with status: 200
+[2019-03-08 00:09:48.660778]:[0x00007fe0f199a700]:Debug: write handler
+[2019-03-08 00:09:49.175779]:[0x00007fe0f299c700]:Debug: Read handler
+[2019-03-08 00:09:49.177018]:[0x00007fe0f319d700]:Trace: GET / HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-08 00:09:49.177766]:[0x00007fe0f319d700]:Debug: Good Request
+[2019-03-08 00:09:49.178666]:[0x00007fe0f319d700]:Debug: Reply with status: 404
+[2019-03-08 00:09:49.179374]:[0x00007fe0f319d700]:Debug: write handler
+[2019-03-08 00:10:33.438638]:[0x00007fe0f199a700]:Debug: Read handler
+[2019-03-08 00:10:33.439753]:[0x00007fe0f199a700]:Debug: Read handler
+[2019-03-08 00:10:33.440397]:[0x00007fe0f219b700]:Trace: GET /meme/new?update=3 HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-08 00:10:33.441568]:[0x00007fe0f219b700]:Debug: Good Request
+[2019-03-08 00:10:33.444327]:[0x00007fe0f219b700]:Debug: Reply with status: 200
+[2019-03-08 00:10:33.445016]:[0x00007fe0f219b700]:Debug: write handler
+[2019-03-08 00:11:08.558540]:[0x00007fe0f299c700]:Debug: Read handler
+[2019-03-08 00:11:08.559192]:[0x00007fe0f319d700]:Trace: GET /meme/new?update=3 HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-08 00:11:08.559718]:[0x00007fe0f319d700]:Debug: Good Request
+[2019-03-08 00:11:08.562359]:[0x00007fe0f319d700]:Debug: Reply with status: 200
+[2019-03-08 00:11:08.562972]:[0x00007fe0f319d700]:Debug: write handler
+[2019-03-08 00:11:11.240169]:[0x00007fe0f299c700]:Debug: Read handler
+[2019-03-08 00:11:11.240924]:[0x00007fe0f219b700]:Trace: GET /meme/new?update=3 HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-08 00:11:11.241478]:[0x00007fe0f219b700]:Debug: Good Request
+[2019-03-08 00:11:11.243737]:[0x00007fe0f219b700]:Debug: Reply with status: 200
+[2019-03-08 00:11:11.244223]:[0x00007fe0f219b700]:Debug: write handler
+[2019-03-08 00:12:40.880870]:[0x00007fe0f319d700]:Debug: Read handler
+[2019-03-08 00:12:40.881624]:[0x00007fe0f319d700]:Debug: Read handler
+[2019-03-08 00:12:40.882372]:[0x00007fe0f219b700]:Trace: GET /meme/new?update=3 HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-08 00:12:40.883292]:[0x00007fe0f219b700]:Debug: Good Request
+[2019-03-08 00:12:40.885705]:[0x00007fe0f219b700]:Debug: Reply with status: 200
+[2019-03-08 00:12:40.886449]:[0x00007fe0f219b700]:Debug: write handler
+[2019-03-08 00:12:47.174454]:[0x00007fe0f299c700]:Trace: GET /meme/new?update=3 HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-08 00:12:47.175334]:[0x00007fe0f299c700]:Debug: Good Request
+[2019-03-08 00:12:47.175958]:[0x00007fe0f199a700]:Debug: Read handler
+[2019-03-08 00:12:47.178714]:[0x00007fe0f299c700]:Debug: Reply with status: 200
+[2019-03-08 00:12:47.179533]:[0x00007fe0f299c700]:Debug: write handler
+[2019-03-08 00:13:29.180100]:[0x00007fe0f319d700]:Debug: Read handler
+[2019-03-08 00:13:29.180899]:[0x00007fe0f319d700]:Debug: Read handler
+[2019-03-08 00:13:29.181405]:[0x00007fe0f219b700]:Trace: GET /meme/new?update=3 HTTP 1.1 Sender IP: 172.17.0.1
+[2019-03-08 00:13:29.186035]:[0x00007fe0f219b700]:Debug: Good Request
+[2019-03-08 00:13:29.188524]:[0x00007fe0f219b700]:Debug: Reply with status: 200
+[2019-03-08 00:13:29.189071]:[0x00007fe0f219b700]:Debug: write handler
+[2019-03-08 00:18:56.331589]:[0x00007fe0f450b740]:Warning: Shutting down the server...

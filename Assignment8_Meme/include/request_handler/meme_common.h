@@ -21,5 +21,7 @@ typedef struct MemeEntry_ {
 
 void maybeInit(std::string database_name);
 std::map<std::string, std::string> parseRESTParams(const std::string &uri);
+std::string urlDecode(const std::string &url_encoded);
+std::string escape(const std::string &data);
 
 #endif  // MEME_COMMON_H

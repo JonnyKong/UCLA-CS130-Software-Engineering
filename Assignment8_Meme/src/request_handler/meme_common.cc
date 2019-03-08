@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sqlite3.h> 
 #include <map>
+#include <boost/algorithm/string/replace.hpp>
 
 #include "request_handler/meme_common.h"
 
@@ -65,9 +66,48 @@ std::map<std::string, std::string> parseRESTParams(const std::string &uri) {
     } else {
       value = "";
     }           
-    params[param] = value;   
+    params[param] = urlDecode(value);
     cursor = (cursor_next_param == std::string::npos) ? 
              std::string::npos : cursor_next_param + 1;
   }
   return params;
+}
+
+
+/**
+ * urlDecode() - Given an url in percentage encoding, return the decoded string.
+ *  This function is from StackOverflow.
+ */
+std::string urlDecode(const std::string &url_encoded) {
+  std::string ret;
+  char ch;
+  int i, ii;
+  for (i = 0; i < url_encoded.length(); i++) {
+    if (url_encoded[i] == '%') {
+      sscanf(url_encoded.substr(i + 1,2).c_str(), "%x", &ii);
+      ch = static_cast<char>(ii);
+      ret += ch;
+      i = i + 2;
+    } else if (url_encoded[i] == '+') {
+      ret += ' ';
+    } else {
+      ret += url_encoded[i];
+    }
+  }
+  return (ret);
+}
+
+/**
+ * escape() - Escape user input that may cause html injection. All user inputs
+ *  should be processed by this function.
+ */
+std::string escape(const std::string &data) {
+  using boost::algorithm::replace_all;
+  std::string ret(data);
+  replace_all(ret, "&",  "&amp;");
+  replace_all(ret, "\"", "&quot;");
+  replace_all(ret, "\'", "&apos;");
+  replace_all(ret, "<",  "&lt;");
+  replace_all(ret, ">",  "&gt;");
+  return ret;
 }

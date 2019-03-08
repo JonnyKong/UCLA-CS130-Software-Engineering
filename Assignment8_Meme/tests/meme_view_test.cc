@@ -33,9 +33,12 @@ TEST_F(MemeViewTest, TestItsHTMLFunction) {
     "<body>\n"                                                                                                                                         
         "<img src=\""+img_uri+"\">\n"
         "<br/>\n"
-        "<a href=\"/meme/new?update=1\">Edit</a>\n"
         "<span id=\"top\">"+top_txt+"</span>\n"
         "<span id=\"bottom\">"+bottom_txt+"</span>\n"
+        "<span>\n"
+        "<a href=\"/meme/delete?id=1\" onclick=\"return confirm('Are you sure?')\">Delete</a>\n"
+        "<a href=\"/meme/new?update=1\">Edit</a>\n"
+        "<span\n>\n"
     "</body>\n"
     "</html>\n";
     std::string test_html = meme_view.fetchImage("1", img_uri, top_txt, bottom_txt);
@@ -87,9 +90,12 @@ TEST(RequestHandlerMemeViewTest, viewTest) {
     "<body>\n"                                                                                                                                         
         "<img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Rubber_duckies_So_many_ducks.jpg/1280px-Rubber_duckies_So_many_ducks.jpg\">\n"
         "<br/>\n"
-        "<a href=\"/meme/new?update=1\">Edit</a>\n"
         "<span id=\"top\">top_text</span>\n"
         "<span id=\"bottom\">bottom_text</span>\n"
+        "<span>\n"
+        "<a href=\"/meme/delete?id=1\" onclick=\"return confirm('Are you sure?')\">Delete</a>\n"
+        "<a href=\"/meme/new?update=1\">Edit</a>\n"
+        "<span\n>\n"
     "</body>\n"
     "</html>\n";
     EXPECT_TRUE(test_content == expected_content);

@@ -27,15 +27,11 @@ std::unique_ptr<reply> RequestHandlerMemeView::handleRequest(const request & req
     std::string id_str = params["id"];
     //id check
     if(id_str.size() == 0 ) {
-        std::cout<<"original uri"<<std::endl;
-        std::cout<<"invalid meme id"<<std::endl;
-        exit(1);
+        return generateReply("invalid meme id", reply::bad_request);
     }
     for (int i = 0; i < id_str.length(); i++) {
         if (!std::isdigit(id_str[i])) {
-            std::cout<<"invalid meme id"<<std::endl;
-            exit(1);
-            break;
+            return generateReply("invalid meme id", reply::bad_request);
         }
     }
     int meme_idx = std::stoi(id_str);
@@ -51,7 +47,7 @@ std::unique_ptr<reply> RequestHandlerMemeView::handleRequest(const request & req
     if (rc != SQLITE_OK) {
         fprintf(stderr, "Cannot open database: %s\n", sqlite3_errmsg(db));
         sqlite3_close(db);
-        exit(1);
+        return generateReply("Cannot open database", reply::service_unavailable);
     }
     //find the record
     std::string sql_resp;
@@ -72,32 +68,31 @@ std::unique_ptr<reply> RequestHandlerMemeView::handleRequest(const request & req
     rc = sqlite3_reset(stmt);
     std::string display_html_content;
     if (fetched_tuple.size() == 0) {
-        sql_resp = "MEME ID does Not Exist\n";
         sqlite3_close(db);
         display_html_content = "This meme id does not exist";
+        return generateReply(display_html_content, reply::not_found);
     } else { 
-        sql_resp = "Find the record!";
         sqlite3_close(db);
         display_html_content = fetchImage(fetched_tuple[0], 
                                           name2uri[fetched_tuple[1]],
                                           fetched_tuple[2],
                                           fetched_tuple[3]);
+        return generateReply(display_html_content, reply::ok);
     }
-    std::cout<<sql_resp<<std::endl;
     //========end of sql=======
-    std::cout<<"meme id: "<<meme_idx<<std::endl;
-    std::cout<<request_.uri<<std::endl;
+};
+
+std::unique_ptr<reply> RequestHandlerMemeView::generateReply(const std::string &html_content, http::server::reply::status_type status) {
     std::unique_ptr<reply> reply_ = std::make_unique<reply>();
-    reply_->status = reply::ok;
+    reply_->status = status;
     reply_->headers.resize(2);
-    reply_->content = display_html_content;
+    reply_->content = html_content;
     reply_->headers[0].name = "Content-Length";
     reply_->headers[0].value = std::to_string((reply_->content).length());
     reply_->headers[1].name = "Content-Type";
     reply_->headers[1].value = "text/html";
     return reply_;
-};
-
+}
 
 /**
  * fetchImage() - Generate image using given image name and meme text. Id is 
@@ -121,9 +116,12 @@ std::string RequestHandlerMemeView::fetchImage(const std::string &id,
     "<body>\n"
         "<img src=\"" + img_uri + "\">\n"
         "<br/>\n"
-        "<a href=\"/meme/new?update=" + id + "\">Edit</a>\n"
         "<span id=\"top\">" + top_txt + "</span>\n"
         "<span id=\"bottom\">" + bottom_txt + "</span>\n"
+        "<span>\n"
+        "<a href=\"/meme/delete?id=" + id + "\" onclick=\"return confirm('Are you sure?')\">Delete</a>\n"
+        "<a href=\"/meme/new?update=" + id + "\">Edit</a>\n"
+        "<span\n>\n"
     "</body>\n"
     "</html>\n";
     return display_html_content;
