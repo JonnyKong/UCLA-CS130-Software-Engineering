@@ -4,7 +4,7 @@
 #include "request_handler/request_handler_meme_list.h"
 #include "session.h"
 
-RequestHandlerMemeList::RequestHandlerMemeList(const NginxConfig &config) 
+RequestHandlerMemeList::RequestHandlerMemeList(const NginxConfig &config)
   : database_name("../assets/meme.db")
 {
   maybeInit(database_name);
@@ -14,8 +14,6 @@ std::unique_ptr<reply> RequestHandlerMemeList::handleRequest(const request &requ
     //TODO(Yijun): Change this to log
     std::cout << "RequestHandlerMemeCreate::handleRequest()" << std::endl;
     std::string search_content = parseSearch(request_.uri);
-    std::cout << "search_content: " << search_content << std::endl;
-    std::cout << search_content.size() << std::endl;
 
     std::vector<MemeEntry> meme_list;
     if (search_content.size() == 0) {
@@ -25,16 +23,11 @@ std::unique_ptr<reply> RequestHandlerMemeList::handleRequest(const request &requ
         std::cout << "Searching for: " << search_content << std::endl;
         meme_list = RequestHandlerMemeList::searchMeme(search_content);
     }
-    
+
     std::string body;
     for(int i = 0; i < meme_list.size(); i++) {
-        // std::cout << "Image: " << meme_list[i].image << std::endl;
-        // std::cout << "Top: " << meme_list[i].top << std::endl;
-        // std::cout << "Bottom: " << meme_list[i].bottom << std::endl;
-        // std::cout << "ID: " << meme_list[i].id << std::endl;
         int id = meme_list[i].id;
         body += boost::str(boost::format("<a href= \"/meme/view?id=%s\">Meme ID: %s</a><br>")% id % id);
-        // std::cout << "Body: " << body << std::endl;
     }
     std::unique_ptr<reply> reply_ = std::make_unique<reply>();
     reply_->status = reply::ok;    // 200
@@ -44,8 +37,7 @@ std::unique_ptr<reply> RequestHandlerMemeList::handleRequest(const request &requ
     reply_->headers[0].value = std::to_string((reply_->content).length());
     reply_->headers[1].name = "Content-Type";
     reply_->headers[1].value = "text/html";
-    std::cout << "Body: " << reply_->content << std::endl;
-	return reply_;
+	  return reply_;
 }
 
 std::vector<MemeEntry> RequestHandlerMemeList::selectAllMeme(){
@@ -125,7 +117,7 @@ std::vector<MemeEntry> RequestHandlerMemeList::searchMeme(std::string &search_co
     if (meme_list.size() == 0) {
         sql_resp = "No Matching\n";
         sqlite3_close(db);
-    } else { 
+    } else {
         sql_resp = "Find the record!";
         sqlite3_close(db);
     }

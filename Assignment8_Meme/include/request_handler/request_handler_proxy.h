@@ -21,7 +21,6 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/algorithm/string.hpp>
 
-#include "session.h"
 #include "request_handler.h"
 #include "../http/mime_types.h"
 #include "../request_handler_dispatcher.h"

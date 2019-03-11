@@ -3,13 +3,12 @@
 #include <sqlite3.h>
 
 #include "request_handler/request_handler_meme_form.h"
-#include "session.h"
 
 /**
- * Constructor: Maybe init the database and tables. The constructor doesn't need 
+ * Constructor: Maybe init the database and tables. The constructor doesn't need
  *  to take config as input.
  */
-RequestHandlerMemeForm::RequestHandlerMemeForm(const NginxConfig &config) 
+RequestHandlerMemeForm::RequestHandlerMemeForm(const NginxConfig &config)
   : database_name("../assets/meme.db") {}
 
 /**
@@ -20,26 +19,22 @@ std::unique_ptr<reply> RequestHandlerMemeForm::handleRequest(const request &requ
   std::cout << "RequestHandlerMemeForm::handleRequest()" << std::endl;
   reply_->status = reply::ok;    // 200
 
-  // Update the request records
-  session::request_count++;
-  session::request_received_[request_.uri].push_back(reply_->status);
-
   std::map<std::string, std::string> params = parseRESTParams(request_.uri);
 
   if (params.find("update") != params.end()) {
-    
+
     // Invalid case 1: Empty param value
     if (params["update"] == "")
       return reply::stock_reply(reply::bad_request);
     // Invalid case 2: Value is not digit
     else if (!is_number(params["update"]))
       return reply::stock_reply(reply::bad_request);
-    
+
     std::string id = params["update"];
     MemeEntry entry = fetchMemeEntry(id);
-    
+
     // Invalid case 3: No such id in database
-    if (entry.image == "") 
+    if (entry.image == "")
       return reply::stock_reply(reply::bad_request);
 
     std::string image_str;
@@ -47,6 +42,7 @@ std::unique_ptr<reply> RequestHandlerMemeForm::handleRequest(const request &requ
       image_str = "one does not simply";
     else if (entry.image == "grumpy.jpg")
       image_str = "grumpy cat";
+    else if (entry.image == "rubberduck")
 
     // Fill form value for update
     form_ = "<form action=\"/meme/create\" method=\"GET\">"
@@ -54,6 +50,7 @@ std::unique_ptr<reply> RequestHandlerMemeForm::handleRequest(const request &requ
       "<option>Select a template...</option>"
       "<option value=\"simply.jpg\" " + (entry.image == "simply.jpg" ? "selected" : "") + ">one does not simply</option>"
       "<option value=\"grumpy.jpg\" " + (entry.image == "grumpy.jpg" ? "selected" : "") + ">grumpy cat</option>"
+      "<option value=\"rubberduck\" " + (entry.image == "rubberduck" ? "selected" : "") + ">rubber duck</option>"
       "</select><br>"
       "<input type=\"text\" name=\"top\" placeholder=\"Top text...\" value=\"" + entry.top + "\" required><br>"
       "<input type=\"text\" name=\"bottom\" placeholder=\"Bottom text...\" value=\"" + entry.bottom + "\" required><br>"
@@ -67,6 +64,7 @@ std::unique_ptr<reply> RequestHandlerMemeForm::handleRequest(const request &requ
       "<option>Select a template...</option>"
       "<option value=\"simply.jpg\">one does not simply</option>"
       "<option value=\"grumpy.jpg\">grumpy cat</option>"
+       "<option value=\"rubberduck\">rubber duck</option>"
       "</select><br>"
       "<input type=\"text\" name=\"top\" placeholder=\"Top text...\" required><br>"
       "<input type=\"text\" name=\"bottom\" placeholder=\"Bottom text...\" required><br>"
@@ -110,7 +108,7 @@ MemeEntry RequestHandlerMemeForm::fetchMemeEntry(const std::string &id) {
       sqlite3_bind_int(res, 1, std::stoi(id));
   else
       fprintf(stderr, "Failed to execute statement: %s\n", sqlite3_errmsg(db));
-  
+
   int step = sqlite3_step(res);
   if (step == SQLITE_ROW) {
     // Discarding id in the first column
@@ -124,7 +122,7 @@ MemeEntry RequestHandlerMemeForm::fetchMemeEntry(const std::string &id) {
       sqlite3_column_text(res, 3))
     );
   }
-  
+
   sqlite3_finalize(res);
   sqlite3_close(db);
 
@@ -134,7 +132,7 @@ MemeEntry RequestHandlerMemeForm::fetchMemeEntry(const std::string &id) {
 /**
  * is_number() - Verify that meme id is valid number.
  */
-bool RequestHandlerMemeForm::is_number(const std::string& s) {  
-    return !s.empty() && 
+bool RequestHandlerMemeForm::is_number(const std::string& s) {
+    return !s.empty() &&
       std::find_if(s.begin(), s.end(), [](char c) { return !std::isdigit(c); }) == s.end();
 }

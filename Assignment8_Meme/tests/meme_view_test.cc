@@ -30,7 +30,7 @@ TEST_F(MemeViewTest, TestItsHTMLFunction) {
         "#top { top: 0; color: blue;}\n"
         "#bottom { bottom: 0; color: blue;}\n"
     "</style>\n"
-    "<body>\n"                                                                                                                                         
+    "<body>\n"
         "<img src=\""+img_uri+"\">\n"
         "<br/>\n"
         "<span id=\"top\">"+top_txt+"</span>\n"
@@ -42,7 +42,6 @@ TEST_F(MemeViewTest, TestItsHTMLFunction) {
     "</body>\n"
     "</html>\n";
     std::string test_html = meme_view.fetchImage("1", img_uri, top_txt, bottom_txt);
-    std::cout << test_html << std::endl;
     EXPECT_TRUE(test_html == expected_html);
 };
 
@@ -79,7 +78,6 @@ TEST(RequestHandlerMemeViewTest, viewTest) {
     MockRequestHandlerMemeView mock_view_hdlr(empty_config, db_name);
     std::unique_ptr<reply> rep = mock_view_hdlr.handleRequest(req);
     std::string test_content = rep->content;
-    std::cout << test_content << std::endl;
     std::string expected_content = "<html>\n"
     "<style>\n"
         "body { display: inline-block; position: relative; }\n"
@@ -87,7 +85,7 @@ TEST(RequestHandlerMemeViewTest, viewTest) {
         "#top { top: 0; color: blue;}\n"
         "#bottom { bottom: 0; color: blue;}\n"
     "</style>\n"
-    "<body>\n"                                                                                                                                         
+    "<body>\n"
         "<img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Rubber_duckies_So_many_ducks.jpg/1280px-Rubber_duckies_So_many_ducks.jpg\">\n"
         "<br/>\n"
         "<span id=\"top\">top_text</span>\n"

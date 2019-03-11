@@ -2,7 +2,6 @@
 #include <cassert>
 #include "request_handler/request_handler_status.h"
 #include "request_handler_dispatcher.h"
-#include "session.h"
 
 /**
  * handleRequest() - Return reply same as request.
@@ -13,12 +12,6 @@ std::unique_ptr<reply> RequestHandlerStatus::handleRequest(const request &reques
     std::cout << "RequestHandlerStatus::handleRequest()" << std::endl;
     reply_->status = reply::ok;    // 200
 
-    //update the request records
-
-    session::request_count++;
-    session::request_received_[request_.uri].push_back(reply_->status);
-
-    //
     std::string page_style = "<style>table{width = \"500\";}table,th,td{border:1px solid black;}td{width = \"400\";}</style>";
 
     //HTML table contents for request information

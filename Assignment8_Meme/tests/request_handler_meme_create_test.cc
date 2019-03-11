@@ -172,8 +172,7 @@ TEST(RequstHandlerMemeCreateTest, ConcurrencyTest2) {
   }
   for (int i = 0; i < 10; i++)
     threads[i].join();
-  for (int i = 0; i < 10; i++)
-    std::cout << "id: " << ids[i] << std::endl;
+    
   std::sort(ids.begin(), ids.end());
   auto it = std::unique(ids.begin(), ids.end());
   bool isUnique = (it == ids.end());

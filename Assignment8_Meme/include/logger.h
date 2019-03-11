@@ -31,10 +31,11 @@ class Logger {
     void logErrorFile(std::string error_message);
     void logDebugFile(std::string debug_message);
     void logWarningFile(std::string warning_message);
-    void logTraceHTTPrequest(request http_request, tcp::socket& m_socket);
+    void logTraceHTTPrequest(const request& http_request, tcp::socket& m_socket);
+    void logRequestHealthMetrics(const request& http_request, tcp::socket& m_socket, const std::string res_status);
     void logSig();
     static Logger * logger;
-    
+
     static Logger * getLogger() {
         if (Logger::logger==0) Logger::logger = new Logger();
         return Logger::logger;

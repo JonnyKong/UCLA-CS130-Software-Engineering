@@ -16,19 +16,22 @@
 init a session |                      setup dispatcher|
 object for each|                      based on parsed |
 request        v                      config          v
- +-------------+--------------+        +--------------+-------------+
- |         session.h          +------->+        dispatcher.h        |
- +-------------+--------------+  get   +--------------+-------------+
+ +-------------+--------------+        +--------------+--------------+
+ |         session.h          +------->+        dispatcher.h         |
+ +-------------+--------------+  get   +--------------+--------------+
                |                 hdlr                 |
     get parsed |                         return an    |
     request    v                         instance of  v
- +-------------+--------------+        +--------------+-------------+
- |      request_parser.h      |        |  request_handler.h         |
- +----------------------------+        |  +-request_handler_static.h|
-                                       |  +-request_handler_echo.h  |
-                                       |  +-request_handler_error.h |
-                                       |  +-request_handler_status.h|
-                                       +----------------------------+
+ +-------------+--------------+        +--------------+--------------+
+ |      request_parser.h      |        |  request_handler.h          |
+ +----------------------------+        |  ++request_handler_static.h |
+                                       |  ||request_handler_echo.h   |
+                                       |  ||request_handler_error.h  |
+                                       |  ||request_handler_status.h |
+                                       |  ||request_handler_proxy.h  |
+                                       |  ||request_handler_meme.h   |
+                                       +-----------------------------+
+
 ```
 
 The primary function of this program is to set up a server that can do simple echoing, serve a static file, return the request stats, and show the error page. The program is written in C++ and Boost library. The chart above shows the basic layout of the source code.  The main file is server_main.cc, which sets up the server object and parses the config file. The config file parsing is done by config_parser.h. Upon the initialization of the server, the server object creates a dispatcher. The dispatcher is generated based on the config files, it maps a path to a specific handler. For each incoming requestion, a session would be generated. Each HTTP request is passed through the request_parser.h. And the dispatcher would return its corresponding handler to each session. 

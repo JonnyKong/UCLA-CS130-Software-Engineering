@@ -21,7 +21,6 @@
  */
 RequestHandlerDispatcher::RequestHandlerDispatcher(const NginxConfig &config) {
     size_t num_registered = initRequestHandlers(config);
-    // std::cout << "RequestHandlerDispatcher: Registered " << num_registered << " paths\n";
 }
 
 
@@ -45,8 +44,10 @@ RequestHandlerDispatcher::getRequestHandler(const request &request_) const {
         uri.pop_back();
     std::shared_ptr<RequestHandler> matched_handler = nullptr;
     std::string matched_prefix;
+
     for (auto it = handler_configs_.begin(); it != handler_configs_.end(); ++it) {
-        if (uri.substr(0, it->first.length()) == it->first) {   // Prefix match
+        // Prefix match
+        if (uri.substr(0, it->first.length()) == it->first && (uri.length() == it->first.length() || uri[it->first.length()] == '/' || uri[it->first.length()] == '?')) {
             if (it->first.length() > matched_prefix.length()) { // Longest
                 matched_prefix = it->first;
             }

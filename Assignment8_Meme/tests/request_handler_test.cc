@@ -5,6 +5,7 @@
 #include "request_handler/request_handler_static.h"
 #include "request_handler/request_handler_error.h"
 #include "request_handler/request_handler_status.h"
+#include "request_handler/request_handler_health.h"
 #include "http/request.h"
 #include "http/request_parser.h"
 #include "config_parser.h"
@@ -27,12 +28,37 @@ protected:
   NginxConfig static_handler_config;
   NginxConfig echo_handler_config;
   NginxConfig error_handler_config;
-  NginxConfig  handler_config;
   NginxConfig status_handler_config;
+  NginxConfig health_handler_config;
+
+  NginxConfig  handler_config;
 
   // RequestHandlerDispatcher request_handler_error(error_handler_config);
 
 };
+
+TEST_F(RequestHandlerTest, HealthHandlerRequestTest){
+  bool success = config_parser.Parse("conf/http.conf", &config);
+  for (int i = 0; i < config.statements_.size(); ++i) {
+      if ((config.statements_[i])->tokens_[0] == "handler" && (config.statements_[i])->tokens_[1] == "health")
+          handler_config =  *(config.statements_[i])->child_block_;
+          for (int j = 0; i < handler_config.statements_.size(); ++j) {
+              if (handler_config.statements_[j]->tokens_[0] == "location" &&
+                      handler_config.statements_[j]->tokens_[1] == "/health") {
+                        health_handler_config = handler_config;
+              }
+          }
+  }
+  RequestHandlerHealth request_handler_health(health_handler_config);
+  char input[1024] = "GET /health HTTP/1.1\r\nHost: www.example.com\r\nConnection: close\r\n\r\n";
+  std::tie(result, std::ignore)  = request_parser.parse(req, input, input + strlen(input));
+  std::unique_ptr<reply> rep = request_handler_health.handleRequest(req);
+  bool success_1 = rep->status == http::server::reply::ok && rep->content == "OK\n";
+  bool success_2 = rep->headers[0].name == "Content-Length" &&  rep->headers[0].value == std::to_string(rep->content.size()) &&  rep->headers[1].name == "Content-Type" &&  rep->headers[1].value == "text/plain";
+  EXPECT_TRUE(success_1);
+  EXPECT_TRUE(success_2);
+  // EXPECT_TRUE(true);
+}
 
 TEST_F(RequestHandlerTest, ErrorHandlerRequestTest){
   bool success = config_parser.Parse("conf/http.conf", &config);
@@ -180,8 +206,6 @@ TEST_F(RequestHandlerTest, StaticHandlerRequestNotFoundTest){
 TEST_F(RequestHandlerTest, StatusHandlerRequestTest){
   bool success = config_parser.Parse("conf/http2.conf", &config);
   for (int i = 0; i < config.statements_.size(); ++i) {
-    std::cout << (config.statements_[i])->tokens_[0] << "\n";
-    std::cout << (config.statements_[i])->tokens_[1] << "\n";
       if ((config.statements_[i])->tokens_[0] == "handler" && (config.statements_[i])->tokens_[1] == "status")
           handler_config =  *(config.statements_[i])->child_block_;
           for (int j = 0; i < handler_config.statements_.size(); ++j) {
@@ -199,14 +223,15 @@ TEST_F(RequestHandlerTest, StatusHandlerRequestTest){
   std::unique_ptr<reply> rep = request_handler_status.handleRequest(req);
 
   std::string page_style = "<style>table{width = \"500\";}table,th,td{border:1px solid black;}td{width = \"400\";}</style>";
-  std::string request_info = "<tr><td>/status</td><td>200</td></tr>";
+  // std::string request_info = "<tr><td>/status</td><td>200</td></tr>";
+  std::string request_info = "";
   std::string handler_info = "<tr><td>/</td><td>error</td></tr><tr><td>/echo</td><td>echo</td></tr><tr><td>/static</td><td>static</td></tr><tr><td>/static2</td><td>static</td></tr><tr><td>/status</td><td>status</td></tr>";
   std::string display_html_content =   "<html><head>" + page_style +
     "<title>Server Status</title></head>\n"
-    "<body><h2>Total number of requests</h1><div>1</div>\n"
+    "<body><h2>Total number of requests</h1><div>0</div>\n"
     "<h2>Detail Request Status</h2>\n"
     "<table>\n"
-    "<tr><th>URL Requested</th><th>Return Code</th></tr>" + request_info + "</table>\n"
+    "<tr><th>URL Requested</th><th>Return Code</th></tr></table>\n"
     "<h2>Request Handlers</h2>\n"
     "<table>\n"
     "<tr><th>URL Prefix</th><th>Handler</th></tr>" + handler_info +  "</table>\n"
@@ -215,9 +240,6 @@ TEST_F(RequestHandlerTest, StatusHandlerRequestTest){
 
   bool success_1 = rep->status == http::server::reply::ok && rep->content == display_html_content;
   bool success_2 = rep->headers[0].name == "Content-Length" &&  rep->headers[0].value == std::to_string(rep->content.size()) &&  rep->headers[1].name == "Content-Type" &&  rep->headers[1].value == "text/html";
-  std::cout << RequestHandlerDispatcher::handler_configs_.size() << "\n";
-  std::cout << rep->content << "\n";
-  std::cout << display_html_content << "\n";
   EXPECT_TRUE(success_1);
   EXPECT_TRUE(success_2);
 }

@@ -53,7 +53,7 @@ std::unique_ptr<reply> RequestHandlerProxy::handleRequestHelper(std::string host
   boost::asio::ip::tcp::socket socket_(io_service_);
   boost::asio::connect(socket_, endpoint_iterator, ec);
   if (ec) return handleError("ERROR encountered when connecting the remote server", request_);
-  
+
   // send the request
   boost::asio::streambuf request_stream_buf;
   std::ostream request_stream(&request_stream_buf);
@@ -159,8 +159,6 @@ std::unique_ptr<reply> RequestHandlerProxy::handleError(std::string error_messag
   BOOST_LOG_TRIVIAL(error) << error_message << "\n";
   std::unique_ptr<reply> reply_ = std::make_unique<reply>();
   reply_ = http::server::reply::stock_reply(reply::not_found);
-  session::request_count++;
-  session::request_received_[request_.uri].push_back(reply_->status);
   return reply_;
 }
 
@@ -237,9 +235,6 @@ std::unique_ptr<reply> RequestHandlerProxy::getReply(std::string headers,
     reply_->status = reply::service_unavailable;
 
   reply_->content = content;
-
-  session::request_count++;
-  session::request_received_[request_.uri].push_back(reply_->status);
   return reply_;
 }
 
@@ -295,7 +290,7 @@ std::unique_ptr<reply> RequestHandlerProxy::handleRedirect(const std::string& lo
       path = "/";
     } else {
       std::string relative_url;
-      if (location_header[path_start + 1] != '/') 
+      if (location_header[path_start + 1] != '/')
         relative_url = "/" + location_header.substr(path_start + 1);
       else
         relative_url = location_header.substr(path_start + 1);

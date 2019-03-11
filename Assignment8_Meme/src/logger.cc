@@ -39,55 +39,45 @@ void Logger::init() {
 }
 
 void Logger::logServerInitialization() {
-    mtx.lock();
     BOOST_LOG_SEV(lg, trace) << "Trace: " << "Server has been initialized";
-    mtx.unlock();
 }
 
 void Logger::logTraceFile(std::string trace_message) {
-    mtx.lock();
     BOOST_LOG_SEV(lg, trace) << "Trace: " << trace_message;
-    mtx.unlock();
 }
 
 void Logger::logErrorFile(std::string error_message){
-    mtx.lock();
     BOOST_LOG_SEV(lg, error) << "Error: " << error_message;
-    mtx.unlock();
 }
 void Logger::logDebugFile(std::string debug_message){
-    mtx.lock();
     BOOST_LOG_SEV(lg, debug) << "Debug: " << debug_message;
-    mtx.unlock();
 }
 
 void Logger::logWarningFile(std::string warning_message){
-    mtx.lock();
     BOOST_LOG_SEV(lg, warning) << "Warning: " << warning_message;
-    mtx.unlock();
 }
-void Logger::logSig() {
-    mtx.lock();
-    BOOST_LOG_SEV(Logger::lg, warning) << "Warning: "  << "Shutting down the server...";
-    mtx.unlock();
-}
-// void Logger::ctrlCHandler() {
-//     boost::asio::io_service io_service;
-//     // Construct a signal set registered for process termination.
-//     boost::asio::signal_set signals(io_service, SIGINT);
-//     // Start an asynchronous wait for one of the signals to occur.
-//     signals.async_wait(logSig);
-// }
 
-void Logger::logTraceHTTPrequest(request http_request, tcp::socket& m_socket) {
+void Logger::logSig() {
+    BOOST_LOG_SEV(Logger::lg, warning) << "Warning: "  << "Shutting down the server...";
+}
+
+void Logger::logTraceHTTPrequest(const request& http_request, tcp::socket& m_socket) {
     std::stringstream stream;
     stream << "Trace: ";
-    stream << http_request.method << " " << http_request.uri 
+    stream << http_request.method << " " << http_request.uri
     << " HTTP " << http_request.http_version_major << "." << http_request.http_version_minor;
-    stream << " Sender IP: " << m_socket.remote_endpoint().address().to_string();
-    mtx.lock();
+    stream << " IP: " << m_socket.remote_endpoint().address().to_string();
     BOOST_LOG_SEV(lg, trace) << stream.str();
-    mtx.unlock();
+}
+
+void Logger::logRequestHealthMetrics(const request& http_request, tcp::socket& m_socket, const std::string res_status="200") {
+    std::stringstream stream;
+    stream << "ResponseMetrics::";
+    stream << http_request.method << " " << http_request.uri
+    << " HTTP/" << http_request.http_version_major << "." << http_request.http_version_minor;
+    stream << " IP: " << m_socket.remote_endpoint().address().to_string();
+    stream << " Response Status: " << res_status;
+    BOOST_LOG_SEV(lg, trace) << stream.str();
 }
 
 Logger* Logger::logger = 0;

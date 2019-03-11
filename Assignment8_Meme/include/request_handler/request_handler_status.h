@@ -8,6 +8,7 @@
 #include <iostream>
 
 #include "request_handler.h"
+#include "session.h"
 
 class RequestHandlerStatus : public RequestHandler {
 public:

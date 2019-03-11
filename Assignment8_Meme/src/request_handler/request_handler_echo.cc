@@ -2,8 +2,6 @@
 #include <cassert>
 
 #include "request_handler/request_handler_echo.h"
-#include "session.h"
-
 /**
  * handleRequest() - Return reply same as request.
  */
@@ -18,9 +16,6 @@ std::unique_ptr<reply> RequestHandlerEcho::handleRequest(const request &request_
     reply_->headers[1].name = "Content-Type";
     reply_->headers[1].value = "text/plain";
 
-    //update the request records
-    session::request_count++;
-    session::request_received_[request_.uri].push_back(reply_->status);
     return reply_;
 }
 

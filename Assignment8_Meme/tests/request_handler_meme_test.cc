@@ -50,6 +50,7 @@ TEST_F(RequestHandlerMemeTest, MemeFormTest){
     "<option>Select a template...</option>"
     "<option value=\"simply.jpg\">one does not simply</option>"
     "<option value=\"grumpy.jpg\">grumpy cat</option>"
+    "<option value=\"rubberduck\">rubber duck</option>"
     "</select><br>"
     "<input type=\"text\" name=\"top\" placeholder=\"Top text...\" required><br>"
     "<input type=\"text\" name=\"bottom\" placeholder=\"Bottom text...\" required><br>"

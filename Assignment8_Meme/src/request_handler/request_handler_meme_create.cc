@@ -116,14 +116,14 @@ std::string RequestHandlerMemeCreate::insertToStorage(const MemeEntry &entry,
   sqlite3_bind_text(stmt, 1, entry.image.c_str(), -1, SQLITE_STATIC);
   sqlite3_bind_text(stmt, 2, entry.top.c_str(), -1, SQLITE_STATIC);
   sqlite3_bind_text(stmt, 3, entry.bottom.c_str(), -1, SQLITE_STATIC);
-  std::cout << "bottom txt: " << entry.bottom << std::endl;
+
   rc = sqlite3_step(stmt);
   sqlite3_finalize(stmt);
   if (rc != SQLITE_DONE) {
     // ret = fmt::sprintf("ERROR inserting data: %s\n", sqlite3_errmsg(db));
     ret = std::string("ERROR inserting data: ") +
           std::string(sqlite3_errmsg(db)) + "\n";
-    std::cout << ret << std::endl;
+
     id = -1;
   } else {
     ret = "SUCCESS";
@@ -167,7 +167,6 @@ std::string RequestHandlerMemeCreate::updateStorage(const MemeEntry &entry) {
   if (rc != SQLITE_DONE) {
     ret = std::string("ERROR inserting data: ") +
           std::string(sqlite3_errmsg(db)) + "\n";
-    std::cout << ret << std::endl;
   } else {
     ret = "SUCCESS";
   }
@@ -194,7 +193,6 @@ int RequestHandlerMemeCreate::getMaxId() noexcept {
   std::string query_str = "SELECT MAX(id) FROM tbl1";
   const char *sql_query = query_str.c_str();
   rc = sqlite3_exec(db, sql_query, sqlCount, (void *)(&max_id), &err_message);
-  std::cout << "Max ID: " << max_id << std::endl;
   sqlite3_close(db);
   return max_id;
 }
