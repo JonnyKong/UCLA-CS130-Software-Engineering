@@ -22,7 +22,7 @@ public:
         maybeInit(database_name);
     }
     ~MockRequestHandlerMemeList() {
-        (database_name.c_str());
+        remove(database_name.c_str());
     }
 };
 
@@ -54,4 +54,40 @@ TEST(RequestHandlerMemeListTest, SelectionTest) {
 
     std::vector<MemeEntry> meme_list = mock_list_hdlr.selectAllMeme();
     EXPECT_TRUE(meme_list.size() == count);
+}
+
+TEST(RequestHandlerMemeListTest, PartialSearchTest) {
+    NginxConfig empty_config;
+    MockRequestHandlerMemeCreate mock_create_hdlr(empty_config);
+    MockRequestHandlerMemeList mock_list_hdlr(empty_config);
+    int id;
+
+    MemeEntry entry1("image_1", "top_1", "bot_1",0);
+    mock_create_hdlr.insertToStorage(entry1, id);
+    MemeEntry entry2("image_1", "top_2", "bot_2",0);
+    mock_create_hdlr.insertToStorage(entry2, id);
+    MemeEntry entry3("image_1", "top_3", "bot_3",0);
+    mock_create_hdlr.insertToStorage(entry3, id);
+
+    std::string search_content = "bot_3";
+    std::vector<MemeEntry> meme_list = mock_list_hdlr.searchMeme(search_content);
+    EXPECT_TRUE(meme_list.size() == 1);
+}
+
+TEST(RequestHandlerMemeListTest, AllSearchTest) {
+    NginxConfig empty_config;
+    MockRequestHandlerMemeCreate mock_create_hdlr(empty_config);
+    MockRequestHandlerMemeList mock_list_hdlr(empty_config);
+    int id;
+
+    MemeEntry entry1("image_1", "top_1", "bot_1",0);
+    mock_create_hdlr.insertToStorage(entry1, id);
+    MemeEntry entry2("image_1", "top_2", "bot_2",0);
+    mock_create_hdlr.insertToStorage(entry2, id);
+    MemeEntry entry3("image_1", "top_3", "bot_3",0);
+    mock_create_hdlr.insertToStorage(entry3, id);
+
+    std::string search_content = "image_1";
+    std::vector<MemeEntry> meme_list = mock_list_hdlr.searchMeme(search_content);
+    EXPECT_TRUE(meme_list.size() == 3);
 }

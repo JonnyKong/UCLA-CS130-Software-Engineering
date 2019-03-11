@@ -12,7 +12,6 @@ class RequestHandlerMemeDelete : public RequestHandler {
         explicit RequestHandlerMemeDelete(const NginxConfig &config);
         RequestHandlerMemeDelete(){}
         std::unique_ptr<reply> handleRequest(const request &request_) noexcept override;
-    private:
         std::string database_name;
 };
 #endif  // REQUEST_HANDLER_MEME_VIEW_H

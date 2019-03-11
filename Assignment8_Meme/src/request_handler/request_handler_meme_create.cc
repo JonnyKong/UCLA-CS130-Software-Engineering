@@ -139,6 +139,7 @@ std::string RequestHandlerMemeCreate::insertToStorage(const MemeEntry &entry,
  *  entry by id, and update the remaining fields to the given values.
  */
 std::string RequestHandlerMemeCreate::updateStorage(const MemeEntry &entry) {
+  std::lock_guard<std::mutex> lock(mtx);
   sqlite3 *db;
   char *err_message = 0;
   int rc;

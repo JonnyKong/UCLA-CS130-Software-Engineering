@@ -1,20 +1,20 @@
-[2019-03-11 04:02:59.429972]:[0x00007f77c9b6e740]:Trace: Parsing the config file ...
-[2019-03-11 04:02:59.432286]:[0x00007f77c9b6e740]:Trace: Parsing success
-[2019-03-11 04:02:59.432702]:[0x00007f77c9b6e740]:Trace: Server has been initialized
-[2019-03-11 04:02:59.432971]:[0x00007f77c9b6e740]:Trace: Starting server on port: 8080
-[2019-03-11 04:02:59.433266]:[0x00007f77c9b6e740]:Trace: Start working thread 0
-[2019-03-11 04:02:59.433545]:[0x00007f77c9b6e740]:Trace: Start working thread 1
-[2019-03-11 04:02:59.433860]:[0x00007f77c9b6e740]:Trace: Start working thread 2
-[2019-03-11 04:02:59.434170]:[0x00007f77c9b6e740]:Trace: Start working thread 3
-[2019-03-11 04:03:00.438463]:[0x00007f77c8800700]:Debug: Read handler
-[2019-03-11 04:03:00.438519]:[0x00007f77c7fff700]:Trace: GET /static/data1.dat HTTP 1.1 IP: 127.0.0.1
-[2019-03-11 04:03:00.439127]:[0x00007f77c7fff700]:Debug: Good Request
-[2019-03-11 04:03:00.439998]:[0x00007f77c7fff700]:Debug: Reply with status: 200
-[2019-03-11 04:03:00.440264]:[0x00007f77c7fff700]:ResponseMetrics::GET /static/data1.dat HTTP/1.1 IP: 127.0.0.1 Response Status: 200
-[2019-03-11 04:03:00.[2019-03-11 04:03:00.440552]:[0x00007f0b81c12700]:HTTP/1.0 200 OK
+[2019-03-11 18:21:47.582832]:[0x00007f536df51740]:Trace: Parsing the config file ...
+[2019-03-11 18:21:47.587058]:[0x00007f536df51740]:Trace: Parsing success
+[2019-03-11 18:21:47.587678]:[0x00007f536df51740]:Trace: Server has been initialized
+[2019-03-11 18:21:47.588105]:[0x00007f536df51740]:Trace: Starting server on port: 8080
+[2019-03-11 18:21:47.588494]:[0x00007f536df51740]:Trace: Start working thread 0
+[2019-03-11 18:21:47.588853]:[0x00007f536df51740]:Trace: Start working thread 1
+[2019-03-11 18:21:47.589214]:[0x00007f536df51740]:Trace: Start working thread 2
+[2019-03-11 18:21:47.589565]:[0x00007f536df51740]:Trace: Start working thread 3
+[2019-03-11 18:21:48.597070]:[0x00007f536cbe3700]:Debug: Read handler
+[2019-03-11 18:21:48.597195]:[0x00007f536c3e2700]:Trace: GET /static/data1.dat HTTP 1.1 IP: 127.0.0.1
+[2019-03-11 18:21:48.597943]:[0x00007f536c3e2700]:Debug: Good Request
+[2019-03-11 18:21:48.599197]:[0x00007f536c3e2700]:Debug: Reply with status: 200
+[2019-03-11 18:21:48.599590]:[0x00007f536c3e2700]:ResponseMetrics::GET /static/data1.dat HTTP/1.1 IP: 127.0.0.1 Response Status: 200
+[2019-03-11 18:21:48.[2019-03-11 18:21:48.600086]:[0x00007f61a967e700]:HTTP/1.0 200 OK
 Content-Length: 20
 Content-Type: text/plain
 
-[2019-03-11 04:03:00.441099]:[0x00007f0b81c12700]:Debug: Reply with status: 200
-[2019-03-11 04:03:00.441348]:[0x00007f0b81c12700]:ResponseMetrics::GET /local/static/data1.dat HTTP/1.1 IP: 127.0.0.1 Response Status: 200
-[2019-03-11 04:03:00.441641]:[0x00007f0b81c12700]:Debug: write handler
+[2019-03-11 18:21:48.600851]:[0x00007f61a967e700]:Debug: Reply with status: 200
+[2019-03-11 18:21:48.601191]:[0x00007f61a967e700]:ResponseMetrics::GET /local/static/data1.dat HTTP/1.1 IP: 127.0.0.1 Response Status: 200
+[2019-03-11 18:21:48.601585]:[0x00007f61a967e700]:Debug: write handler
