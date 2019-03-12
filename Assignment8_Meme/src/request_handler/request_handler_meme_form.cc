@@ -36,13 +36,14 @@ std::unique_ptr<reply> RequestHandlerMemeForm::handleRequest(const request &requ
     // Invalid case 3: No such id in database
     if (entry.image == "")
       return reply::stock_reply(reply::bad_request);
-
+    std::cout<<"go into the update case"<<std::endl;
     std::string image_str;
     if (entry.image == "simply.jpg")
       image_str = "one does not simply";
     else if (entry.image == "grumpy.jpg")
       image_str = "grumpy cat";
     else if (entry.image == "rubberduck")
+      image_str = "rubberduck";
 
     // Fill form value for update
     form_ = "<form action=\"/meme/create\" method=\"GET\">"
@@ -78,7 +79,7 @@ std::unique_ptr<reply> RequestHandlerMemeForm::handleRequest(const request &requ
   reply_->headers[0].value = std::to_string((reply_->content).length());
   reply_->headers[1].name = "Content-Type";
   reply_->headers[1].value = "text/html";
-
+std::cout<<"return reply"<<std::endl;
   return reply_;
 }
 

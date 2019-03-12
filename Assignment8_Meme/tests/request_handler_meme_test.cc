@@ -88,7 +88,13 @@ TEST_F(RequestHandlerMemeTest, MemeListLayout){
       int id = meme_list[i].id;
       expected_html += boost::str(boost::format("<a href= \"/meme/view?id=%s\">Meme ID: %s</a><br>")% id % id);
   }
-  expected_html = "<html><body>" + expected_html + "</body></html>"; 
+  std::string form = std::string("<form action=\"/meme/all\">\
+  Search Meme:<br>\
+  <input type=\"text\" name=\"q\"><br>\
+  <input type=\"submit\" value=\"Search\">\
+    </form>");
+
+  expected_html = "<html><body>" + expected_html + "</body></html>" + form;
   std::unique_ptr<reply> rep = request_handler_meme_list.handleRequest(req);
   bool success_1 = rep->status == http::server::reply::ok && rep->content == expected_html;
   bool success_2 = rep->headers[0].name == "Content-Length" &&  rep->headers[0].value == std::to_string(rep->content.size()) &&  rep->headers[1].name == "Content-Type" &&  rep->headers[1].value == "text/html";

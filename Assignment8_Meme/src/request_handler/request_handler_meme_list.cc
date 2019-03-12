@@ -29,10 +29,17 @@ std::unique_ptr<reply> RequestHandlerMemeList::handleRequest(const request &requ
         int id = meme_list[i].id;
         body += boost::str(boost::format("<a href= \"/meme/view?id=%s\">Meme ID: %s</a><br>")% id % id);
     }
+
+    std::string form = std::string("<form action=\"/meme/all\">\
+  Search Meme:<br>\
+  <input type=\"text\" name=\"q\"><br>\
+  <input type=\"submit\" value=\"Search\">\
+    </form>");
+
     std::unique_ptr<reply> reply_ = std::make_unique<reply>();
     reply_->status = reply::ok;    // 200
     reply_->headers.resize(2);
-    reply_->content = "<html><body>" + body + "</body></html>";
+    reply_->content = "<html><body>" + body + "</body></html>" + form;
     reply_->headers[0].name = "Content-Length";
     reply_->headers[0].value = std::to_string((reply_->content).length());
     reply_->headers[1].name = "Content-Type";

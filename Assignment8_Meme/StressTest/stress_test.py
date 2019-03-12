@@ -16,15 +16,15 @@ def echo(locust):
     locust.client.get('/echo', name = url_prefix)
 
 def viewMeme(locust):
-    postid = random.randint(1, 30)
+    postid = 1
     url_prefix = '/meme/view'
     locust.client.get('/meme/view?id='+ str(postid), name = url_prefix)
 
 def createMeme(locust):
     global id_c
     id_c += 1
-    url_prefix = '/meme/new';
-    locust.client.get('/meme/new?image=' + str(id_c) + 'top=' + str(id_c) + 'bot=' + str(id_c), name=url_prefix)
+    url_prefix = '/meme/create';
+    locust.client.get('/meme/create?image=' + str(id_c) + 'top=' + str(id_c) + 'bot=' + str(id_c), name=url_prefix)
 
 def status(locust):
     """ define a function in python whose name is getList and the argument is locust """
@@ -38,7 +38,7 @@ def proxy_ucla(locust):
 
 class MyTaskSet(TaskSet):
     """ the class MyTaskSet inherits from the class TaskSet, defining the behavior of the user """
-    tasks = {echo:1, viewMeme: 1, createMeme: 1, status: 1, proxy_ucla: 1}
+    tasks = {echo:1, viewMeme: 1, status: 1, proxy_ucla: 1}
     def on_start(locust):
         """ on_start is called when a Locust start before any task is scheduled """
         response = locust.client.get("/health")

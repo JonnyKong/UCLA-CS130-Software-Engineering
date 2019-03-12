@@ -45,8 +45,9 @@ RequestHandlerMemeCreate::handleRequest(const request &request_) noexcept {
   std::replace(entry.bottom.begin(), entry.bottom.end(), '+', ' ');
   int id;
   std::string ret, display_html_content;
-
+  std::cout<<"try to find update"<<std::endl;
   if (params.find("update") == params.end()) {
+    std::cout<<"did not find out meme"<<std::endl;
     ret = insertToStorage(entry, id);
     display_html_content = "<html>\n"
                            "<title>Created meme!</title>\n"
@@ -57,6 +58,7 @@ RequestHandlerMemeCreate::handleRequest(const request &request_) noexcept {
                            "</body>\n"
                            "</html>\n";
   } else {
+    std::cout<<"find out meme"<<std::endl;
     entry.id = std::stoi(params["update"]);
     id = entry.id;
     ret = updateStorage(entry);
@@ -139,6 +141,7 @@ std::string RequestHandlerMemeCreate::insertToStorage(const MemeEntry &entry,
  *  entry by id, and update the remaining fields to the given values.
  */
 std::string RequestHandlerMemeCreate::updateStorage(const MemeEntry &entry) {
+  std::cout<<"update called"<<std::endl;
   std::lock_guard<std::mutex> lock(mtx);
   sqlite3 *db;
   char *err_message = 0;
